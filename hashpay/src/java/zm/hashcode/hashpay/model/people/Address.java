@@ -24,9 +24,6 @@ public class Address implements Serializable {
     private String physicalAddress;
     private String postalcode;
     private String addressStatus;
-    
-            
-
     public Long getId() {
         return id;
     }
