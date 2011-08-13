@@ -76,8 +76,8 @@ class LoginWindow extends Window {
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 try {
-                    VaultMain.getInstance().authenticate((String) login.getValue(), (String) password.getValue());
-                    open(new ExternalResource(VaultMain.getInstance().getURL()));
+                    HashPayMain.getInstance().authenticate((String) login.getValue(), (String) password.getValue());
+                    open(new ExternalResource(HashPayMain.getInstance().getURL()));
                 } catch (Exception e) {
                     showNotification("Login failed", "Bad Username or Password", Notification.TYPE_ERROR_MESSAGE);
                 }

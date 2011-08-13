@@ -6,6 +6,7 @@ package zm.hashcode.hashpay.client.web;
 
 import com.vaadin.Application;
 import com.vaadin.terminal.gwt.server.HttpServletRequestListener;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
@@ -25,10 +26,10 @@ import zm.hashcode.hashpay.infrastructure.conf.GetContext;
  *
  * @author boniface
  */
-public class VaultMain extends Application implements HttpServletRequestListener {
+public class HashPayMain extends Application implements HttpServletRequestListener {
 
     public HorizontalSplitPanel mainView = new HorizontalSplitPanel();
-    private static ThreadLocal<VaultMain> threadLocal = new ThreadLocal<VaultMain>();
+    private static ThreadLocal<HashPayMain> threadLocal = new ThreadLocal<HashPayMain>();
     final VerticalLayout rootLayout = new VerticalLayout();
     final Window root = new Window("Hash Pay Application", rootLayout);
     @Autowired
@@ -43,12 +44,12 @@ public class VaultMain extends Application implements HttpServletRequestListener
         setMainWindow(new LoginWindow());
     }
 
-    public static VaultMain getInstance() {
+    public static HashPayMain getInstance() {
         return threadLocal.get();
     }
 
     // Set the current application instance 	
-    public static void setInstance(VaultMain application) {
+    public static void setInstance(HashPayMain application) {
         if (getInstance() == null) {
             threadLocal.set(application);
         }
@@ -56,7 +57,7 @@ public class VaultMain extends Application implements HttpServletRequestListener
 
     @Override
     public void onRequestStart(HttpServletRequest request, HttpServletResponse response) {
-         VaultMain.setInstance(this);
+         HashPayMain.setInstance(this);
     }
 
     @Override
@@ -97,7 +98,9 @@ public class VaultMain extends Application implements HttpServletRequestListener
 
     private void loadProtectedResources() {
          // Main window is the primary browser window
+        Button testButton = new Button(" Click Me ");
         final Window main = new Window("Hello window");
+        main.addComponent(testButton);
         setMainWindow(main);
         // "Hello world" text is added to window as a Label component
         main.addComponent(new Label("Hello World!"));
