@@ -66,13 +66,7 @@ public class Product implements Serializable {
         return productDescription;
     }
 
-    /**
-     * @param productDescription the productDescription to set
-     */
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
-    }
-
+   
     /**
      * @return the productValue
      */
@@ -92,6 +86,34 @@ public class Product implements Serializable {
      */
     public String getToken() {
         return token;
+    }
+
+    /**
+     * @param productDescription the productDescription to set
+     */
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
+
+    /**
+     * @param productValue the productValue to set
+     */
+    public void setProductValue(BigDecimal productValue) {
+        this.productValue = productValue;
+    }
+
+    /**
+     * @param qauntity the qauntity to set
+     */
+    public void setQauntity(String qauntity) {
+        this.qauntity = qauntity;
+    }
+
+    /**
+     * @param token the token to set
+     */
+    public void setToken(String token) {
+        this.token = token;
     }
 
     /**
