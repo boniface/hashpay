@@ -5,10 +5,15 @@
 package zm.hashcode.hashpay.model.vouchers;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -20,9 +25,21 @@ public class Voucher implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private boolean Status;
-    private String serviceType;
+    
     private String voucherNumber;
+    private BigDecimal voucherValue;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date datedClaimed;
+    private String claimer;
+    @Enumerated(EnumType.STRING)
+    private ClaimTypeEnum claimType;
+    @Enumerated(EnumType.STRING)
+    private VoucherStatusTypeEnum voucherStatus;
+    @Enumerated(EnumType.STRING)
+    private CurrencyTypeEnum currencyType;
+    
+    
+    
 
     public Long getId() {
         return id;
@@ -57,32 +74,85 @@ public class Voucher implements Serializable {
         return "zm.hashcode.hashpay.model.vouchers.Voucher[ id=" + id + " ]";
     }
 
-    /**
-     * @return the Status
-     */
-    public boolean isStatus() {
-        return Status;
-    }
-
-    /**
-     * @param Status the Status to set
-     */
-    public void setStatus(boolean Status) {
-        this.Status = Status;
-    }
-
-    /**
-     * @return the serviceType
-     */
-    public String getServiceType() {
-        return serviceType;
-    }
-
-    /**
-     * @return the voucherNumber
-     */
     public String getVoucherNumber() {
         return voucherNumber;
+    }
+
+    /**
+     * @return the voucherValue
+     */
+    public BigDecimal getVoucherValue() {
+        return voucherValue;
+    }
+
+    /**
+     * @param voucherValue the voucherValue to set
+     */
+    public void setVoucherValue(BigDecimal voucherValue) {
+        this.voucherValue = voucherValue;
+    }
+
+    /**
+     * @return the datedClaimed
+     */
+    public Date getDatedClaimed() {
+        return datedClaimed;
+    }
+
+    /**
+     * @param datedClaimed the datedClaimed to set
+     */
+    public void setDatedClaimed(Date datedClaimed) {
+        this.datedClaimed = datedClaimed;
+    }
+
+    /**
+     * @return the claimer
+     */
+    public String getClaimer() {
+        return claimer;
+    }
+
+    /**
+     * @param claimer the claimer to set
+     */
+    public void setClaimer(String claimer) {
+        this.claimer = claimer;
+    }
+
+    /**
+     * @return the claimType
+     */
+    public ClaimTypeEnum getClaimType() {
+        return claimType;
+    }
+
+    /**
+     * @param claimType the claimType to set
+     */
+    public void setClaimType(ClaimTypeEnum claimType) {
+        this.claimType = claimType;
+    }
+
+    /**
+     * @return the voucherStatus
+     */
+    public VoucherStatusTypeEnum getVoucherStatus() {
+        return voucherStatus;
+    }
+
+    /**
+     * @param voucherStatus the voucherStatus to set
+     */
+    public void setVoucherStatus(VoucherStatusTypeEnum voucherStatus) {
+        this.voucherStatus = voucherStatus;
+    }
+
+    /**
+     * @return the currencyType
+     */
+    public CurrencyTypeEnum getCurrencyType() {
+        return currencyType;
     }
     
 }
