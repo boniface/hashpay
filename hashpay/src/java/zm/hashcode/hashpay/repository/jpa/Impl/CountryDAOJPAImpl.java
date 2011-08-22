@@ -1,4 +1,4 @@
-/*
+/*Developer: Peter Phillip - Cubetec 
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -18,7 +18,7 @@ import zm.hashcode.hashpay.repository.jpa.CountryDAO;
  */
 @Repository("CountryDAOImpl")
 @Transactional
-public class CountryDAOImpl implements CountryDAO{
+public class CountryDAOJPAImpl implements CountryDAO{
     
     @PersistenceContext
     private EntityManager em;
