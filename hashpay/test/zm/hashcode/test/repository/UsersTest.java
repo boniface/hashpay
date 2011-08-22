@@ -63,8 +63,9 @@ public class UsersTest {
                  rolename("ADMIN").title("MR").username("test@john.com").enabled(true).build();
                  usersDAO.persist(user);
                  Assert.assertNotNull(user.getId());
-        
+       
     }
 
    
 }
+

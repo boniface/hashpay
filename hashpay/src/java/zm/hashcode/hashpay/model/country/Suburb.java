@@ -4,11 +4,18 @@
  */
 package zm.hashcode.hashpay.model.country;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  *
  * @author Peter Phillip
  */
-public class Suburb {
+@Entity
+public class Suburb implements Serializable {
+    @Id
+    private Long id;
     private String name;
     private String code;
 
@@ -38,5 +45,13 @@ public class Suburb {
      */
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
