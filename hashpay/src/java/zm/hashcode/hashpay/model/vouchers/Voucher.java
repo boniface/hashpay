@@ -30,6 +30,8 @@ public class Voucher implements Serializable {
     private BigDecimal voucherValue;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date datedClaimed;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateGenerated;
     private String claimer;
     @Enumerated(EnumType.STRING)
     private ClaimTypeEnum claimType;
@@ -37,6 +39,7 @@ public class Voucher implements Serializable {
     private VoucherStatusTypeEnum voucherStatus;
     @Enumerated(EnumType.STRING)
     private CurrencyTypeEnum currencyType;
+    private String serviceType;
     
     
     
@@ -153,6 +156,48 @@ public class Voucher implements Serializable {
      */
     public CurrencyTypeEnum getCurrencyType() {
         return currencyType;
+    }
+
+    /**
+     * @return the dateGenerated
+     */
+    public Date getDateGenerated() {
+        return dateGenerated;
+    }
+
+    /**
+     * @param voucherNumber the voucherNumber to set
+     */
+    public void setVoucherNumber(String voucherNumber) {
+        this.voucherNumber = voucherNumber;
+    }
+
+    /**
+     * @param dateGenerated the dateGenerated to set
+     */
+    public void setDateGenerated(Date dateGenerated) {
+        this.dateGenerated = dateGenerated;
+    }
+
+    /**
+     * @param currencyType the currencyType to set
+     */
+    public void setCurrencyType(CurrencyTypeEnum currencyType) {
+        this.currencyType = currencyType;
+    }
+
+    /**
+     * @return the serviceType
+     */
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    /**
+     * @param serviceType the serviceType to set
+     */
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
     }
     
 }
