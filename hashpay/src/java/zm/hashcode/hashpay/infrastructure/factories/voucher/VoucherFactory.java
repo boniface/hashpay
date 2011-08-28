@@ -6,88 +6,42 @@ package zm.hashcode.hashpay.infrastructure.factories.voucher;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import zm.hashcode.hashpay.model.vouchers.ClaimTypeEnum;
-import zm.hashcode.hashpay.model.vouchers.CurrencyTypeEnum;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import zm.hashcode.hashpay.infrastructure.conf.GetContext;
+import zm.hashcode.hashpay.infrastructure.util.voucher.VoucherUtility;
+import zm.hashcode.hashpay.model.vouchers.CurrencyType;
 import zm.hashcode.hashpay.model.vouchers.Voucher;
-import zm.hashcode.hashpay.model.vouchers.VoucherStatusTypeEnum;
+import zm.hashcode.hashpay.services.jpa.VoucherService;
 
 /**
  *
  * @author Bongani
  */
 public class VoucherFactory {
-    public static class Builder{
-        private Date dateGenerated;
-        private Date dateClaimed;
-        private String claimer;
-        private ClaimTypeEnum claimStatus;
-        private CurrencyTypeEnum currencyType;
-        private VoucherStatusTypeEnum voucherStatus;
-        private String serviceType;
-        
-        private String voucherNumber;
-        private BigDecimal voucherValue;
-        
-        
-        public Builder(String voucherNumber, BigDecimal voucherValue){
-            this.voucherNumber = voucherNumber;
-            this.voucherValue = voucherValue;
+
+    @Autowired
+    private VoucherService voucherService;
+    ApplicationContext ctx = GetContext.getApplicationContext();
+    private VoucherUtility util = new VoucherUtility();
+
+    public Voucher createVoucher(BigDecimal amount, CurrencyType currency) {
+        Voucher voucher = new Voucher.Builder(util.getService().getCode(), amount).currencySymbol(currency).dateGenerated(new Date()).build();
+        return voucher;
+    }
+
+    public Voucher getVoucher(String hash, String code) {
+        String voucherNumber = new VoucherUtility().getService().getConstructedCode(hash, code);
+        voucherService = (VoucherService) ctx.getBean("voucherService");
+        Voucher voucher = voucherService.getByPropertyName("voucherNumber", voucherNumber);
+        return voucher;
+    }
+
+    public void createVouchers(BigDecimal amount, CurrencyType currency, int number) {
+        voucherService = (VoucherService) ctx.getBean("voucherService");
+        for (int i = 0; i < number; i++) {
+            voucherService.persist(createVoucher(amount, currency));
         }
-        
-        public Builder dateGenerated(Date dateGenerated){
-           this.dateGenerated = dateGenerated;
-           return this;
-        }
-        public Builder dateClaimed(Date dateClaimed){
-            this.dateClaimed = dateClaimed;
-            return this;
-        }
-        public Builder claimer(String claimer){
-            this.claimer = claimer;
-            return this;
-        }
-        public Builder voucherStatusType(VoucherStatusTypeEnum voucherStatus){
-            this.voucherStatus = voucherStatus;
-            return this;
-        }
-        public Builder curencyType(CurrencyTypeEnum currencyType){
-            this.currencyType = currencyType;
-            return this;
-        }
-        public Builder claimStatus(ClaimTypeEnum claimStatus){
-            this.claimStatus = claimStatus;
-            return this;
-        }
-        
-        public Builder serviceType(String serviceType)
-        {
-            this.serviceType = serviceType;
-            return this;
-        }
-        
-        public Voucher Build(){
-            return getVoucher(this);
-        }
-        
-        private Voucher getVoucher(Builder builder){
-            
-            Voucher voucher = new Voucher();
-            
-            voucher.setVoucherNumber(builder.voucherNumber);
-            voucher.setVoucherValue(builder.voucherValue);
-            voucher.setClaimer(builder.claimer);
-            voucher.setDatedClaimed(builder.dateClaimed);
-            voucher.setDateGenerated(builder.dateGenerated);
-            voucher.setServiceType(builder.serviceType);
-            voucher.setClaimType(builder.claimStatus);
-            voucher.setVoucherStatus(builder.voucherStatus);
-            voucher.setCurrencyType(builder.currencyType);
-            
-            
-            return voucher; 
-        }
-        
-        
-    } 
-    
+
+    }
 }

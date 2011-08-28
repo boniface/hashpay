@@ -6,32 +6,31 @@ package zm.hashcode.test.repository;
 
 import zm.hashcode.hashpay.model.vouchers.Voucher;
 import java.math.BigDecimal;
-import java.util.Calendar;
 import java.util.Date;
 import zm.hashcode.hashpay.repository.jpa.VoucherDAO;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import zm.hashcode.hashpay.infrastructure.factories.voucher.VoucherFactory;
-import zm.hashcode.hashpay.model.vouchers.ClaimTypeEnum;
-import zm.hashcode.hashpay.model.vouchers.CurrencyTypeEnum;
-import zm.hashcode.hashpay.model.vouchers.VoucherStatusTypeEnum;
-import static org.junit.Assert.*;
+import zm.hashcode.hashpay.model.vouchers.ClaimType;
+import zm.hashcode.hashpay.model.vouchers.CurrencyType;
+import zm.hashcode.hashpay.model.vouchers.VoucherStatusType;
 
 /**
  *
  * @author Bongani
  */
 public class VoucherTest {
+
     private static ApplicationContext ctx;
     private VoucherDAO voucherDAO;
-    private static Long id;
-    
-    
+    private static Long voucherId;
+
     public VoucherTest() {
     }
 
@@ -43,28 +42,47 @@ public class VoucherTest {
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-     @Test
-     public void createVoucher() {
-     
-         voucherDAO = (VoucherDAO) ctx.getBean("voucherDAO");
-         Calendar date = Calendar.getInstance(); 
-         Voucher voucher = new VoucherFactory.Builder("123000321", BigDecimal.valueOf(123.21)).claimer("Bongani Mthembu").
-                 dateClaimed(date.getTime()).dateGenerated(date.getTime()).serviceType("RoadShow Tickets").claimStatus(ClaimTypeEnum.CUSTOMER_CLAIM)
-                 .voucherStatusType(VoucherStatusTypeEnum.SOLD).curencyType(CurrencyTypeEnum.ZMK).Build();
+
+    @Test
+    public void createVoucher() {
+        voucherDAO = (VoucherDAO) ctx.getBean("voucherDAO");
+        Voucher voucher = new VoucherFactory().createVoucher(new BigDecimal("2000.00"), CurrencyType.ZMK);
         voucherDAO.persist(voucher);
-        assertNotNull(voucher.getId());
-     
-     
-     }
+        voucherId = voucher.getId();
+        Assert.assertNotNull(voucher.getId());
+    }
+
+    @Test
+    public void sellVoucher() {
+        voucherDAO = (VoucherDAO) ctx.getBean("voucherDAO");
+        Voucher v = voucherDAO.find(voucherId);
+        v.setVoucherStatus(VoucherStatusType.SOLD);
+        voucherDAO.merge(v);
+        Voucher newv = voucherDAO.find(voucherId);
+        Assert.assertEquals(VoucherStatusType.SOLD, newv.getVoucherStatus());
+    }
+
+    @Test
+    public void claimVoucher() {
+        voucherDAO = (VoucherDAO) ctx.getBean("voucherDAO");
+        Voucher v = voucherDAO.find(voucherId);
+        v.setClaimType(ClaimType.CUSTOMER_CLAIM);
+        v.setClaimer("boniface");
+        v.setDatedClaimed(new Date());
+        v.setVoucherStatus(VoucherStatusType.CLAIMED);
+        voucherDAO.merge(v);
+        Voucher newVoucher = voucherDAO.find(voucherId);
+        Assert.assertEquals("boniface", newVoucher.getClaimer());
+    }
 }
