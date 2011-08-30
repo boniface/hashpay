@@ -2,14 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package zm.hashcode.hashpay.repository.jpa.Impl;
-
-
 
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import zm.hashcode.hashpay.model.people.Users;
@@ -21,9 +19,9 @@ import zm.hashcode.hashpay.repository.jpa.UsersDAO;
  */
 @Repository("usersDAO")
 @Transactional
-public class UsersDAOJPAImpl  implements UsersDAO {
+public class UsersDAOJPAImpl implements UsersDAO {
 
-    @PersistenceContext
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
     @Override
@@ -43,7 +41,7 @@ public class UsersDAOJPAImpl  implements UsersDAO {
 
     @Override
     public void remove(Users entity) {
-        Users acc =em.find(Users.class, entity.getId());
+        Users acc = em.find(Users.class, entity.getId());
         em.remove(acc);
     }
 
@@ -59,7 +57,7 @@ public class UsersDAOJPAImpl  implements UsersDAO {
 
     @Override
     public long count() {
-         return (Long) em.createQuery("SELECT count(a) FROM Users a").getSingleResult();
+        return (Long) em.createQuery("SELECT count(a) FROM Users a").getSingleResult();
     }
 
     @Override
@@ -70,7 +68,7 @@ public class UsersDAOJPAImpl  implements UsersDAO {
 
     @Override
     public List<Users> getEntitiesByProperName(String propertyName, String propertyValue) {
-          List<Users> list = em.createQuery("SELECT e FROM  Users e WHERE e." + propertyName + "=?1").setParameter(1, propertyValue).getResultList();
+        List<Users> list = em.createQuery("SELECT e FROM  Users e WHERE e." + propertyName + "=?1").setParameter(1, propertyValue).getResultList();
         return list;
     }
 }

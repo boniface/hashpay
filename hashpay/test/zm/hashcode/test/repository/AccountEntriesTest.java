@@ -22,13 +22,13 @@ import static org.junit.Assert.*;
  *
  * @author 209052414
  */
-public class AccountTest {
+public class AccountEntriesTest {
 
     private static Long Id;
     private AccountDAO accountDAO;
     private static ApplicationContext ctx;
 
-    public AccountTest() {
+    public AccountEntriesTest() {
     }
 
     @BeforeClass

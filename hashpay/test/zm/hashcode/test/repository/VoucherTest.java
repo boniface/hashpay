@@ -64,6 +64,35 @@ public class VoucherTest {
     }
 
     @Test
+    public void testRead() {
+    }
+
+    @Test
+    public void testUpdate() {
+    }
+
+    @Test
+    public void testCount() {
+    }
+
+    @Test
+    public void testList() {
+    }
+
+    @Test
+    public void testtGetByParamater() {
+    }
+
+    @Test
+    public void testDelete() {
+    }
+
+    @Test
+    public void testDisable() {
+    }
+
+    //THE TEST BELOW NEED TO MOVE TO THE SERVICE LAYER 
+    @Test
     public void sellVoucher() {
         voucherDAO = (VoucherDAO) ctx.getBean("voucherDAO");
         Voucher v = voucherDAO.find(voucherId);
