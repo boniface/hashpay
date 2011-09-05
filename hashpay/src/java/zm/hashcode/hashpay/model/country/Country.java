@@ -7,6 +7,7 @@ package zm.hashcode.hashpay.model.country;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
@@ -17,17 +18,12 @@ import javax.persistence.OneToOne;
 public class Country implements Serializable {
     @Id
     private Long id;
+    @OneToOne
     private String name;
     private String code;
-    @OneToOne
+    @ManyToOne
     private Province province;
-    @OneToOne
-    private City city;
-    @OneToOne
-    private District district;
-    @OneToOne
-    private Suburb suburb;
-    /**
+        /**
      * @return the name
      */
     public String getName() {
@@ -69,49 +65,7 @@ public class Country implements Serializable {
         this.province = province;
     }
 
-    /**
-     * @return the city
-     */
-    public City getCity() {
-        return city;
-    }
-
-    /**
-     * @param city the city to set
-     */
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    /**
-     * @return the district
-     */
-    public District getDistrict() {
-        return district;
-    }
-
-    /**
-     * @param district the district to set
-     */
-    public void setDistrict(District district) {
-        this.district = district;
-    }
-
-    /**
-     * @return the suburb
-     */
-    public Suburb getSuburb() {
-        return suburb;
-    }
-
-    /**
-     * @param suburb the suburb to set
-     */
-    public void setSuburb(Suburb suburb) {
-        this.suburb = suburb;
-    }
-
-    public Long getId() {
+         public Long getId() {
         return id;
     }
 

@@ -17,15 +17,21 @@ public class CountryFactory {
         //city
         public String cityName;
         public String cityCode;
+        public Suburb suburb; 
         //Country
         public String countryName;
         public String countryCode;
+        public Province province;
+        
         //District
         public String districtName;
         public String districtCode;
+        public City city;
         //Province
         public String provinceName;
         public String provinceCode;
+        public District district;
+        
         //Suburb
         public String suburbName;
         public String suburbCode;
@@ -99,32 +105,31 @@ public class CountryFactory {
      Country country = new Country();
      country.setName(builder.countryName);
      country.setCode(builder.countryCode);
+     country.setProvince(builder.province);
     
      //city
      City city = new City();
      city.setName(builder.cityName);
      city.setCode(builder.cityCode);
-     country.setCity(city);
+     city.setDisrict(builder.district);
      
      //District
      District district = new District();
      district.setName(builder.districtName);
      district.setCode(builder.districtCode);
-     country.setDistrict(district);
+     district.setSuburb(builder.suburb);
      //Province   
      Province province = new Province();
      province.setCode(builder.provinceName);
      province.setName(builder.provinceCode);
-     country.setProvince(province);
+     province.setCity(builder.city);
      
     //Suburb
      Suburb suburb = new Suburb();
      suburb.setName(builder.suburbName);
      suburb.setCode(builder.suburbCode);
-     country.setSuburb(suburb);        
+       
      return country;
     }
-
- 
     
 }

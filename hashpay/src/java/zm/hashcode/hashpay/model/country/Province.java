@@ -7,6 +7,7 @@ package zm.hashcode.hashpay.model.country;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -18,6 +19,10 @@ public class Province implements Serializable {
     private Long id;
     private String name;
     private String code;
+    
+    @ManyToOne
+    private City city;
+    
 
     /**
      * @return the name
@@ -53,5 +58,19 @@ public class Province implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * @return the city
+     */
+    public City getCity() {
+        return city;
+    }
+
+    /**
+     * @param city the city to set
+     */
+    public void setCity(City city) {
+        this.city = city;
     }
 }
