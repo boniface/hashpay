@@ -60,7 +60,7 @@ public class UsersTest {
                  faxNumber("0218938393").otherName("Lukas").
                  phoneNumber("921921912").physicalAddress("20 Chanda Mali Close")
                  .postalAddress("P.O.Box 23487").postalcode("7654").
-                 rolename("ADMIN").title("MR").username("test@john.com").enabled(true).build();
+                 rolename("ROLE_ADMIN").title("MR").username("test@john.com").enabled(true).build();
                  usersDAO.persist(user);
                  Assert.assertNotNull(user.getId());
        

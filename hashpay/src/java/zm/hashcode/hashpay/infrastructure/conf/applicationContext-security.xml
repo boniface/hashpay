@@ -13,8 +13,12 @@
     </global-method-security>
 
     <http auto-config="true">        	
-        <intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/mobile/**" access="ROLE_ADMIN"/>
+        <form-login login-page='/login.jsp'/>
     </http>
+    
+    
     <authentication-manager alias="authenticationManager">
         <authentication-provider>
             <password-encoder hash="md5"/>

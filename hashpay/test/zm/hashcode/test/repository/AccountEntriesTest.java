@@ -16,7 +16,6 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import zm.hashcode.hashpay.infrastructure.factories.account.AccountFactory;
 import zm.hashcode.hashpay.repository.jpa.AccountDAO;
-import static org.junit.Assert.*;
 
 /**
  *
