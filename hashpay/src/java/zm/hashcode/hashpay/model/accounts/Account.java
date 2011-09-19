@@ -119,5 +119,35 @@ public class Account implements Serializable {
     public void setEntries(List<AccountEntry> entries) {
         this.entries = entries;
     }
+     public static class Builder {
+
+        private String accountNumber;
+        private String status;
+        private String accountType;
+
+        public Builder accountType(String accountType) {
+            this.accountType = accountType;
+            return this;
+        }
+
+        public Builder status(String status) {
+            this.status = status;
+            return this;
+        }
+
+        public Account build() {
+            return new Account(this);
+        }
+    }
+
+    public Account() {
+    }
+
+    public Account(Builder builder) {
+        Account account = new Account();
+        account.status = builder.status;
+        account.accountType = builder.accountType;
+        account.accountNumber = builder.accountNumber;
+    }
     
 }

@@ -4,15 +4,14 @@
  */
 package zm.hashcode.hashpay.services;
 
-
-
+import java.math.BigDecimal;
 import zm.hashcode.hashpay.model.accounts.Account;
-
+import zm.hashcode.hashpay.model.accounts.AccountEntry;
 
 /**
  *
  * @author shane.broek
  */
-public interface AccountService extends Service<Account, Long>{
-    
+public interface AccountEntriesService extends Service<AccountEntry, Long> {
+    public BigDecimal getBalance(Account account);
 }

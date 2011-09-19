@@ -6,6 +6,7 @@ package zm.hashcode.hashpay.model.accounts;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -115,5 +116,64 @@ public class AccountEntry implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+    public static class Builder {
+
+        private BigDecimal currentBalance;
+        private BigDecimal debitEntry;
+        private BigDecimal creditEntry;
+        private String Description;
+
+        public Builder(BigDecimal balance) {
+            this.currentBalance=balance;
+        }
+
+
+        public Builder entryDescription(String Description) {
+            this.Description = Description;
+            return this;
+        }
+
+        public Builder debitEntry(BigDecimal debit) {
+            this.debitEntry = debit;
+            return this;
+        }
+
+        public Builder currentBalance(BigDecimal balance) {
+            this.currentBalance = balance;
+            return this;
+        }
+
+        public Builder creditEntry(BigDecimal credit) {
+            this.creditEntry = credit;
+            return this;
+        }
+
+        public AccountEntry build() {
+            return new AccountEntry(this);
+        }
+    }
+
+    public AccountEntry() {
+    }
+
+    public AccountEntry (Builder builder) {
+
+        if (builder.creditEntry != null) {
+            this.credit = builder.creditEntry;
+        } else {
+            this.credit = new BigDecimal(BigInteger.ZERO);
+        }
+        if (builder.currentBalance != null) {
+            this.balance = builder.currentBalance;
+        } else {
+            this.balance = new BigDecimal(BigInteger.ZERO);
+        }
+        if (builder.debitEntry != null) {
+            this.debit = builder.debitEntry;
+        } else {
+            this.debit = new BigDecimal(BigInteger.ZERO);
+        }
+        this.description = builder.Description;
+
+}
 }

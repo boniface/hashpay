@@ -4,6 +4,7 @@
  */
 package zm.hashcode.hashpay.services.Impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -80,5 +81,6 @@ public class AccountServiceJPAImpl implements AccountService{
     public void setAccountDAO(AccountDAO accountDAO) {
         this.accountDAO = accountDAO;
     }
+
     
 }
