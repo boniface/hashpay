@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package zm.hashcode.hashpay.services;
+package zm.hashcode.hashpay.services.Impl;
 
 /**
- * @author Peter Phillip
+ *
+ * @author Scriptor
  */
-
-public class CountryService{
-
+public class CreateCountry {
+    
 }

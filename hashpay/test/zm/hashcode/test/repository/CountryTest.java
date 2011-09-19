@@ -18,11 +18,12 @@ import static org.junit.Assert.*;
  */
 public class CountryTest {
     
-     private static Long countryId;
+    private static Long countryId;
     private CountryDAO countryDAO;
     private static ApplicationContext ctx;
     
-    public CountryTest() {
+    public CountryTest() 
+    {
     }
 
     @BeforeClass
