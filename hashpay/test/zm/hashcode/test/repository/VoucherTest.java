@@ -7,6 +7,7 @@ package zm.hashcode.test.repository;
 import zm.hashcode.hashpay.model.vouchers.Voucher;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import zm.hashcode.hashpay.repository.jpa.VoucherDAO;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -15,6 +16,7 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import zm.hashcode.hashpay.infrastructure.factories.voucher.VoucherFactory;
 import zm.hashcode.hashpay.model.vouchers.ClaimType;
@@ -65,34 +67,56 @@ public class VoucherTest {
 
     @Test
     public void testRead() {
+        voucherDAO = (VoucherDAO) ctx.getBean("voucherDAO");
+        Voucher voucher = voucherDAO.find(voucherId);
+        Assert.assertNotNull(voucher.getVoucherNumber());
     }
 
     @Test
     public void testUpdate() {
+        voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
+        Voucher voucher = voucherDAO.find(voucherId);
+        voucher.setClaimType(ClaimType.ADMIN_CLAIM);
+        voucherDAO.merge(voucher);
+        Voucher voucher1 = voucherDAO.find(voucherId);
+        Assert.assertEquals("ADMIN_CLAIM", voucher1.getClaimType());
     }
 
     @Test
     public void testCount() {
+        voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
+        Long count = voucherDAO.count();
+        Assert.assertEquals(new Long (1), count);
     }
 
     @Test
     public void testList() {
+        voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
+        List<Voucher> vouchers = voucherDAO.findAll();
+        Assert.assertTrue(vouchers.size() > 0);
     }
 
     @Test
     public void testtGetByParamater() {
+        voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
+        Voucher voucher = voucherDAO.getByPropertyName("ClaimType", "ADMIN_CLAIM");
+        Assert.assertEquals("ADMIN_CLAIM", voucher.getClaimType());
     }
 
     @Test
     public void testDelete() {
+        voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
+        Voucher voucher = voucherDAO.find(voucherId);
+        voucherDAO.remove(voucher);
+        Assert.assertNull(voucherDAO.getByPropertyName("ClaimType", "ADMIN_CLAIM"));
     }
 
-    @Test
+    @Ignore
     public void testDisable() {
     }
 
     //THE TEST BELOW NEED TO MOVE TO THE SERVICE LAYER 
-    @Test
+    @Ignore
     public void sellVoucher() {
         voucherDAO = (VoucherDAO) ctx.getBean("voucherDAO");
         Voucher v = voucherDAO.find(voucherId);
@@ -102,7 +126,7 @@ public class VoucherTest {
         Assert.assertEquals(VoucherStatusType.SOLD, newv.getVoucherStatus());
     }
 
-    @Test
+    @Ignore
     public void claimVoucher() {
         voucherDAO = (VoucherDAO) ctx.getBean("voucherDAO");
         Voucher v = voucherDAO.find(voucherId);
