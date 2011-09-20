@@ -13,6 +13,7 @@ import zm.hashcode.hashpay.model.accounts.Account;
  *
  * @author shane.broek
  */
-public interface AccountService extends Service<Account, Long>{
+public interface AccountService{
+    public void createAccount(String status, String accType);
     
 }

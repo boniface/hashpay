@@ -12,6 +12,6 @@ import zm.hashcode.hashpay.model.accounts.AccountEntry;
  *
  * @author shane.broek
  */
-public interface AccountEntriesService extends Service<AccountEntry, Long> {
-    public BigDecimal getBalance(Account account);
+public interface AccountEntriesService{
+    public BigDecimal getBalance(AccountEntry account);
 }

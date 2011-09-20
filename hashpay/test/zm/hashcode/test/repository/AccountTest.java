@@ -4,6 +4,7 @@
  */
 package zm.hashcode.test.repository;
 
+import java.util.List;
 import junit.framework.Assert;
 import java.math.BigDecimal;
 import zm.hashcode.hashpay.model.accounts.Account;
@@ -15,6 +16,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import zm.hashcode.hashpay.infrastructure.factories.account.AccountFactory;
+import zm.hashcode.hashpay.model.accounts.Account.Builder;
 import zm.hashcode.hashpay.repository.jpa.AccountDAO;
 import static org.junit.Assert.*;
 
@@ -57,30 +59,62 @@ public class AccountTest {
         //Account account = new AccountFactory.Builder("123456789", "Savings Account", "Deactivated").credit(BigDecimal.valueOf(100.00)).debit(BigDecimal.valueOf(30.00)).balance(BigDecimal.valueOf(70.00)).description("Airtime-Value 30.00").build();
         //accountDAO.persist(account);
         //Assert.assertNotNull(account.getId());
+        Account account = new AccountFactory().createAccount("Active", "Savings");
+        accountDAO.persist(account);
+        Id = account.getId();
+        Assert.assertNotNull(account.getId());
     }
 
     @Test
     public void testRead() {
+        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
+        
+        Account account = accountDAO.find(Id);
+        Assert.assertEquals("Savings", account.getAccountType());
     }
 
     @Test
     public void testUpdate() {
+        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
+        
+        Account account = accountDAO.find(Id);
+        account.setAccountType("Debit");
+        accountDAO.merge(account);
+        Account account2 = accountDAO.find(Id);
+        Assert.assertEquals("Debit", account.getAccountType());
     }
 
     @Test
     public void testCount() {
+        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
+        
+        Long count = accountDAO.count();
+        Assert.assertEquals(new Long(1), count);        
     }
 
     @Test
     public void testList() {
+        accountDAO = (AccountDAO) ctx.getBean("accoungDAO");
+        
+        List<Account> account = accountDAO.findAll();
+        Assert.assertTrue(account.size() > 0);
     }
 
     @Test
     public void testtGetByParamater() {
+        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
+        
+        Account account = accountDAO.getByPropertyName("status", "Active");
+        Assert.assertEquals("Active", account.getStatus());
     }
 
     @Test
     public void testDelete() {
+        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
+        Account account = accountDAO.find(Id);
+        accountDAO.remove(account);
+        Account account2 = accountDAO.find(Id);
+        Assert.assertNull(account2);
     }
 
     @Test

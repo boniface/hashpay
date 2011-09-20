@@ -23,9 +23,14 @@ public class AccountFactory {
     private AccountService accountService;
     ApplicationContext ctx = GetContext.getApplicationContext();
     
-    public BigDecimal getBalance(Account account) {
+    public BigDecimal getBalance(AccountEntry account) {
         AccountEntriesService accountEntriesService = (AccountEntriesService) ctx.getBean("accountEntriesService");
         BigDecimal balance = accountEntriesService.getBalance(account);
         return balance;
+    }
+    
+    public Account createAccount(String status, String accType) {
+        Account acc = new Account.Builder().status(status).accountType(accType).build();
+        return acc;
     }
 }

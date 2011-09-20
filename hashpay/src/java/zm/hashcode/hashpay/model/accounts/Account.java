@@ -124,6 +124,10 @@ public class Account implements Serializable {
         private String accountNumber;
         private String status;
         private String accountType;
+        
+        public Builder(){
+            
+        }
 
         public Builder accountType(String accountType) {
             this.accountType = accountType;
