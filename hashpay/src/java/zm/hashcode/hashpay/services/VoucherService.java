@@ -24,5 +24,7 @@ public interface VoucherService {
 
     public void createVouchers(BigDecimal amount, CurrencyType currency, int number);
     
+    public void createVoucher(BigDecimal amount, CurrencyType currency);
+    
     //Add method to deal woith erro in Factiory 
 }

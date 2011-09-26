@@ -6,6 +6,7 @@
 package zm.hashcode.test.service;
 
 import java.math.BigDecimal;
+import junit.framework.Assert;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -50,21 +51,29 @@ public class VoucherServicesTest {
     // The methods must be annotated with annotation @Test. For example:
     //
     @Test
-    public void createVouchers() {
+    public void createVoucher() {
          service = (VoucherService) ctx.getBean("voucherService");
-         service.createVouchers(new BigDecimal("2000.00"), CurrencyType.ZMK, 10);
-    
+         service.createVoucher(new BigDecimal("2000.00"), CurrencyType.ZMK);
+         Assert.assertNotNull(service);
     }
     @Test
     public void sellVoucher(){
+        service = (VoucherService) ctx.getBean("voucherService");
+        
         
     }
     @Test
     public void claimVoucher(){
+        service = (VoucherService) ctx.getBean("voucherService");
+       
         
     }
     @Test
-    public void createBulkVouchers(){}
+    public void createBulkVouchers(){
+        service = (VoucherService) ctx.getBean("voucherService");
+        service.createVouchers(new BigDecimal("150.95"), CurrencyType.ZMK, 10);
+        Assert.assertNotNull(service);
+    }
     
     
 

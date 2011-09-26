@@ -7,8 +7,8 @@ package zm.hashcode.hashpay.model.country;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+//import javax.persistence.ManyToOne;
+//import javax.persistence.OneToOne;
 
 /**
  *
@@ -18,10 +18,10 @@ import javax.persistence.OneToOne;
 public class Country implements Serializable {
     @Id
     private Long id;
-    @OneToOne
+    //@OneToOne
     private String name;
     private String code;
-    @ManyToOne
+   // @ManyToOne
     private Province province;
         /**
      * @return the name

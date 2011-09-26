@@ -42,6 +42,12 @@ public class VoucherServiceJPAImpl implements VoucherService {
     public void getVoucherDAO(VoucherDAO voucherDAO) {
         this.voucherDAO = voucherDAO;
     }
+    
+    @Override
+    public void createVoucher(BigDecimal amount, CurrencyType currency){
+        VoucherFactory f = new VoucherFactory();
+        f.createVoucher(amount, currency);  
+    }
 
     //THIS METHOD NEED TO BE SYNCHRONISED AND ATOMIC
     @Override
