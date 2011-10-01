@@ -66,10 +66,10 @@ public class VoucherServicesTest {
         String status = voucher.getVoucherStatus().toString();
         Assert.assertEquals("SOLD", status);   
     }
-    @Ignore
+    @Test
     public void claimVoucher() throws InvalidVoucherException{
         service = (VoucherService) ctx.getBean("voucherService");
-        Voucher voucher = service.processVoucher(null, null);
+        Voucher voucher = service.processVoucher("1fdf996b088c448a", "9e72ec55ac6bb8eb");
         String status = voucher.getVoucherStatus().CLAIMED.toString();
         Assert.assertEquals("CLAIMED", status);
     }

@@ -77,6 +77,7 @@ public class VoucherTest {
         voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
         Voucher voucher = voucherDAO.find(voucherId);
         voucher.setClaimType(ClaimType.ADMIN_CLAIM);
+        voucher.setClaimer("Bongani");
         voucherDAO.merge(voucher);
         Voucher voucher1 = voucherDAO.find(voucherId);
         Assert.assertEquals(voucher.getClaimType(), voucher1.getClaimType());
@@ -99,8 +100,9 @@ public class VoucherTest {
     @Test
     public void testtGetByParamater() {
         voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
-        Voucher voucher = voucherDAO.getByPropertyName("ClaimType",ClaimType.ADMIN_CLAIM.toString());
-        Assert.assertEquals("ADMIN_CLAIM", voucher.getClaimType().toString());
+        Voucher voucher = new Voucher();
+         voucher = voucherDAO.getByPropertyName("claimer","Bongani");
+        Assert.assertEquals("Bongani", voucher.getClaimer());
     }
 
     @Ignore
@@ -108,7 +110,8 @@ public class VoucherTest {
         voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
         Voucher voucher = voucherDAO.find(voucherId);
         voucherDAO.remove(voucher);
-        Assert.assertNull(voucherDAO.getByPropertyName("ClaimType", ClaimType.ADMIN_CLAIM.toString()));
+        Voucher voucher1 = voucherDAO.find(voucherId);
+        Assert.assertNull(voucher1);
     }
 
     @Ignore

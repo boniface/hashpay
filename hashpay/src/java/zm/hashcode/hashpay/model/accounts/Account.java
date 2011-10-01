@@ -130,15 +130,56 @@ public class Account implements Serializable {
         }
 
         public Builder accountType(String accountType) {
-            this.accountType = accountType;
+            this.setAccountType(accountType);
             return this;
         }
 
         public Builder status(String status) {
-            this.status = status;
+            this.setStatus(status);
             return this;
         }
 
+    /**
+     * @return the accountNumber
+     */
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    /**
+     * @param accountNumber the accountNumber to set
+     */
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    /**
+     * @return the accountType
+     */
+    public String getAccountType() {
+        return accountType;
+    }
+
+    /**
+     * @param accountType the accountType to set
+     */
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
         public Account build() {
             return new Account(this);
         }
