@@ -18,7 +18,7 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 public class AccountNumber implements Serializable {
-    @OneToOne(mappedBy = "accountNumber")
+   
     private static final long serialVersionUID = 1L;
     //This is not working well
     @Id

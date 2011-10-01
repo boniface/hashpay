@@ -16,7 +16,7 @@ import zm.hashcode.hashpay.model.vouchers.Voucher;
  */
 public interface VoucherService {
 
-    public Voucher buyVoucher();
+    public Voucher buyVoucher(Voucher voucher);
 
     public Voucher processVoucher(String hash, String code) throws InvalidVoucherException;
 

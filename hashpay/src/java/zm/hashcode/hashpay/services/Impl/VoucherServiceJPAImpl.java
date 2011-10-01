@@ -51,10 +51,10 @@ public class VoucherServiceJPAImpl implements VoucherService {
 
     //THIS METHOD NEED TO BE SYNCHRONISED AND ATOMIC
     @Override
-    public synchronized Voucher buyVoucher() {
-        Voucher v = voucherDAO.getByPropertyName("voucherstatus", VoucherStatusType.INVENTORY.toString());
+    public synchronized Voucher buyVoucher(Voucher voucher) {
+        Voucher v = voucherDAO.find(voucher.getId());
         v.setVoucherStatus(VoucherStatusType.SOLD);
-        voucherDAO.persist(v);
+        voucherDAO.merge(v);
         return v;
     }
 
