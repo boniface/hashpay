@@ -5,7 +5,11 @@
 package zm.hashcode.hashpay.infrastructure.factories.market;
 
 import java.math.BigDecimal;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import zm.hashcode.hashpay.infrastructure.conf.GetContext;
 import zm.hashcode.hashpay.model.market.Product;
+import zm.hashcode.hashpay.services.ProductService;
 
 /**
  *
@@ -13,53 +17,19 @@ import zm.hashcode.hashpay.model.market.Product;
  */
 public class MarketFactory {
     
-    
-     public static class Builder {
-                
-      //product details
-      private String productDescription;
-      private BigDecimal productValue;
-      
-      //BalanceOnHand
-      private String qauntity;
-      
-      //token
-      private String token;  
-      
-      public Builder(String productDescrption,BigDecimal productValue){
-             this.productDescription=productDescrption;
-             this.productValue=productValue;
-      }   
+      @Autowired
+       private ProductService productService;
+       ApplicationContext ctx = GetContext.getApplicationContext();
+
+      public Product createProduct(String Description, BigDecimal productValue,String qty,String token) {
+            Product product = new Product.Builder().ProductDescription(Description).ProductValue(productValue).BalanceOnHand(qty).token(token).build();    
+            return product;
         
-      public Builder BalanceOnHand(String qauntity){
-           this.qauntity=qauntity;
-           return this;
-       }
-      
-     public Builder token(String token){
-          this.token= token;
-          return this;       
-     }    
-       
-       public Product build() {
-         return getProduct(this);
-      }
-       
-      private Product getProduct(Builder builder){
-     
-      Product product = new Product();
-      product.setProductDescription(builder.productDescription);
-      product.setProductValue(builder.productValue);
-      product.setQauntity(builder.qauntity);
-      product.setToken(builder.token);
-      return product;
-      } 
-        
-   }
-              
-      
+    }      
+
+  
   }
-    
+
     
   
 

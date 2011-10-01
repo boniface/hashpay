@@ -4,12 +4,11 @@
  */
 package zm.hashcode.hashpay.services.Impl;
 
-import java.util.List;
-import zm.hashcode.hashpay.model.market.Product;
-import zm.hashcode.hashpay.services.ProductService;
+import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import zm.hashcode.hashpay.infrastructure.factories.market.MarketFactory;
 import zm.hashcode.hashpay.repository.jpa.ProductDAO;
 
 /**
@@ -18,55 +17,30 @@ import zm.hashcode.hashpay.repository.jpa.ProductDAO;
  */
 @Repository("productService")
 @Transactional
-public class ProductServiceJPAImpl implements ProductService{
+public class ProductServiceJPAImpl{
   
-    @Autowired
+      @Autowired
     private ProductDAO productDAO;
+   
+    /**
+     * @return the productDAO
+     */
+    public ProductDAO getProductDAO() {
+        return productDAO;
+    }
+
+    /**
+     * @param productDAO the productDAO to set
+     */
+    public void setProductDAO(ProductDAO productDAO) {
+        this.productDAO = productDAO;
+    }
+
+    public void createProduct(String Descrtn, BigDecimal pValue, String qyt, String token) {
+        MarketFactory p = new MarketFactory();
+        p.createProduct(Descrtn, pValue,qyt,token);
+    }
+
     
-    
-    @Override
-    public Product find(Long id) {
-         return productDAO.find(id);
-    }
-
-    @Override
-    public void persist(Product entity) {
-          productDAO.persist(entity);
-    }
-
-    @Override
-    public void merge(Product entity) {
-       productDAO.merge(entity);
-    }
-
-    @Override
-    public void remove(Product entity) {
-        productDAO.remove(entity);
-    }
-
-    @Override
-    public List<Product> findAll() {
-        return productDAO.findAll();
-    }
-
-    @Override
-    public List<Product> findInRange(int firstResult, int maxResults) {
-       return productDAO.findInRange(firstResult, maxResults);
-    }
-
-    @Override
-    public long count() {
-         return productDAO.count();
-    }
-
-    @Override
-    public Product getByPropertyName(String name, String value) {
-        return productDAO.getByPropertyName(name, value);
-    }
-
-    @Override
-    public List<Product> getEntitiesByProperName(String name, String value) {
-        return productDAO.getEntitiesByProperName(name, value);
-    }
     
 }

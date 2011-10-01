@@ -3,13 +3,16 @@
  * and open the template in the editor.
  */
 package zm.hashcode.hashpay.services;
-import zm.hashcode.hashpay.model.market.Product;
-import zm.hashcode.hashpay.services.Service;
+import java.math.BigDecimal;
 
 /**
  *
  * @author 209042869
  */
-public interface ProductService extends Service<Product, Long>{
+public interface ProductService {
+    
+     public void createProduct(String Descrtn, BigDecimal pValue,String qyt,String token);
+     public String getProduct(String Description);
+     
     
 }

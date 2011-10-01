@@ -26,6 +26,9 @@ public class Product implements Serializable {
     private String qauntity;
     private String token;
 
+    public Product() {
+    }
+
     public Long getId() {
         return id;
     }
@@ -115,9 +118,60 @@ public class Product implements Serializable {
     public void setToken(String token) {
         this.token = token;
     }
-
-    /**
-     * @return the value
-     */
+    
+     public static class Builder {
+                
+        
+       public Builder(){
+             
+       }
+             
+      //product details
+      private String productDescription;
+      private BigDecimal productValue;
+      
+      //BalanceOnHand
+      private String qauntity;
+      
+      //token
+      private String token;  
+      
+      
+      public Builder ProductDescription(String productDescrptions){
+             this.productDescription=productDescrptions;
+             return this;    
+      }     
+      
+      public Builder ProductValue(BigDecimal productValue){
+           this.productValue=productValue;
+           return this; 
+       }
+        
+      public Builder BalanceOnHand(String qauntity){
+           this.qauntity=qauntity;
+           return this;
+       }
+      
+     public Builder token(String token){
+          this.token= token;
+          return this;       
+     }    
+     
+  
+   public Product build() {
+       return  new Product();
+    }
+   }
+     
+      public Product getProduct(Builder builder){
+      Product product = new Product();
+      product.setProductDescription(builder.productDescription);
+      product.setProductValue(builder.productValue);
+      product.setQauntity(builder.qauntity);
+      product.setToken(builder.token);
+      return product;
+      } 
+       
+   
   
 }

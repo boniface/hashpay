@@ -4,6 +4,7 @@
  */
 package zm.hashcode.test.repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.junit.Assert;
 import zm.hashcode.hashpay.repository.jpa.ProductDAO;
@@ -11,10 +12,12 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import zm.hashcode.hashpay.model.market.Product;
 import org.junit.Test;
+import zm.hashcode.hashpay.infrastructure.factories.market.MarketFactory;
 
 /**
  *
@@ -45,22 +48,30 @@ public class ProductTest {
     @After
     public void tearDown() {
     }
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
+    
+     @Test
+    public void createAccount() {
+        productDAO = (ProductDAO) ctx.getBean("productDAO");
+        Product product = new MarketFactory().createProduct("Air-time", BigDecimal.valueOf(5400),"80", "52424127171020");
+        productDAO.persist(product);
+        productId = product.getId();
+        Assert.assertNotNull(product.getId());
+    }
 
-    @Test
+
+  @Test
     public void testRead() {
          productDAO = (ProductDAO) ctx.getBean("productDAO");
          Product product = productDAO.find(productId);
-         Assert.assertEquals("Air-time", product.getProductDescription());
+         Assert.assertEquals("Airtime", product.getProductDescription());
     }
-    
+  
     @Test
     public void testUpdate() {
        productDAO = (ProductDAO) ctx.getBean("productDAO"); 
        Product product = productDAO.find(productId);
        product.setQauntity("600");
+       productDAO.merge(product);
        Product product2 = productDAO.find(productId);
        Assert.assertEquals("600",product.getQauntity());          
     }
@@ -83,10 +94,10 @@ public class ProductTest {
     public void testtGetByParamater() {
     productDAO = (ProductDAO) ctx.getBean("productDAO"); 
     Product product = productDAO.getByPropertyName("productDescription", "Air-time");
-    Assert.assertEquals("Active", product.getProductDescription());
+    Assert.assertEquals("Air-time",product.getProductDescription());
   }
 
-    @Test
+    @Ignore
     public void testDelete() {
         productDAO = (ProductDAO) ctx.getBean("productDAO");
         Product product = productDAO.find(productId);
@@ -95,5 +106,5 @@ public class ProductTest {
         Assert.assertNull(product2);   
           
     }
-   
+    
 }
