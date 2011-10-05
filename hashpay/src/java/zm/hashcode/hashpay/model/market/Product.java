@@ -24,43 +24,13 @@ public class Product implements Serializable {
     private String productDescription;
     private BigDecimal productValue;
     private String qauntity;
+    private String productStatus;
     private String token;
 
     public Product() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Product)) {
-            return false;
-        }
-        Product other = (Product) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "zm.hashcode.hashpay.model.market.Product[ id=" + id + " ]";
-    }
+   
 
     /**
      * @return the productDescription
@@ -118,6 +88,20 @@ public class Product implements Serializable {
     public void setToken(String token) {
         this.token = token;
     }
+
+    /**
+     * @return the productStatus
+     */
+    public String getProductStatus() {
+        return productStatus;
+    }
+
+    /**
+     * @param productStatus the productStatus to set
+     */
+    public void setProductStatus(String productStatus) {
+        this.productStatus = productStatus;
+    }
     
      public static class Builder {
                 
@@ -129,7 +113,7 @@ public class Product implements Serializable {
       //product details
       private String productDescription;
       private BigDecimal productValue;
-      
+      private String  productStatus;
       //BalanceOnHand
       private String qauntity;
       
@@ -146,6 +130,11 @@ public class Product implements Serializable {
            this.productValue=productValue;
            return this; 
        }
+      
+       public Builder productStatus(String productStatuss){
+           this.productStatus= productStatuss;
+           return this;
+       }
         
       public Builder BalanceOnHand(String qauntity){
            this.qauntity=qauntity;
@@ -155,7 +144,9 @@ public class Product implements Serializable {
      public Builder token(String token){
           this.token= token;
           return this;       
-     }    
+     }   
+     
+     
      
   
    public Product build() {
@@ -168,10 +159,44 @@ public class Product implements Serializable {
       product.setProductDescription(builder.productDescription);
       product.setProductValue(builder.productValue);
       product.setQauntity(builder.qauntity);
+      product.setProductStatus(builder.productStatus);
       product.setToken(builder.token);
       return product;
       } 
-       
+      
+      
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Product)) {
+            return false;
+        }
+        Product other = (Product) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "zm.hashcode.hashpay.model.market.Product[ id=" + id + " ]";
+    }
    
   
 }

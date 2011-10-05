@@ -116,8 +116,7 @@ public class Merchant implements Serializable {
    
     
 public static class Builder {
-           
-    
+          
        public Builder(){
 
            
