@@ -12,6 +12,7 @@ import zm.hashcode.hashpay.infrastructure.conf.GetContext;
 import zm.hashcode.hashpay.infrastructure.exceptions.InsufficientBalanceException;
 import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.accounts.AccountEntry;
+import zm.hashcode.hashpay.repository.jpa.AccountDAO;
 import zm.hashcode.hashpay.services.AccountEntriesService;
 import zm.hashcode.hashpay.services.AccountService;
 
@@ -23,6 +24,7 @@ public class AccountFactory {
      
     @Autowired
     private AccountService accountService;
+    private AccountDAO accountDAO;
     private AccountEntriesService accountEntriesService;
     ApplicationContext ctx = GetContext.getApplicationContext();
     
@@ -36,6 +38,14 @@ public class AccountFactory {
         Account acc = new Account.Builder(currency).accountStatus(status).createdBy(user).creationDate(new Date()).build();
         return acc;
     }
+    public void setAccountStatus(String status, String user)
+    {
+        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
+        Account uss = accountDAO.getByPropertyName("createdBy", user);
+        uss.setAccountStatus(status);
+        accountDAO.merge(uss);
+    }
+    
     public AccountEntry createDebitEntry(BigDecimal debit,BigDecimal balance, String description, String voucherNumber, String currency) throws InsufficientBalanceException {
 
         AccountEntry debitEntry = null;
@@ -55,6 +65,4 @@ public class AccountFactory {
                 creditEntry(credit).build();
         return creditEntry ;
     }
-
-
 }

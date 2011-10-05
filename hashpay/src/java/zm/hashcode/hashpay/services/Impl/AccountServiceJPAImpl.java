@@ -22,5 +22,11 @@ public class AccountServiceJPAImpl implements AccountService{
         AccountFactory f = new AccountFactory();
         f.createNewAccount(currency,status, user);
     }
+
+    @Override
+    public void setAccountStatus(String status, String user) {
+        AccountFactory f = new AccountFactory();
+        f.setAccountStatus(status, user);
+    }
    
 }

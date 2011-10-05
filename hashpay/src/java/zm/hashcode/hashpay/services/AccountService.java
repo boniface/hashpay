@@ -15,5 +15,5 @@ import zm.hashcode.hashpay.model.accounts.Account;
  */
 public interface AccountService{
     public void createAccount(String status, String currency, String user);
-    
+    public void setAccountStatus(String status, String user);
 }
