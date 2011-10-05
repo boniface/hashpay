@@ -5,9 +5,11 @@
 package zm.hashcode.hashpay.infrastructure.factories.account;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import zm.hashcode.hashpay.infrastructure.conf.GetContext;
+import zm.hashcode.hashpay.infrastructure.exceptions.InsufficientBalanceException;
 import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.accounts.AccountEntry;
 import zm.hashcode.hashpay.services.AccountEntriesService;
@@ -21,6 +23,7 @@ public class AccountFactory {
      
     @Autowired
     private AccountService accountService;
+    private AccountEntriesService accountEntriesService;
     ApplicationContext ctx = GetContext.getApplicationContext();
     
     public BigDecimal getBalance(AccountEntry account) {
@@ -29,8 +32,29 @@ public class AccountFactory {
         return balance;
     }
     
-    public Account createAccount(String status, String accType) {
-        Account acc = new Account.Builder().status(status).accountType(accType).build();
+    public Account createNewAccount(String currency,String status, String user) {
+        Account acc = new Account.Builder(currency).accountStatus(status).createdBy(user).creationDate(new Date()).build();
         return acc;
     }
+    public AccountEntry createDebitEntry(BigDecimal debit,BigDecimal balance, String description, String voucherNumber, String currency) throws InsufficientBalanceException {
+
+        AccountEntry debitEntry = null;
+        if ((balance.subtract(debit)).compareTo(BigDecimal.ONE) ==1) {
+            debitEntry = new AccountEntry.Builder(balance, new Date()).currencySymbol(currency).
+                    entryDescription(description).
+                    debitEntry(debit).build();
+        } else {
+            throw new InsufficientBalanceException();
+        }
+        return debitEntry;
+    }
+    public AccountEntry createCreditEntry(BigDecimal credit,BigDecimal balance, String description, String voucherNumber, String currency) {
+        accountEntriesService = (AccountEntriesService) ctx.getBean("accountEntriesService");
+        AccountEntry creditEntry = new AccountEntry.Builder(balance,new Date()).currencySymbol(currency).
+                entryDescription(description).
+                creditEntry(credit).build();
+        return creditEntry ;
+    }
+
+
 }

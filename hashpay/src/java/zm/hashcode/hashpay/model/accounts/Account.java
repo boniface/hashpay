@@ -6,13 +6,19 @@ package zm.hashcode.hashpay.model.accounts;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import org.hibernate.annotations.Cascade;
 
 /**
  *
@@ -24,12 +30,81 @@ public class Account implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String accountNumber;
-    private String accountType;
-    private String status;
+    
+    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    private AccountNumber accountNumber;
+    private String accountStatus;
+    private String createdBy;
+    private String currencyType;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date creationDate;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "account_id")
     private List<AccountEntry> entries = new ArrayList<AccountEntry>();
+    
+    /**
+     * @return the entries
+     */
+    public List<AccountEntry> getEntries() {
+        return entries;
+    }
+
+    /**
+     * @param entries the entries to set
+     */
+    public void setEntries(List<AccountEntry> entries) {
+        this.entries = entries;
+    }
+    
+     public static class Builder {
+
+        private Date creationDate;
+        private AccountNumber accountNumber;
+        private String accountStatus;
+        private String createdBy;
+        private String currencyType;
+
+        public Builder(String currency) {
+            this.currencyType = currency;
+        }
+        
+        public Builder accountNumber(AccountNumber accountNumber)
+        {
+            this.accountNumber = accountNumber;
+            return this;
+        }
+        public Builder creationDate(Date date) {
+            this.creationDate = date;
+            return this;
+        }
+
+        public Builder createdBy(String user) {
+            this.createdBy = user;
+            return this;
+        }
+
+        public Builder accountStatus(String status) {
+            this.accountStatus = status;
+            return this;
+        }
+
+        public Account build() {
+            return new Account(this);
+        }
+    }
+
+    public Account() {
+    }
+
+    public Account(Builder builder) {
+        this.accountNumber = new AccountNumber();
+        this.accountStatus = builder.accountStatus;
+        this.createdBy = builder.createdBy;
+        this.creationDate = builder.creationDate;
+        this.currencyType = builder.currencyType;
+    }
+
 
     public Long getId() {
         return id;
@@ -37,6 +112,30 @@ public class Account implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    
+    public AccountNumber getAccountNumber() {
+        return accountNumber;
+    }
+
+    public String getAccountStatus() {
+        return accountStatus;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public String getCurrencyType() {
+        return currencyType;
+    }
+
+    public void setAccountStatus(String accountStatus) {
+        this.accountStatus = accountStatus;
     }
 
     @Override
@@ -64,135 +163,4 @@ public class Account implements Serializable {
         return "zm.hashcode.hashpay.model.accounts.Account[ id=" + id + " ]";
     }
 
-    /**
-     * @return the accountNumber
-     */
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    /**
-     * @param accountNumber the accountNumber to set
-     */
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    /**
-     * @return the accountType
-     */
-    public String getAccountType() {
-        return accountType;
-    }
-
-    /**
-     * @param accountType the accountType to set
-     */
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
-    }
-
-    /**
-     * @return the status
-     */
-    public String getStatus() {
-        return status;
-    }
-
-    /**
-     * @param status the status to set
-     */
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    /**
-     * @return the entries
-     */
-    public List<AccountEntry> getEntries() {
-        return entries;
-    }
-
-    /**
-     * @param entries the entries to set
-     */
-    public void setEntries(List<AccountEntry> entries) {
-        this.entries = entries;
-    }
-     public static class Builder {
-
-        private String accountNumber;
-        private String status;
-        private String accountType;
-        
-        public Builder(){
-            
-        }
-
-        public Builder accountType(String accountType) {
-            this.setAccountType(accountType);
-            return this;
-        }
-
-        public Builder status(String status) {
-            this.setStatus(status);
-            return this;
-        }
-
-    /**
-     * @return the accountNumber
-     */
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    /**
-     * @param accountNumber the accountNumber to set
-     */
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    /**
-     * @return the accountType
-     */
-    public String getAccountType() {
-        return accountType;
-    }
-
-    /**
-     * @param accountType the accountType to set
-     */
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
-    }
-
-    /**
-     * @return the status
-     */
-    public String getStatus() {
-        return status;
-    }
-
-    /**
-     * @param status the status to set
-     */
-    public void setStatus(String status) {
-        this.status = status;
-    }
-        public Account build() {
-            return new Account(this);
-        }
-    }
-
-    public Account() {
-    }
-
-    public Account(Builder builder) {
-        Account account = new Account();
-        account.status = builder.status;
-        account.accountType = builder.accountType;
-        account.accountNumber = builder.accountNumber;
-    }
-    
 }

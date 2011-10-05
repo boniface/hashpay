@@ -18,9 +18,9 @@ import zm.hashcode.hashpay.services.AccountService;
 public class AccountServiceJPAImpl implements AccountService{
 
     @Override
-    public void createAccount(String status, String accType) {
+    public void createAccount(String status, String currency, String user) {
         AccountFactory f = new AccountFactory();
-        f.createAccount(status, accType);
+        f.createNewAccount(currency,status, user);
     }
    
 }

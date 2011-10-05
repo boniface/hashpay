@@ -7,10 +7,13 @@ package zm.hashcode.hashpay.model.accounts;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -24,9 +27,109 @@ public class AccountEntry implements Serializable {
     private Long id;
     private BigDecimal debit;
     private BigDecimal credit;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date entryDate;
     private BigDecimal balance;
     private String description;
+    private String currencySymbol;
+    @Column(name="account_id")
+    private Long accountID;
     
+    /**
+     * @return the accountID
+     */
+    public Long getAccountID() {
+        return accountID;
+    }
+
+    /**
+     * @param accountID the accountID to set
+     */
+    public void setAccountID(Long accountID) {
+        this.accountID = accountID;
+    }
+    
+    public static class Builder {
+
+        private BigDecimal Balance;
+        private BigDecimal debit;
+        private BigDecimal credit;
+        private Date entryDate;
+        private String Description;
+        private String currencySymbol;
+
+        public Builder(BigDecimal balance, Date entryDate) {
+            this.Balance=balance;
+            this.entryDate = entryDate;
+        }
+        
+        public Builder currencySymbol(String currencySymbol) {
+            this.currencySymbol = currencySymbol;
+            return this;
+        }
+
+        public Builder entryDate(Date entryDate) {
+            this.entryDate = entryDate;
+            return this;
+        }
+
+        public Builder entryDescription(String Description) {
+            this.Description = Description;
+            return this;
+        }
+
+        public Builder debitEntry(BigDecimal debit) {
+            this.debit = debit;
+            return this;
+        }
+
+        public Builder currentBalance(BigDecimal balance) {
+            this.Balance = balance;
+            return this;
+        }
+
+        public Builder creditEntry(BigDecimal credit) {
+            this.credit = credit;
+            return this;
+        }
+
+        public AccountEntry build() {
+            return new AccountEntry(this);
+        }
+    }
+
+    public AccountEntry() {
+    }
+
+    public AccountEntry(Builder builder) {
+
+        if (builder.credit != null) {
+            this.credit = builder.credit;
+        } else {
+            this.credit = new BigDecimal(BigInteger.ZERO);
+        }
+        
+        if (builder.Balance != null) {
+            this.balance = builder.Balance;
+        } else {
+            this.balance = new BigDecimal(BigInteger.ZERO);
+        }
+        this.currencySymbol = builder.currencySymbol;
+        if (builder.debit != null) {
+            this.debit = builder.debit;
+        } else {
+            this.debit = new BigDecimal(BigInteger.ZERO);
+        }
+        this.entryDate = builder.entryDate;
+        this.description = builder.Description;
+    }
+    
+     /**
+     * @return the entryDate
+     */
+    public Date getEntryDate() {
+        return entryDate;
+    }
 
     public Long getId() {
         return id;
@@ -109,71 +212,4 @@ public class AccountEntry implements Serializable {
     public String getDescription() {
         return description;
     }
-
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public static class Builder {
-
-        private BigDecimal currentBalance;
-        private BigDecimal debitEntry;
-        private BigDecimal creditEntry;
-        private String Description;
-
-        public Builder(BigDecimal balance) {
-            this.currentBalance=balance;
-        }
-
-
-        public Builder entryDescription(String Description) {
-            this.Description = Description;
-            return this;
-        }
-
-        public Builder debitEntry(BigDecimal debit) {
-            this.debitEntry = debit;
-            return this;
-        }
-
-        public Builder currentBalance(BigDecimal balance) {
-            this.currentBalance = balance;
-            return this;
-        }
-
-        public Builder creditEntry(BigDecimal credit) {
-            this.creditEntry = credit;
-            return this;
-        }
-
-        public AccountEntry build() {
-            return new AccountEntry(this);
-        }
-    }
-
-    public AccountEntry() {
-    }
-
-    public AccountEntry (Builder builder) {
-
-        if (builder.creditEntry != null) {
-            this.credit = builder.creditEntry;
-        } else {
-            this.credit = new BigDecimal(BigInteger.ZERO);
-        }
-        if (builder.currentBalance != null) {
-            this.balance = builder.currentBalance;
-        } else {
-            this.balance = new BigDecimal(BigInteger.ZERO);
-        }
-        if (builder.debitEntry != null) {
-            this.debit = builder.debitEntry;
-        } else {
-            this.debit = new BigDecimal(BigInteger.ZERO);
-        }
-        this.description = builder.Description;
-
-}
 }

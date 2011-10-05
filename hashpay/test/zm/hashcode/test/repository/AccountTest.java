@@ -60,8 +60,7 @@ public class AccountTest {
         //Account account = new AccountFactory.Builder("123456789", "Savings Account", "Deactivated").credit(BigDecimal.valueOf(100.00)).debit(BigDecimal.valueOf(30.00)).balance(BigDecimal.valueOf(70.00)).description("Airtime-Value 30.00").build();
         //accountDAO.persist(account);
         //Assert.assertNotNull(account.getId());
-        Account account = new AccountFactory().createAccount("Active", "Savings");
-        account.setAccountNumber("9665042098");
+        Account account = new AccountFactory().createNewAccount("RSA", "Active", "Shane");
         accountDAO.persist(account);
         Id = account.getId();
         Assert.assertNotNull(account.getId());
@@ -72,7 +71,7 @@ public class AccountTest {
         accountDAO = (AccountDAO) ctx.getBean("accountDAO");
         
         Account account = accountDAO.find(Id);
-        Assert.assertEquals("Savings", account.getAccountType());
+        Assert.assertEquals("Active", account.getAccountStatus());
     }
 
     @Test
@@ -80,10 +79,10 @@ public class AccountTest {
         accountDAO = (AccountDAO) ctx.getBean("accountDAO");
         
         Account account = accountDAO.find(Id);
-        account.setAccountType("Debit");
+        account.setAccountStatus("Deactive");
         accountDAO.merge(account);
         Account account2 = accountDAO.find(Id);
-        Assert.assertEquals("Debit", account.getAccountType());
+        Assert.assertEquals("Deactive", account.getAccountStatus());
     }
 
     @Test
@@ -105,12 +104,11 @@ public class AccountTest {
     @Test
     public void testtGetByParamater() {
         accountDAO = (AccountDAO) ctx.getBean("accountDAO");
-        
-        Account account = accountDAO.getByPropertyName("accountType", "Debit");
-        Assert.assertEquals("Debit", account.getAccountType());
+        Account account = accountDAO.getByPropertyName("createdBy", "Shane");
+        Assert.assertEquals("Shane", account.getCreatedBy());
     }
 
-    @Ignore
+    @Test
     public void testDelete() {
         accountDAO = (AccountDAO) ctx.getBean("accountDAO");
         Account account = accountDAO.find(Id);
