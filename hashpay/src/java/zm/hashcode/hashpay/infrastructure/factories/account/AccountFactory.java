@@ -77,4 +77,10 @@ public class AccountFactory {
                 creditEntry(credit).build();
         return creditEntry ;
     }
+    public Account checkBalance(Account accountNum)
+    {
+        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
+        Account balance = accountDAO.getByPropertyName("accountnumber", accountNum.getAccountNumber().toString());
+        return balance;
+    }
 }

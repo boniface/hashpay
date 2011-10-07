@@ -17,4 +17,5 @@ public interface AccountService{
     public void createAccount(String status, String currency, String user);
     public void setAccountStatus(String status, String user);
     public Account checkAccountStatus(String accountNumber);
+    public Account checkBalance(Account accountNumber);
 }

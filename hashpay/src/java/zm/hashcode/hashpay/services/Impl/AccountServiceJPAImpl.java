@@ -36,5 +36,12 @@ public class AccountServiceJPAImpl implements AccountService{
         Account account = f.checkAccountStatus(accountNumber);
         return account;
     }
+
+    @Override
+    public Account checkBalance(Account accountNumber) {
+        AccountFactory f = new AccountFactory();
+        Account balance = f.checkBalance(accountNumber);
+        return balance;
+    }
    
 }
