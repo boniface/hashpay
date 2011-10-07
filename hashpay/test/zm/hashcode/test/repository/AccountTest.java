@@ -66,7 +66,7 @@ public class AccountTest {
         Assert.assertNotNull(account.getId());
     }
 
-    @Test
+    @Ignore
     public void testRead() {
         accountDAO = (AccountDAO) ctx.getBean("accountDAO");
         
@@ -74,7 +74,7 @@ public class AccountTest {
         Assert.assertEquals("Active", account.getAccountStatus());
     }
 
-    @Test
+    @Ignore
     public void testUpdate() {
         accountDAO = (AccountDAO) ctx.getBean("accountDAO");
         
@@ -85,7 +85,7 @@ public class AccountTest {
         Assert.assertEquals("Deactive", account.getAccountStatus());
     }
 
-    @Test
+    @Ignore
     public void testCount() {
         accountDAO = (AccountDAO) ctx.getBean("accountDAO");
         
@@ -93,7 +93,7 @@ public class AccountTest {
         Assert.assertEquals(new Long(1), count);        
     }
 
-    @Test
+    @Ignore
     public void testList() {
         accountDAO = (AccountDAO) ctx.getBean("accountDAO");
         
@@ -101,14 +101,14 @@ public class AccountTest {
         Assert.assertTrue(account.size() > 0);
     }
 
-    @Test
+    @Ignore
     public void testtGetByParamater() {
         accountDAO = (AccountDAO) ctx.getBean("accountDAO");
         Account account = accountDAO.getByPropertyName("createdBy", "Shane");
         Assert.assertEquals("Shane", account.getCreatedBy());
     }
 
-    @Test
+    @Ignore
     public void testDelete() {
         accountDAO = (AccountDAO) ctx.getBean("accountDAO");
         Account account = accountDAO.find(Id);
@@ -117,7 +117,7 @@ public class AccountTest {
         Assert.assertNull(account2);
     }
 
-    @Test
+    @Ignore
     public void testDisable() {
     }
 }

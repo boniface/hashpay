@@ -5,6 +5,7 @@
 package zm.hashcode.hashpay.model.accounts;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,10 +38,11 @@ public class Account implements Serializable {
     private String accountStatus;
     private String createdBy;
     private String currencyType;
+    private BigDecimal balance;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date creationDate;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "accountNumber")
     private List<AccountEntry> entries = new ArrayList<AccountEntry>();
     
     /**
@@ -56,17 +58,33 @@ public class Account implements Serializable {
     public void setEntries(List<AccountEntry> entries) {
         this.entries = entries;
     }
+
+    /**
+     * @return the balance
+     */
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    /**
+     * @param balance the balance to set
+     */
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
     
      public static class Builder {
 
         private Date creationDate;
+        private BigDecimal balance;
         private AccountNumber accountNumber;
         private String accountStatus;
         private String createdBy;
         private String currencyType;
 
-        public Builder(String currency) {
+        public Builder(String currency, BigDecimal balance) {
             this.currencyType = currency;
+            this.balance = balance;
         }
         
         public Builder accountNumber(AccountNumber accountNumber)

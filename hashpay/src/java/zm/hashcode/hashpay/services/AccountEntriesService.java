@@ -13,5 +13,6 @@ import zm.hashcode.hashpay.model.accounts.AccountEntry;
  * @author shane.broek
  */
 public interface AccountEntriesService{
-    public BigDecimal getBalance(AccountEntry account);
+    public BigDecimal getBalance(AccountEntry accountEntry, Account account);
+    public void CreateDebitAccountEntry(Long account, BigDecimal debit, String description, String voucherNumber, String currency );
 }

@@ -30,12 +30,16 @@ public class AccountFactory {
     
     public BigDecimal getBalance(AccountEntry account) {
         AccountEntriesService accountEntriesService = (AccountEntriesService) ctx.getBean("accountEntriesService");
-        BigDecimal balance = accountEntriesService.getBalance(account);
-        return balance;
+        //BigDecimal balance = accountEntriesService.getBalance(account);
+        return null;
     }
     
     public Account createNewAccount(String currency,String status, String user) {
-        Account acc = new Account.Builder(currency).accountStatus(status).createdBy(user).creationDate(new Date()).build();
+        Account acc = new Account.Builder(currency, BigDecimal.ZERO).
+                accountStatus(status).
+                createdBy(user).
+                creationDate(new Date()).build();
+        //accountDAO.persist(acc);
         return acc;
     }
     public void setAccountStatus(String status, String user)
@@ -45,22 +49,30 @@ public class AccountFactory {
         uss.setAccountStatus(status);
         accountDAO.merge(uss);
     }
+    public Account checkAccountStatus(String accountNumber)
+    {
+        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
+        Account uss = accountDAO.getByPropertyName("accountNumber", accountNumber);
+        return uss;
+    }
     
-    public AccountEntry createDebitEntry(BigDecimal debit,BigDecimal balance, String description, String voucherNumber, String currency) throws InsufficientBalanceException {
-
+    public AccountEntry createDebitEntry(Account acc, BigDecimal debit,BigDecimal balance, String description, String voucherNumber, String currency) throws InsufficientBalanceException {
+        
         AccountEntry debitEntry = null;
         if ((balance.subtract(debit)).compareTo(BigDecimal.ONE) ==1) {
-            debitEntry = new AccountEntry.Builder(balance, new Date()).currencySymbol(currency).
+            debitEntry = new AccountEntry.Builder(balance, new Date(), acc).currencySymbol(currency).
                     entryDescription(description).
                     debitEntry(debit).build();
+            acc.setBalance(balance);
+            accountDAO.merge(acc);
         } else {
             throw new InsufficientBalanceException();
         }
         return debitEntry;
     }
-    public AccountEntry createCreditEntry(BigDecimal credit,BigDecimal balance, String description, String voucherNumber, String currency) {
+    public AccountEntry createCreditEntry(Account acc, BigDecimal credit,BigDecimal balance, String description, String voucherNumber, String currency) {
         accountEntriesService = (AccountEntriesService) ctx.getBean("accountEntriesService");
-        AccountEntry creditEntry = new AccountEntry.Builder(balance,new Date()).currencySymbol(currency).
+        AccountEntry creditEntry = new AccountEntry.Builder(balance,new Date(), acc).currencySymbol(currency).
                 entryDescription(description).
                 creditEntry(credit).build();
         return creditEntry ;

@@ -4,15 +4,19 @@
  */
 package zm.hashcode.test.service;
 
+import java.math.BigDecimal;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import zm.hashcode.hashpay.model.accounts.Account;
+import zm.hashcode.hashpay.services.AccountEntriesService;
 import zm.hashcode.hashpay.services.AccountService;
 
 /**
@@ -48,34 +52,38 @@ public class AccountServicesTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-    @Test
+    @Ignore
     public void createAccount() {
-        service = (AccountService) ctx.getBean("voucherService");
-        service.createAccount("DeActive", "RSA", "Shane");
+        service = (AccountService) ctx.getBean("accountService");
+        service.createAccount("DeActive", "ZMB", "Lance");
         Assert.assertNotNull(service);
     }
 
-    @Test
+    @Ignore
     public void activateAccount() {
-        service = (AccountService) ctx.getBean("voucherService");
+        service = (AccountService) ctx.getBean("accountService");
         service.setAccountStatus("Active", "Shane");
     }
 
-    @Test
+    @Ignore
     public void disableAccount() {
-        service = (AccountService) ctx.getBean("voucherService");
+        service = (AccountService) ctx.getBean("accountService");
         service.setAccountStatus("Deactive", "Shane");
     }
 
     @Test
     public void testCreditAccount() {
+        AccountEntriesService services = (AccountEntriesService) ctx.getBean("accountEntriesService");
+        service = (AccountService) ctx.getBean("accountService");
+        services.CreateDebitAccountEntry(new Long(33), BigDecimal.valueOf(200.00), "Payment 1", "321654", "RSA");
     }
 
-    @Test
+    @Ignore
     public void testDebitAccount() {
+       
     }
 
-    @Test
+    @Ignore
     public void testAccountBalances() {
     }
 }

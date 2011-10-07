@@ -57,10 +57,12 @@ public class AccountEntry implements Serializable {
         private Date entryDate;
         private String Description;
         private String currencySymbol;
+        private Account accountID;
 
-        public Builder(BigDecimal balance, Date entryDate) {
+        public Builder(BigDecimal balance, Date entryDate, Account accountID) {
             this.Balance=balance;
             this.entryDate = entryDate;
+            this.accountID = accountID;
         }
         
         public Builder currencySymbol(String currencySymbol) {
