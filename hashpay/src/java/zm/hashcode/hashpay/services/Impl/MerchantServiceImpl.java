@@ -7,6 +7,8 @@ package zm.hashcode.hashpay.services.Impl;
 import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import zm.hashcode.hashpay.infrastructure.factories.market.MarketFactory;
 import zm.hashcode.hashpay.model.market.Merchant;
 import zm.hashcode.hashpay.model.market.Product;
@@ -18,17 +20,19 @@ import zm.hashcode.hashpay.services.MerchantService;
  *
  * @author Franky
  */
-public class MerchantServiceImpl  implements MerchantService{
+@Repository("merchantService")
+@Transactional
+public class MerchantServiceImpl implements MerchantService{
 
     @Autowired
     private MerchantDAO merchantDAO;
-    private ProductDAO  productDAO;
-    
-    
-    
+    private ProductDAO productDAO;
+   
+   
     @Override
-    public void requestToRegister(String userName, String emailAddres) {
-        
+    public void requestToRegister(String userName, String emailAddres, String passW) {
+         MarketFactory merchant = new MarketFactory(); 
+         merchant.createAccount(userName, emailAddres, passW);
     }
     // method to create product for the merchant
     @Override
@@ -38,17 +42,23 @@ public class MerchantServiceImpl  implements MerchantService{
      }
 
     @Override
-    public List<Merchant> listallProductsPublished() {
+    public Product removeProduct(String ProductDescritpion) {
+        Product product = new MarketFactory().removeProduct(ProductDescritpion);
+        return product;   
+    }
+
+    @Override
+    public List<Product> listallProductsPublished() {
+      Product product= new Product();// create object for product
+       return productDAO.getEntitiesByProperName("productDescription",product.getProductDescription().toString());
+    }
+
+    @Override
+    public Product validateProductInventory(String productDescription) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-     @Override
-    public Merchant validateProductInventory(String productDescription) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    
-    
+
     /**
      * @return the merchantDAO
      */
@@ -62,6 +72,9 @@ public class MerchantServiceImpl  implements MerchantService{
     public void setMerchantDAO(MerchantDAO merchantDAO) {
         this.merchantDAO = merchantDAO;
     }
+
+    
+    
 
    
 }
