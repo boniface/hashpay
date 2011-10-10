@@ -58,29 +58,37 @@ public class AccountServicesTest {
         service.createAccount("DeActive", "ZMB", "Lance");
         Assert.assertNotNull(service);
     }
+    @Ignore
+    public void checkBalance() {
+        service = (AccountService) ctx.getBean("accountService");
+        BigDecimal d= service.checkBalance("1");
+        Assert.assertEquals(d, new BigDecimal("0.00"));
+    }
 
     @Ignore
     public void activateAccount() {
         service = (AccountService) ctx.getBean("accountService");
-        service.setAccountStatus("Active", "Shane");
+        service.setAccountStatus("Active", "Lance");
     }
 
     @Ignore
     public void disableAccount() {
         service = (AccountService) ctx.getBean("accountService");
-        service.setAccountStatus("Deactive", "Shane");
+        service.setAccountStatus("Deactive", "Lance");
     }
 
     @Test
     public void testCreditAccount() {
         AccountEntriesService services = (AccountEntriesService) ctx.getBean("accountEntriesService");
         service = (AccountService) ctx.getBean("accountService");
-        services.CreateDebitAccountEntry(new Long(33), BigDecimal.valueOf(200.00), "Payment 1", "321654", "RSA");
+        services.creditAccount("34", BigDecimal.valueOf(200.00), "321654", "RSA");
     }
 
     @Ignore
     public void testDebitAccount() {
-       
+       AccountEntriesService services = (AccountEntriesService) ctx.getBean("accountEntriesService");
+        service = (AccountService) ctx.getBean("accountService");
+        services.CreateDebitAccountEntry("34", BigDecimal.valueOf(200.00), "321654", "RSA");
     }
 
     @Ignore

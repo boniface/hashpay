@@ -12,7 +12,9 @@ import zm.hashcode.hashpay.infrastructure.conf.GetContext;
 import zm.hashcode.hashpay.infrastructure.exceptions.InsufficientBalanceException;
 import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.accounts.AccountEntry;
+import zm.hashcode.hashpay.model.accounts.AccountNumber;
 import zm.hashcode.hashpay.repository.jpa.AccountDAO;
+import zm.hashcode.hashpay.repository.jpa.AccountEntryDAO;
 import zm.hashcode.hashpay.services.AccountEntriesService;
 import zm.hashcode.hashpay.services.AccountService;
 
@@ -25,6 +27,7 @@ public class AccountFactory {
     @Autowired
     private AccountService accountService;
     private AccountDAO accountDAO;
+    private AccountEntryDAO accountEntryDAO;
     private AccountEntriesService accountEntriesService;
     ApplicationContext ctx = GetContext.getApplicationContext();
     
@@ -35,11 +38,12 @@ public class AccountFactory {
     }
     
     public Account createNewAccount(String currency,String status, String user) {
-        Account acc = new Account.Builder(currency, BigDecimal.ZERO).
+        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
+        Account acc = new Account.Builder(currency, new BigDecimal("0.00")).
                 accountStatus(status).
                 createdBy(user).
                 creationDate(new Date()).build();
-        //accountDAO.persist(acc);
+        accountDAO.persist(acc);
         return acc;
     }
     public void setAccountStatus(String status, String user)
@@ -56,31 +60,43 @@ public class AccountFactory {
         return uss;
     }
     
-    public AccountEntry createDebitEntry(Account acc, BigDecimal debit,BigDecimal balance, String description, String voucherNumber, String currency) throws InsufficientBalanceException {
-        
+    public AccountEntry createDebitEntry(Account acc, BigDecimal debit, String description, String currency) throws InsufficientBalanceException {
+        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
+        accountEntryDAO = (AccountEntryDAO) ctx.getBean("accountEntryDAO");
         AccountEntry debitEntry = null;
-        if ((balance.subtract(debit)).compareTo(BigDecimal.ONE) ==1) {
-            debitEntry = new AccountEntry.Builder(balance, new Date(), acc).currencySymbol(currency).
+        BigDecimal balances = acc.getBalance();
+        if ((balances.subtract(debit)).compareTo(BigDecimal.ONE) ==1) {
+            BigDecimal newbalance = balances.subtract(debit);
+            debitEntry = new AccountEntry.Builder(newbalance, new Date(), acc).currencySymbol(currency).
                     entryDescription(description).
                     debitEntry(debit).build();
-            acc.setBalance(balance);
+            acc.setBalance(newbalance);
             accountDAO.merge(acc);
+            accountEntryDAO.merge(debitEntry);
         } else {
             throw new InsufficientBalanceException();
         }
         return debitEntry;
     }
-    public AccountEntry createCreditEntry(Account acc, BigDecimal credit,BigDecimal balance, String description, String voucherNumber, String currency) {
-        accountEntriesService = (AccountEntriesService) ctx.getBean("accountEntriesService");
-        AccountEntry creditEntry = new AccountEntry.Builder(balance,new Date(), acc).currencySymbol(currency).
+    public AccountEntry createCreditEntry(Account acc, BigDecimal credit, String description, String currency) {
+        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
+        accountEntryDAO = (AccountEntryDAO) ctx.getBean("accountEntryDAO");
+        
+        BigDecimal balances = acc.getBalance();
+        BigDecimal newbalance = balances.add(credit);
+        AccountEntry creditEntry = new AccountEntry.Builder(newbalance,new Date(), acc).currencySymbol(currency).
                 entryDescription(description).
                 creditEntry(credit).build();
+        acc.setBalance(newbalance);
+        accountDAO.merge(acc);
+            accountEntryDAO.merge(creditEntry);
         return creditEntry ;
     }
-    public Account checkBalance(Account accountNum)
+    public BigDecimal checkBalance(String accountNum)
     {
         accountDAO = (AccountDAO) ctx.getBean("accountDAO");
-        Account balance = accountDAO.getByPropertyName("accountnumber", accountNum.getAccountNumber().toString());
-        return balance;
+        Account balance = accountDAO.getByPropertyName("accountNumber", accountNum);
+        return (balance.getBalance());
+        
     }
 }

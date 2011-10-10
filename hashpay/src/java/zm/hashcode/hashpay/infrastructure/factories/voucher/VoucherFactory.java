@@ -12,6 +12,7 @@ import zm.hashcode.hashpay.infrastructure.conf.GetContext;
 import zm.hashcode.hashpay.infrastructure.util.voucher.VoucherUtility;
 import zm.hashcode.hashpay.model.vouchers.CurrencyType;
 import zm.hashcode.hashpay.model.vouchers.Voucher;
+import zm.hashcode.hashpay.repository.jpa.VoucherDAO;
 import zm.hashcode.hashpay.services.VoucherService;
 
 /**
@@ -22,6 +23,7 @@ public class VoucherFactory {
 
     @Autowired
     private VoucherService voucherService;
+    private VoucherDAO voucherDAO;
     ApplicationContext ctx = GetContext.getApplicationContext();
     private VoucherUtility util = new VoucherUtility();
 
@@ -32,15 +34,15 @@ public class VoucherFactory {
 
     public Voucher getVoucher(String hash, String code) {
         String voucherNumber = new VoucherUtility().getService().getConstructedCode(hash, code);
-        voucherService = (VoucherService) ctx.getBean("voucherService");
-       // Voucher voucher = voucherService.getByPropertyName("voucherNumber", voucherNumber);
-        return null; //voucher;
+        voucherDAO = (VoucherDAO) ctx.getBean("voucherDAO");
+        Voucher voucher = voucherDAO.getByPropertyName("voucherNumber", voucherNumber);
+        return voucher;
     }
 
     public void createVouchers(BigDecimal amount, CurrencyType currency, int number) {
-        voucherService = (VoucherService) ctx.getBean("voucherService");
+        voucherDAO = (VoucherDAO) ctx.getBean("voucherDAO");
         for (int i = 0; i < number; i++) {
-            //voucherService.persist(createVoucher(amount, currency));
+           voucherDAO.persist(createVoucher(amount, currency));
         }
 
     }

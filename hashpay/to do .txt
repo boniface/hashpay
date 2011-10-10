@@ -1,0 +1,2 @@
+link user to account table
+create methods-> check status, fix  debit and credit and check balance.

@@ -6,6 +6,7 @@ package zm.hashcode.hashpay.services;
 
 
 
+import java.math.BigDecimal;
 import zm.hashcode.hashpay.model.accounts.Account;
 
 
@@ -17,5 +18,6 @@ public interface AccountService{
     public void createAccount(String status, String currency, String user);
     public void setAccountStatus(String status, String user);
     public Account checkAccountStatus(String accountNumber);
-    public Account checkBalance(Account accountNumber);
+    public BigDecimal checkBalance(String accountNumber);
+    public Account checkStatus(String accountNumber);
 }

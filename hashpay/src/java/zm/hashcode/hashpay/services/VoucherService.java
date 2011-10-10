@@ -7,6 +7,7 @@ package zm.hashcode.hashpay.services;
 import java.math.BigDecimal;
 import java.util.List;
 import zm.hashcode.hashpay.infrastructure.exceptions.InvalidVoucherException;
+import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.vouchers.CurrencyType;
 import zm.hashcode.hashpay.model.vouchers.Voucher;
 
@@ -16,9 +17,9 @@ import zm.hashcode.hashpay.model.vouchers.Voucher;
  */
 public interface VoucherService {
 
-    public Voucher buyVoucher(Voucher voucher);
+    public Voucher buyVoucher(String username);
 
-    public Voucher processVoucher(String hash, String code) throws InvalidVoucherException;
+    public Voucher processVoucher(String hash, String code, String account) throws InvalidVoucherException;
 
     public List<Voucher> getExpiredVouchers();
 

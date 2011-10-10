@@ -72,6 +72,13 @@ public class Account implements Serializable {
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
+
+    /**
+     * @param accountNumber the accountNumber to set
+     */
+    public void setAccountNumber(AccountNumber accountNumber) {
+        this.accountNumber = accountNumber;
+    }
     
      public static class Builder {
 
@@ -121,6 +128,7 @@ public class Account implements Serializable {
         this.createdBy = builder.createdBy;
         this.creationDate = builder.creationDate;
         this.currencyType = builder.currencyType;
+        this.balance = builder.balance;
     }
 
 

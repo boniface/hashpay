@@ -32,7 +32,7 @@ public class AccountEntry implements Serializable {
     private BigDecimal balance;
     private String description;
     private String currencySymbol;
-    @Column(name="account_id")
+    @Column(name="accountNumber")
     private Long accountID;
     
     /**
@@ -122,6 +122,7 @@ public class AccountEntry implements Serializable {
         } else {
             this.debit = new BigDecimal(BigInteger.ZERO);
         }
+        this.accountID = builder.accountID.getId();
         this.entryDate = builder.entryDate;
         this.description = builder.Description;
     }

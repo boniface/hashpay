@@ -4,10 +4,13 @@
  */
 package zm.hashcode.hashpay.services.Impl;
 
+import java.math.BigDecimal;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import zm.hashcode.hashpay.infrastructure.factories.account.AccountFactory;
 import zm.hashcode.hashpay.model.accounts.Account;
+import zm.hashcode.hashpay.repository.jpa.AccountDAO;
 import zm.hashcode.hashpay.services.AccountService;
 
 /**
@@ -17,7 +20,10 @@ import zm.hashcode.hashpay.services.AccountService;
 @Repository("accountService")
 @Transactional
 public class AccountServiceJPAImpl implements AccountService{
-
+    
+        @Autowired
+    private AccountDAO accountDAO;
+    
     @Override
     public void createAccount(String status, String currency, String user) {
         AccountFactory f = new AccountFactory();
@@ -38,10 +44,16 @@ public class AccountServiceJPAImpl implements AccountService{
     }
 
     @Override
-    public Account checkBalance(Account accountNumber) {
+    public BigDecimal checkBalance(String accountNumber) {
         AccountFactory f = new AccountFactory();
-        Account balance = f.checkBalance(accountNumber);
+        BigDecimal balance = f.checkBalance(accountNumber);
         return balance;
+    }
+    @Override
+    public Account checkStatus(String accountNumber) {
+        AccountFactory f = new AccountFactory();
+        Account account = f.checkAccountStatus(accountNumber);
+        return account;
     }
    
 }
