@@ -19,7 +19,7 @@ import zm.hashcode.hashpay.repository.jpa.AccountEntryDAO;
  */
 @Repository("accountEntryDAO")
 @Transactional
-public class AccountEntryDAOJPAImpl implements AccountEntryDAO{
+public class AccountEntryDAOImpl implements AccountEntryDAO{
     @PersistenceContext
     private EntityManager em;
 

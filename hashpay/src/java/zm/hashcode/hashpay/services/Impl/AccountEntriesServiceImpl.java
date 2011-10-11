@@ -21,6 +21,7 @@ import zm.hashcode.hashpay.model.accounts.AccountEntry;
 import zm.hashcode.hashpay.model.accounts.AccountNumber;
 import zm.hashcode.hashpay.repository.jpa.AccountDAO;
 import zm.hashcode.hashpay.repository.jpa.AccountEntryDAO;
+import zm.hashcode.hashpay.repository.jpa.AccountNumberDAO;
 import zm.hashcode.hashpay.services.AccountEntriesService;
 
 /**
@@ -29,11 +30,12 @@ import zm.hashcode.hashpay.services.AccountEntriesService;
  */
 @Repository("accountEntriesService")
 @Transactional
-public class AccountEntriesServiceJPAImpl implements AccountEntriesService{
+public class AccountEntriesServiceImpl implements AccountEntriesService{
     @Autowired
     private AccountEntryDAO dao;
     private AccountDAO accountDAO;
     private AccountEntryDAO accountEntryDAO;
+    private AccountNumberDAO accountNumberDAO;
     private static ApplicationContext ctx;
     
 
@@ -59,28 +61,30 @@ public class AccountEntriesServiceJPAImpl implements AccountEntriesService{
     }
 
     @Override
-    public void CreateDebitAccountEntry(String accountId, BigDecimal debit, String description, String currency) {
+    public void CreateDebitAccountEntry(Account account, BigDecimal debit, String description, String currency) {
         AccountFactory f = new AccountFactory();
         ctx = new ClassPathXmlApplicationContext("classpath:zm/hashcode/hashpay/infrastructure/conf/applicationContext-*.xml");
         accountDAO = (AccountDAO) ctx.getBean("accountDAO");
 
-        Account acc = accountDAO.getByPropertyName("createdBy", "Lance");
+        //Account acc = accountDAO.getByPropertyName("createdBy", account.);
         try {
-            f.createDebitEntry(acc, debit, description, currency);
+            f.createDebitEntry(account, debit, description, currency);
         } catch (InsufficientBalanceException ex) {
-            Logger.getLogger(AccountEntriesServiceJPAImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AccountEntriesServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public AccountEntry creditAccount(String accountNumber, BigDecimal val, String Decription, String currency) {
+    public AccountEntry creditAccount(Account account, BigDecimal val, String Decription, String currency) {
          AccountFactory f = new AccountFactory();
-        ctx = new ClassPathXmlApplicationContext("classpath:zm/hashcode/hashpay/infrastructure/conf/applicationContext-*.xml");
-        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
+        //ctx = new ClassPathXmlApplicationContext("classpath:zm/hashcode/hashpay/infrastructure/conf/applicationContext-*.xml");
+        //accountDAO = (AccountDAO) ctx.getBean("accountDAO");
         
-        Account acc = accountDAO.getByPropertyName("createdBy", "Lance");
+        //accountNumberDAO = (AccountNumberDAO) ctx.getBean("accountNumberDAO");
         
-        AccountEntry newAccount = f.createCreditEntry(acc, val, Decription, currency);
+        //Account acc = accountDAO.getByPropertyName("accountNumber", account.getAccountNumber().toString());
+        
+        AccountEntry newAccount = f.createCreditEntry(account, val, Decription, currency);
         
         return newAccount;
     }

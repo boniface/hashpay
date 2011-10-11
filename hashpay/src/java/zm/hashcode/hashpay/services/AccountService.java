@@ -15,9 +15,10 @@ import zm.hashcode.hashpay.model.accounts.Account;
  * @author shane.broek
  */
 public interface AccountService{
-    public void createAccount(String status, String currency, String user);
-    public void setAccountStatus(String status, String user);
+    public Account createAccount(String status, String currency, String user);
+    public void setAccountStatus(String status, String accountNumber);
     public Account checkAccountStatus(String accountNumber);
     public BigDecimal checkBalance(String accountNumber);
     public Account checkStatus(String accountNumber);
+    public Account findAccount(String accountNumber);
 }

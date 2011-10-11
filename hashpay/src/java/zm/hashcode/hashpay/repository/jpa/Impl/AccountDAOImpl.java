@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import zm.hashcode.hashpay.model.accounts.Account;
+import zm.hashcode.hashpay.model.accounts.AccountNumber;
 import zm.hashcode.hashpay.repository.jpa.AccountDAO;
 
 /**
@@ -18,7 +19,7 @@ import zm.hashcode.hashpay.repository.jpa.AccountDAO;
  */
 @Repository("accountDAO")
 @Transactional
-public class AccountDAOJPAImpl implements AccountDAO{
+public class AccountDAOImpl implements AccountDAO{
     
     @PersistenceContext
     private EntityManager em;
@@ -69,6 +70,12 @@ public class AccountDAOJPAImpl implements AccountDAO{
     public List<Account> getEntitiesByProperName(String name, String value) {
         List<Account> list = em.createQuery("select e from Account e where e." + name + "=?1").setParameter(1, value).getResultList();
         return list;
+    }
+
+    @Override
+    public Account getByPropertyName(String string, AccountNumber a) {
+        List<Account> list = em.createQuery("select e from Account e where e." + string + "=?1").setParameter(1, a).getResultList();
+        return (list.isEmpty()) ? null : list.get(0);
     }
     
 }

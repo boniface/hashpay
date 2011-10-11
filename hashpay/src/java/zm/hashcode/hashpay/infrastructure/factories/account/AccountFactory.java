@@ -15,6 +15,7 @@ import zm.hashcode.hashpay.model.accounts.AccountEntry;
 import zm.hashcode.hashpay.model.accounts.AccountNumber;
 import zm.hashcode.hashpay.repository.jpa.AccountDAO;
 import zm.hashcode.hashpay.repository.jpa.AccountEntryDAO;
+import zm.hashcode.hashpay.repository.jpa.AccountNumberDAO;
 import zm.hashcode.hashpay.services.AccountEntriesService;
 import zm.hashcode.hashpay.services.AccountService;
 
@@ -28,6 +29,7 @@ public class AccountFactory {
     private AccountService accountService;
     private AccountDAO accountDAO;
     private AccountEntryDAO accountEntryDAO;
+    private AccountNumberDAO accountNumberDAO;
     private AccountEntriesService accountEntriesService;
     ApplicationContext ctx = GetContext.getApplicationContext();
     
@@ -46,17 +48,21 @@ public class AccountFactory {
         accountDAO.persist(acc);
         return acc;
     }
-    public void setAccountStatus(String status, String user)
+    public void setAccountStatus(String status, String accountNum)
     {
         accountDAO = (AccountDAO) ctx.getBean("accountDAO");
-        Account uss = accountDAO.getByPropertyName("createdBy", user);
+        accountNumberDAO = (AccountNumberDAO) ctx.getBean("accountNumberDAO");
+        AccountNumber a = accountNumberDAO.find(Long.valueOf(accountNum));
+        Account uss = accountDAO.getByPropertyName("accountNumber", a);
         uss.setAccountStatus(status);
         accountDAO.merge(uss);
     }
     public Account checkAccountStatus(String accountNumber)
     {
         accountDAO = (AccountDAO) ctx.getBean("accountDAO");
-        Account uss = accountDAO.getByPropertyName("accountNumber", accountNumber);
+        accountNumberDAO = (AccountNumberDAO) ctx.getBean("accountNumberDAO");
+        AccountNumber a = accountNumberDAO.find(Long.valueOf(accountNumber));
+        Account uss = accountDAO.getByPropertyName("accountNumber", a);
         return uss;
     }
     
@@ -67,7 +73,7 @@ public class AccountFactory {
         BigDecimal balances = acc.getBalance();
         if ((balances.subtract(debit)).compareTo(BigDecimal.ONE) ==1) {
             BigDecimal newbalance = balances.subtract(debit);
-            debitEntry = new AccountEntry.Builder(newbalance, new Date(), acc).currencySymbol(currency).
+            debitEntry = new AccountEntry.Builder(newbalance, new Date(), acc.getAccountNumber()).currencySymbol(currency).
                     entryDescription(description).
                     debitEntry(debit).build();
             acc.setBalance(newbalance);
@@ -84,7 +90,7 @@ public class AccountFactory {
         
         BigDecimal balances = acc.getBalance();
         BigDecimal newbalance = balances.add(credit);
-        AccountEntry creditEntry = new AccountEntry.Builder(newbalance,new Date(), acc).currencySymbol(currency).
+        AccountEntry creditEntry = new AccountEntry.Builder(newbalance,new Date(),acc.getAccountNumber()).currencySymbol(currency).
                 entryDescription(description).
                 creditEntry(credit).build();
         acc.setBalance(newbalance);
@@ -95,7 +101,10 @@ public class AccountFactory {
     public BigDecimal checkBalance(String accountNum)
     {
         accountDAO = (AccountDAO) ctx.getBean("accountDAO");
-        Account balance = accountDAO.getByPropertyName("accountNumber", accountNum);
+        accountNumberDAO = (AccountNumberDAO) ctx.getBean("accountNumberDAO");
+        AccountNumber a = accountNumberDAO.find(Long.valueOf(accountNum));
+
+        Account balance = accountDAO.getByPropertyName("accountNumber", a);
         return (balance.getBalance());
         
     }
