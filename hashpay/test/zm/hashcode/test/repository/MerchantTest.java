@@ -16,6 +16,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import junit.framework.Assert;
+import org.junit.Ignore;
+import zm.hashcode.hashpay.model.accounts.Account;
+import zm.hashcode.hashpay.model.accounts.AccountNumber;
 
 /**
  *
@@ -54,12 +57,18 @@ public class MerchantTest {
     @Test
     public void createAccount() {
         merchantDAO = (MerchantDAO) ctx.getBean("merchantDAO");
-        Merchant merchant = new MarketFactory().createAccount("Thozamile", "thozamilesikwata@live.com", "pele123!");
-        merchantDAO.persist(merchant);
+        Merchant merchant = new MarketFactory().createAccount("Thozamile", "thoz@live.com", new AccountNumber(),"password");
         Id = merchant.getId();
         Assert.assertNotNull(merchant.getId());
     }
- 
+    @Test
+    public void testRead() {
+         merchantDAO = (MerchantDAO) ctx.getBean("merchantDAO");
+         Merchant merchant = merchantDAO.find(Id);
+         Assert.assertEquals("Thozamile", merchant.getUserName());
+  }
+  
+
       @Test
     public void testUpdate() {
        merchantDAO = (MerchantDAO) ctx.getBean("merchantDAO");
@@ -91,7 +100,7 @@ public class MerchantTest {
      Assert.assertEquals("Thozamile",merchant.getUserName());
   }
 
-    @Test
+    @Ignore
     public void testDelete() {
         merchantDAO = (MerchantDAO) ctx.getBean("merchantDAO"); 
         Merchant merchant = merchantDAO.find(Id);

@@ -6,6 +6,7 @@ package zm.hashcode.hashpay.services;
 
 import java.math.BigDecimal;
 import java.util.List;
+import zm.hashcode.hashpay.model.accounts.AccountNumber;
 import zm.hashcode.hashpay.model.market.Merchant;
 import zm.hashcode.hashpay.model.market.Product;
 
@@ -16,11 +17,9 @@ import zm.hashcode.hashpay.model.market.Product;
 public interface MerchantService {
     
 
-    public void requestToRegister(String userName,String emailAddres,String password);  
-    public void addProduct(String productDescrption,BigDecimal productPrice,String qty,String token);
+    public void requestToRegister(String userName,String emailAddres,AccountNumber accountNumber,String password);  
+    public void addProduct(String productDescrption,String productType,BigDecimal productPrice,String qty,String code);
     public List<Product> listallProductsPublished();
-   //method will be used to check balance on  hand of each product so that merchant will know when to add more products
-     public Product validateProductInventory(String productDescription);
-     public Product removeProduct(String ProductDescritpion);
+    public Product removeProduct(String ProductDescritpion);
        
 }

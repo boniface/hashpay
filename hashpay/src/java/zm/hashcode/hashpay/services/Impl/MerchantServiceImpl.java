@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import zm.hashcode.hashpay.infrastructure.factories.market.MarketFactory;
-import zm.hashcode.hashpay.model.market.Merchant;
+import zm.hashcode.hashpay.model.accounts.AccountNumber;
 import zm.hashcode.hashpay.model.market.Product;
 import zm.hashcode.hashpay.repository.jpa.MerchantDAO;
 import zm.hashcode.hashpay.repository.jpa.ProductDAO;
@@ -30,15 +30,15 @@ public class MerchantServiceImpl implements MerchantService{
    
    
     @Override
-    public void requestToRegister(String userName, String emailAddres, String passW) {
+    public void requestToRegister(String userName, String emailAddres,AccountNumber accountN, String passW) {
          MarketFactory merchant = new MarketFactory(); 
-         merchant.createAccount(userName, emailAddres, passW);
+         merchant.createAccount(userName, emailAddres,accountN, passW);
     }
     // method to create product for the merchant
     @Override
-    public void addProduct(String productDescrption, BigDecimal productPrice, String qty, String token) {
+    public void addProduct(String productDescrption,String productType, BigDecimal productPrice, String qty, String code) {
         MarketFactory product = new MarketFactory(); 
-        product.createProduct(productDescrption, productPrice, qty, token);
+        product.createProduct(productDescrption,productType, productPrice, qty, code);
      }
 
     @Override
@@ -53,12 +53,6 @@ public class MerchantServiceImpl implements MerchantService{
        return productDAO.getEntitiesByProperName("productDescription",product.getProductDescription().toString());
     }
 
-    @Override
-    public Product validateProductInventory(String productDescription) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-
     /**
      * @return the merchantDAO
      */
@@ -72,9 +66,6 @@ public class MerchantServiceImpl implements MerchantService{
     public void setMerchantDAO(MerchantDAO merchantDAO) {
         this.merchantDAO = merchantDAO;
     }
-
-    
-    
 
    
 }

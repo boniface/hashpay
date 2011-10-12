@@ -4,15 +4,15 @@
  */
 package zm.hashcode.hashpay.services;
 import java.math.BigDecimal;
+import zm.hashcode.hashpay.model.market.Product;
 
 /**
  *
- * @author 209042869
+ * @author Thozamile Sikwata
  */
 public interface ProductService {
     
      public void createProduct(String Descrtn, BigDecimal pValue,String qyt,String token);
-     public String getProduct(String Description);
-     
-    
+     public Product validated_product(String Description,String productType);
+      
 }

@@ -7,12 +7,17 @@ package zm.hashcode.hashpay.model.market;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import org.hibernate.annotations.Cascade;
+import zm.hashcode.hashpay.model.accounts.AccountNumber;
 
 /**
  *
@@ -28,11 +33,17 @@ public class Merchant implements Serializable {
     private String emailAddress;
     private String password;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "merchant_id")
     private List<Product>  product = new ArrayList<Product>();
-   
-    
-    public Long getId() {
+    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+    private AccountNumber accountNumber;
+
+    public Merchant() {
+    }
+
+
+   public Long getId() {
         return id;
     }
 
@@ -113,38 +124,58 @@ public class Merchant implements Serializable {
     public List<Product> getProduct() {
         return product;
     }
-   
-    
-public static class Builder {
-          
-       public Builder(){
 
-           
-       }
+    /**
+     * @return the accountNumber
+     */
+    public AccountNumber getAccountNumber() {
+        return accountNumber;
+    }
+
+    /**
+     * @param accountNumber the accountNumber to set
+     */
+    public void setAccountNumber(AccountNumber accountNumber) {
+        this.accountNumber = accountNumber;
+    }
     
+     public static class Builder {
+        
        private String userName;
        private String emailAddress;
+       private AccountNumber accountNumber;
        private String password;
-       
-       public Builder UserName(String userNme){
+      
+      
+       public Builder(String userNme,String emailAddres){
            this.userName=userNme;
-           return this;
-       }
-       
-       public Builder emailAddress(String email){
-           this.emailAddress=email;
-           return this;
-       }
+           this.userName=emailAddres;
+        }
+         public Builder AccountNumber(AccountNumber accountN){
+             this.accountNumber=accountN;
+             return this;
+         }
+
        
        public Builder passWord(String passwrd){
              this.password= passwrd;
              return this;
        }
+       
     
      public Merchant build() {
      
-       return  new Merchant();
+       return  new Merchant(this);
      }
 
  }
+
+   public Merchant(Builder builder) {
+        this.userName=builder.userName;
+        this.emailAddress=builder.emailAddress;
+        this.accountNumber=new AccountNumber();
+        this.password=builder.password;
+    }
+
+
 }

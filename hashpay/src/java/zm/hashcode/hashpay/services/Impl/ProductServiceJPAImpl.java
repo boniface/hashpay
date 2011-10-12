@@ -36,9 +36,9 @@ public class ProductServiceJPAImpl{
         this.productDAO = productDAO;
     }
 
-    public void createProduct(String Descrtn, BigDecimal pValue, String qyt, String token) {
+    public void createProduct(String Descrtn, String productType,BigDecimal price, String qyt, String token) {
         MarketFactory p = new MarketFactory();
-        p.createProduct(Descrtn, pValue,qyt,token);
+        p.createProduct(Descrtn, productType,price,qyt,token);
     }
 
     

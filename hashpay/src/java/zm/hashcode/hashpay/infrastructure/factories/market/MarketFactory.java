@@ -8,8 +8,10 @@ import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import zm.hashcode.hashpay.infrastructure.conf.GetContext;
+import zm.hashcode.hashpay.model.accounts.AccountNumber;
 import zm.hashcode.hashpay.model.market.Merchant;
 import zm.hashcode.hashpay.model.market.Product;
+import zm.hashcode.hashpay.repository.jpa.MerchantDAO;
 import zm.hashcode.hashpay.repository.jpa.ProductDAO;
 import zm.hashcode.hashpay.services.ProductService;
 
@@ -22,31 +24,38 @@ public class MarketFactory {
       @Autowired
        private ProductService productService;
        private ProductDAO productDAO;
+       private MerchantDAO merchantDAO;
        ApplicationContext ctx = GetContext.getApplicationContext();
 
-      public Product createProduct(String Description, BigDecimal productValue,String qty,String token) {
-            Product product = new Product.Builder().
-                    ProductDescription(Description).
-                    ProductValue(productValue).
+    public Product createProduct(String Description,String productType, BigDecimal productPrice,String qty,String code) {
+          productDAO = (ProductDAO) ctx.getBean("productDAO");  
+          Product product = new Product.Builder(Description,productType,new BigDecimal("0.00")).
                     BalanceOnHand(qty).
-                    token(token).build();    
-            return product;
-        }      
+                    code(code).build();   
+              productDAO.persist(product);
+               return product;
+                  
+      }      
    
-      public Merchant createAccount(String Username,String emailAddres, String password){
-           Merchant merchant = new Merchant.Builder().
-                   UserName(Username).
-                   emailAddress(emailAddres).
-                   passWord(password).build();
+    public Merchant createAccount(String Username,String emailAddres,AccountNumber ac, String password){
+          merchantDAO = (MerchantDAO) ctx.getBean("merchantDAO");  
+          Merchant merchant = new Merchant.Builder(Username,emailAddres).
+                   passWord(password).
+                  AccountNumber(ac).build();
+                 merchantDAO.persist(merchant);
            return merchant;
         } 
       
-      public Product removeProduct(String productDescription){
+    public Product removeProduct(String productDescription){
              productDAO = (ProductDAO) ctx.getBean("productDAO");
              Product product = productDAO.getByPropertyName("productDescription", productDescription);
-            return product;
+             productDAO.remove(product);
+             return product;
          }
-      
+
+  
+
+
       
       
       
