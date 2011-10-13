@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>jQuery Mobile Application</title>
+        <title>Hash Pay Mobile App</title>
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css" />
         <script src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
@@ -34,41 +34,10 @@
                     </form>
 
 
-                    <p><a href="#page2" data-rel="dialog">Register</a></p>
+                    <p><a href="register/createaccount.html?new" >Create Account</a></p>
                 </div>
                 <footer data-role="footer"><h1>Hash Pay</h1></footer>
             </section>
-            <!-- end first page -->
-            <!-- Begin second page -->
-            <section id="page2" data-role="page" data-theme="b">
-                <header data-role="header" data-theme="b"><h1>Register HashPay Account</h1></header>
-                <div data-role="content" class="content" data-theme="b">
-
-                    <form id="myform" action="formprocessor.php" method="post">
-                        <div data-role="fieldcontain">
-                            <label for="email-address">Email Address:</label>
-                            <input type="text" name="email-address" id="email-address" />
-                        </div>
-                        <div data-role="fieldcontain">
-                            <label for="password">Password:</label>
-                            <input type="password" name="password" id="password" />
-                        </div>
-                        <div data-role="fieldcontain">
-                            <label for="retype-password">Re Type Password:</label>
-                            <input type="password" name="Retype" id="retype-password" />
-                        </div>
-
-                        <div data-role="controlgroup" data-type="horizontal">
-                            <input type="submit" value="Register" data-theme="b" />
-                            <a href="index.html" data-role="button" data-theme="b">Login</a>
-                            <input type="reset" value="Reset" data-theme="b"/>
-                        </div>
-
-                    </form>
-                </div>
-                <footer data-role="footer"r data-theme="b"><h1>Hash Pay Footer</h1></footer>
-            </section>
-            <!-- end second page -->
         </div>
     </body>
 </html>

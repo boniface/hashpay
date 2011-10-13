@@ -13,6 +13,9 @@
 	<!-- Scans within the base package of the application for @Components to configure as beans -->
 	<!-- @Controller, @Service, @Configuration, etc. -->
     <context:component-scan base-package="zm.hashcode.hashpay.client.mobile" />
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+    
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
 
 	<!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven />
@@ -20,6 +23,11 @@
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources/ directory -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
     
+    <!-- Resolve logical view names to .jsp resources in the /WEB-INF/views directory -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/mobile/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
     
 </beans>
 

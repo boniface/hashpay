@@ -28,6 +28,7 @@ public class Users implements Serializable, Person {
     private Long id;
     private String username;
     private String password;
+    private String temporaryToken;
     private boolean enabled;
     @Embedded
     private Name name = new Name();
@@ -134,5 +135,19 @@ public class Users implements Serializable, Person {
      */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    /**
+     * @return the temporaryToken
+     */
+    public String getTemporaryToken() {
+        return temporaryToken;
+    }
+
+    /**
+     * @param temporaryToken the temporaryToken to set
+     */
+    public void setTemporaryToken(String temporaryToken) {
+        this.temporaryToken = temporaryToken;
     }
 }

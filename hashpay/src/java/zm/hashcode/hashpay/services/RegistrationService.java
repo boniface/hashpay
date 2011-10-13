@@ -9,8 +9,12 @@ package zm.hashcode.hashpay.services;
  * @author boniface
  */
 public interface RegistrationService {
-    public void registerUser(String email, String password, String confirm);
-    public void forgotPassowrd(String email);
-    
-    
+
+    public String registerUser(String email, String password, String confirm);
+
+    public String forgotPassowrd(String email);
+
+    public String activateAccount(String token, Long id);
+
+    public  String resetPassword(String token,Long id);
 }
