@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import zm.hashcode.hashpay.infrastructure.factories.market.MarketFactory;
 import zm.hashcode.hashpay.model.accounts.AccountNumber;
-import zm.hashcode.hashpay.model.market.Product;
+import zm.hashcode.hashpay.model.market.ProductOld;
 import zm.hashcode.hashpay.repository.jpa.MerchantDAO;
 import zm.hashcode.hashpay.repository.jpa.ProductDAO;
 import zm.hashcode.hashpay.services.MerchantService;
@@ -42,14 +42,14 @@ public class MerchantServiceImpl implements MerchantService{
      }
 
     @Override
-    public Product removeProduct(String ProductDescritpion) {
-        Product product = new MarketFactory().removeProduct(ProductDescritpion);
+    public ProductOld removeProduct(String ProductDescritpion) {
+        ProductOld product = new MarketFactory().removeProduct(ProductDescritpion);
         return product;   
     }
 
     @Override
-    public List<Product> listallProductsPublished() {
-      Product product= new Product();// create object for product
+    public List<ProductOld> listallProductsPublished() {
+      ProductOld product= new ProductOld();// create object for product
        return productDAO.getEntitiesByProperName("productDescription",product.getProductDescription().toString());
     }
 

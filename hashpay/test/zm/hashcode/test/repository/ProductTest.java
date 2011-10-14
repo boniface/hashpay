@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import zm.hashcode.hashpay.infrastructure.factories.market.MarketFactory;
-import zm.hashcode.hashpay.model.market.Product;
+import zm.hashcode.hashpay.model.market.ProductOld;
 import zm.hashcode.hashpay.repository.jpa.ProductDAO;
 import junit.framework.Assert;
 import org.junit.Ignore;
@@ -53,7 +53,7 @@ public class ProductTest {
      @Test
     public void createAccount() {
         productDAO = (ProductDAO) ctx.getBean("productDAO");
-        Product product = new MarketFactory().createProduct("Air-time","Static", BigDecimal.valueOf(5400),"80", "52424127171020");
+        ProductOld product = new MarketFactory().createProduct("Air-time","Static", BigDecimal.valueOf(5400),"80", "52424127171020");
         //productDAO.persist(product);
         productId = product.getId();
         Assert.assertNotNull(product.getId());
@@ -63,7 +63,7 @@ public class ProductTest {
   @Test
     public void testRead() {
          productDAO = (ProductDAO) ctx.getBean("productDAO");
-         Product product = productDAO.find(productId);
+         ProductOld product = productDAO.find(productId);
          Assert.assertEquals("Air-time", product.getProductDescription());
   }
   
@@ -71,10 +71,10 @@ public class ProductTest {
     @Test
     public void testUpdate() {
        productDAO = (ProductDAO) ctx.getBean("productDAO"); 
-       Product product = productDAO.find(productId);
+       ProductOld product = productDAO.find(productId);
        product.setProductPrice(BigDecimal.valueOf(10.00));
        productDAO.merge(product);
-       Product product2 = productDAO.find(productId);
+       ProductOld product2 = productDAO.find(productId);
        Assert.assertEquals(BigDecimal.valueOf(10.00),product.getProductPrice());          
     }
 
@@ -88,23 +88,23 @@ public class ProductTest {
     @Test
     public void testList() {
      productDAO = (ProductDAO) ctx.getBean("productDAO"); 
-     List<Product> product = productDAO.findAll();
+     List<ProductOld> product = productDAO.findAll();
      Assert.assertTrue(product.size() > 0);
     }
 
     @Test
     public void testtGetByParamater() {
     productDAO = (ProductDAO) ctx.getBean("productDAO"); 
-    Product product = productDAO.getByPropertyName("productDescription", "Air-time");
+    ProductOld product = productDAO.getByPropertyName("productDescription", "Air-time");
     Assert.assertEquals("Air-time",product.getProductDescription());
   }
 
      @Ignore
     public void testDelete() {
         productDAO = (ProductDAO) ctx.getBean("productDAO");
-        Product product = productDAO.find(productId);
+        ProductOld product = productDAO.find(productId);
         productDAO.remove(product);
-        Product product2 = productDAO.find(productId);
+        ProductOld product2 = productDAO.find(productId);
         Assert.assertNull(product2);   
           
     }

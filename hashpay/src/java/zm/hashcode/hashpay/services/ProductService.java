@@ -4,7 +4,7 @@
  */
 package zm.hashcode.hashpay.services;
 import java.math.BigDecimal;
-import zm.hashcode.hashpay.model.market.Product;
+import zm.hashcode.hashpay.model.market.ProductOld;
 
 /**
  *
@@ -13,6 +13,6 @@ import zm.hashcode.hashpay.model.market.Product;
 public interface ProductService {
     
      public void createProduct(String Descrtn, BigDecimal pValue,String qyt,String token);
-     public Product validated_product(String Description,String productType);
+     public ProductOld validated_product(String Description,String productType);
       
 }

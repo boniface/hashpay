@@ -5,7 +5,7 @@
 package zm.hashcode.hashpay.repository.jpa.Impl;
 
 import java.util.List;
-import zm.hashcode.hashpay.model.market.Product;
+import zm.hashcode.hashpay.model.market.ProductOld;
 import zm.hashcode.hashpay.repository.jpa.ProductDAO;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,34 +24,34 @@ public class ProductDAOJPAImpl  implements ProductDAO{
     private EntityManager em;
     
     @Override
-    public Product find(Long id) {
-        return em.find(Product.class, id);
+    public ProductOld find(Long id) {
+        return em.find(ProductOld.class, id);
     }
 
     @Override
-    public void persist(Product entity) {
+    public void persist(ProductOld entity) {
          em.persist(entity);
     }
 
     @Override
-    public void merge(Product entity) {
+    public void merge(ProductOld entity) {
         em.merge(entity);
     }
 
     @Override
-    public void remove(Product entity) {
-          Product prd = em.find(Product.class, entity.getId());
+    public void remove(ProductOld entity) {
+          ProductOld prd = em.find(ProductOld.class, entity.getId());
            em.remove(prd);
     }
 
     @Override
-    public List<Product> findAll() {
-        return (List<Product>) em.createQuery("select p from Product p").getResultList();
+    public List<ProductOld> findAll() {
+        return (List<ProductOld>) em.createQuery("select p from Product p").getResultList();
     }
 
     @Override
-    public List<Product> findInRange(int firstResult, int maxResults) {
-        return (List<Product>) em.createQuery("select p from Product p").setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+    public List<ProductOld> findInRange(int firstResult, int maxResults) {
+        return (List<ProductOld>) em.createQuery("select p from Product p").setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
     @Override
@@ -60,14 +60,14 @@ public class ProductDAOJPAImpl  implements ProductDAO{
     }
 
     @Override
-    public Product getByPropertyName(String name, String value) {
-         List<Product> list = em.createQuery("select p from Product p where p." + name + "=?1").setParameter(1, value).getResultList();
+    public ProductOld getByPropertyName(String name, String value) {
+         List<ProductOld> list = em.createQuery("select p from Product p where p." + name + "=?1").setParameter(1, value).getResultList();
          return (list.isEmpty()) ? null : list.get(0);
     }
 
     @Override
-    public List<Product> getEntitiesByProperName(String name, String value) {
-       List<Product> list = em.createQuery("select p from Product p where p." + name + "=?1").setParameter(1, value).getResultList();
+    public List<ProductOld> getEntitiesByProperName(String name, String value) {
+       List<ProductOld> list = em.createQuery("select p from Product p where p." + name + "=?1").setParameter(1, value).getResultList();
        return list;
     }
     

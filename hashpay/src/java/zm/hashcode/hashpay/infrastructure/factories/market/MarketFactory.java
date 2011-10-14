@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContext;
 import zm.hashcode.hashpay.infrastructure.conf.GetContext;
 import zm.hashcode.hashpay.model.accounts.AccountNumber;
 import zm.hashcode.hashpay.model.market.Merchant;
-import zm.hashcode.hashpay.model.market.Product;
+import zm.hashcode.hashpay.model.market.ProductOld;
 import zm.hashcode.hashpay.repository.jpa.MerchantDAO;
 import zm.hashcode.hashpay.repository.jpa.ProductDAO;
 import zm.hashcode.hashpay.services.ProductService;
@@ -27,9 +27,9 @@ public class MarketFactory {
        private MerchantDAO merchantDAO;
        ApplicationContext ctx = GetContext.getApplicationContext();
 
-    public Product createProduct(String Description,String productType, BigDecimal productPrice,String qty,String code) {
+    public ProductOld createProduct(String Description,String productType, BigDecimal productPrice,String qty,String code) {
           productDAO = (ProductDAO) ctx.getBean("productDAO");  
-          Product product = new Product.Builder(Description,productType,new BigDecimal("0.00")).
+          ProductOld product = new ProductOld.Builder(Description,productType,new BigDecimal("0.00")).
                     BalanceOnHand(qty).
                     code(code).build();   
               productDAO.persist(product);
@@ -46,9 +46,9 @@ public class MarketFactory {
            return merchant;
         } 
       
-    public Product removeProduct(String productDescription){
+    public ProductOld removeProduct(String productDescription){
              productDAO = (ProductDAO) ctx.getBean("productDAO");
-             Product product = productDAO.getByPropertyName("productDescription", productDescription);
+             ProductOld product = productDAO.getByPropertyName("productDescription", productDescription);
              productDAO.remove(product);
              return product;
          }

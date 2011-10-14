@@ -34,7 +34,7 @@ public class Merchant implements Serializable {
     private String password;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "merchant_id")
-    private List<Product>  product = new ArrayList<Product>();
+    private List<ProductOld>  product = new ArrayList<ProductOld>();
     @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
     private AccountNumber accountNumber;
@@ -121,7 +121,7 @@ public class Merchant implements Serializable {
     /**
      * @return the product
      */
-    public List<Product> getProduct() {
+    public List<ProductOld> getProduct() {
         return product;
     }
 

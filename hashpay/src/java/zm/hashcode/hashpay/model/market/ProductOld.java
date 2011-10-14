@@ -16,7 +16,7 @@ import javax.persistence.Id;
  * @author Thozamile Sikwata
  */
 @Entity
-public class Product implements Serializable {
+public class ProductOld implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,10 +49,10 @@ public class Product implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Product)) {
+        if (!(object instanceof ProductOld)) {
             return false;
         }
-        Product other = (Product) object;
+        ProductOld other = (ProductOld) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -189,14 +189,14 @@ public class Product implements Serializable {
           return this;       
        }   
     
-    public Product build() {
-       return  new Product(this);
+    public ProductOld build() {
+       return  new ProductOld(this);
     }
    }
     
-      public Product() {
+      public ProductOld() {
       }
-      public Product(Builder builder) {
+      public ProductOld(Builder builder) {
         this.productDescription=builder.productDescription;
         this.productPrice=builder.productPrice;
         this.productType=builder.productType;
