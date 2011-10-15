@@ -6,7 +6,6 @@ package zm.hashcode.hashpay.services.Impl;
 
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import zm.hashcode.hashpay.infrastructure.exceptions.InsufficientBalanceExceptio
 import zm.hashcode.hashpay.infrastructure.factories.account.AccountFactory;
 import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.accounts.AccountEntry;
-import zm.hashcode.hashpay.model.accounts.AccountNumber;
 import zm.hashcode.hashpay.repository.jpa.AccountDAO;
 import zm.hashcode.hashpay.repository.jpa.AccountEntryDAO;
 import zm.hashcode.hashpay.repository.jpa.AccountNumberDAO;
@@ -43,7 +41,6 @@ public class AccountEntriesServiceImpl implements AccountEntriesService{
     public BigDecimal getBalance(AccountEntry accountEntry, Account account) {
         AccountEntry v = dao.getByPropertyName("Balance", accountEntry.getBalance().toString());
         return v.getBalance();
-        
     }
 
     /**

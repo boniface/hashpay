@@ -6,6 +6,7 @@ package zm.hashcode.hashpay.services;
 
 import java.math.BigDecimal;
 import java.util.List;
+import zm.hashcode.hashpay.infrastructure.exceptions.InsufficientBalanceException;
 import zm.hashcode.hashpay.infrastructure.exceptions.InvalidVoucherException;
 import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.vouchers.CurrencyType;
@@ -17,9 +18,9 @@ import zm.hashcode.hashpay.model.vouchers.Voucher;
  */
 public interface VoucherService {
 
-    public Voucher buyVoucher(String username);
+    public Voucher buyVoucher(Account accNumber, Voucher voucher)throws InsufficientBalanceException ;
 
-    public Voucher processVoucher(String hash, String code, String account) throws InvalidVoucherException;
+    public Voucher processVoucher(String hash, String code, Account account) throws InvalidVoucherException;
 
     public List<Voucher> getExpiredVouchers();
 
@@ -27,5 +28,4 @@ public interface VoucherService {
     
     public void createVoucher(BigDecimal amount, CurrencyType currency);
     
-    //Add method to deal woith erro in Factiory 
 }

@@ -62,11 +62,12 @@ public class AccountServicesTest {
         accou = service.createAccount("DeActive", "ZMB", "Lance");
         Assert.assertNotNull(service);
     }
-    @Ignore
+    @Test
     public void testCreditAccount() {
         AccountEntriesService services = (AccountEntriesService) ctx.getBean("accountEntriesService");
         service = (AccountService) ctx.getBean("accountService");
-        services.creditAccount(accou, BigDecimal.valueOf(200.00), "321654", "RSA");
+        Account ac = service.findAccount("9");
+        services.creditAccount(ac, BigDecimal.valueOf(200.00), "321654", "RSA");
     }
     
     @Ignore

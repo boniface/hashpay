@@ -78,7 +78,7 @@ public class AccountFactory {
                     debitEntry(debit).build();
             acc.setBalance(newbalance);
             accountDAO.merge(acc);
-            accountEntryDAO.merge(debitEntry);
+            accountEntryDAO.persist(debitEntry);
         } else {
             throw new InsufficientBalanceException();
         }
@@ -95,7 +95,7 @@ public class AccountFactory {
                 creditEntry(credit).build();
         acc.setBalance(newbalance);
         accountDAO.merge(acc);
-            accountEntryDAO.merge(creditEntry);
+            accountEntryDAO.persist(creditEntry);
         return creditEntry ;
     }
     public BigDecimal checkBalance(String accountNum)

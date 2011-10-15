@@ -6,18 +6,26 @@
 package zm.hashcode.test.service;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import zm.hashcode.hashpay.infrastructure.exceptions.InsufficientBalanceException;
 import zm.hashcode.hashpay.infrastructure.exceptions.InvalidVoucherException;
+import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.vouchers.CurrencyType;
 import zm.hashcode.hashpay.model.vouchers.Voucher;
+import zm.hashcode.hashpay.repository.jpa.AccountDAO;
+import zm.hashcode.hashpay.repository.jpa.VoucherDAO;
 import zm.hashcode.hashpay.services.VoucherService;
 
 /**
@@ -28,6 +36,9 @@ public class VoucherServicesTest {
     private static ApplicationContext ctx;
     @Autowired
     private VoucherService service;
+    private AccountDAO accountDAO;
+    private static Long voucherId;
+    private VoucherDAO voucherDAO;
 
     public VoucherServicesTest() {
     }
@@ -52,7 +63,7 @@ public class VoucherServicesTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-    @Test
+    @Ignore
     public void createVoucher() {
          service = (VoucherService) ctx.getBean("voucherService");
          service.createVoucher(new BigDecimal("2000.00"), CurrencyType.ZMK);
@@ -61,18 +72,29 @@ public class VoucherServicesTest {
     @Test
     public void sellVoucher(){
         service = (VoucherService) ctx.getBean("voucherService");
-//        Voucher voucher = service.buyVoucher();
-//        String status = voucher.getVoucherStatus().toString();
-//        Assert.assertEquals("SOLD", status);   
+        voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
+        accountDAO = (AccountDAO)ctx.getBean("accountDAO");
+
+        Voucher voucher = voucherDAO.find(Long.valueOf("129"));
+        Account account = accountDAO.find(new Long("123"));
+        
+        try {
+            voucher = service.buyVoucher(account,voucher);
+        } catch (InsufficientBalanceException ex) {
+            Logger.getLogger(VoucherServicesTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Assert.assertNotNull(voucher);
     }
-    @Test
+    @Ignore
     public void claimVoucher() throws InvalidVoucherException{
         service = (VoucherService) ctx.getBean("voucherService");
-       // Voucher voucher = service.processVoucher("1fdf996b088c448a", "9e72ec55ac6bb8eb", Account Number);
-    //    String status = voucher.getVoucherStatus().CLAIMED.toString();
-     //   Assert.assertEquals("CLAIMED", status);
+        accountDAO = (AccountDAO)ctx.getBean("accountDAO");
+        Account account = accountDAO.find(new Long("123"));
+       Voucher voucher = service.processVoucher("e8ad1f7dc8f34bc4", "a4cd3622b619fb59", account);
+         String status = voucher.getVoucherStatus().CLAIMED.toString();
+       Assert.assertEquals("CLAIMED", status);
     }
-    @Test
+    @Ignore
     public void createBulkVouchers(){
         service = (VoucherService) ctx.getBean("voucherService");
         service.createVouchers(new BigDecimal("150.95"), CurrencyType.ZMK, 10);
