@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 package zm.hashcode.hashpay.model.market.Product;
+import javax.persistence.OneToOne;
 import zm.hashcode.hashpay.model.market.product.EnumTokenType;
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -25,11 +26,13 @@ public class Token implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-   // @Enumerated(EnumType.STRING)  
-   // private EnumTokenType eTokenType;
-   
+    @Enumerated(EnumType.STRING)  
+    private EnumTokenType eTokenType;
+    @OneToOne
+    private DynamicToken dynamicToken;
+    @OneToOne
     private StaticToken staticToken;
-    private String Token;
+   
     
 
     public Long getId() {
@@ -40,25 +43,30 @@ public class Token implements Serializable {
         this.id = id;
     }
     
-    public String getToken(Long id,EnumTokenType tokenType){
-        
-     /*  if(tokenType != null){
-        if(tokenType == eTokenType.DYNAMIC.toString())
-        {
-    //        this.dynamicToken = new DynamicToken();
-     //       this.dynamicToken.setId(id);
-     //       this.Token = this.dynamicToken.toString();
-            return Token;
-            
-        }
-        else if (tokenType == eTokenType.STATIC.toString())
-        {
-            this.Token = new StaticToken().getExternalToken();
-            return Token;
-        }
-       }*/
-       return "Token requested is invalid";
-    }
-  
+//    public String getToken(Long id,EnumTokenType tokenType){
+//        
+//       if(tokenType != null && tokenType == eTokenType.DYNAMIC){
+//       
+//            this.dynamicToken = new DynamicToken();
+//            this.dynamicToken.setId(id);
+//           
+//            return this.dynamicToken;
+//            
+//        }
+//        else if (tokenType != null && tokenType == eTokenType.STATIC)
+//        {
+//            returnStaticToken();
+//        }
+//      
+//       return "Token requested is invalid";
+//    }
+//    
+//   public DynamicToken returnDynamicToken(){
+//      return this.dynamicToken;
+//   }
+//  
+//   public StaticToken returnStaticToken(){
+//       return this.staticToken;
+//   }
     
 }
