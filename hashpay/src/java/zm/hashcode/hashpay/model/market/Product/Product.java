@@ -14,7 +14,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
+import zm.hashcode.hashpay.model.market.product.EnumProductStatus;
 
 /**
  *
@@ -29,9 +32,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    public enum enumProductStatus{
-        AVAILABLE,SOLD,CLAIMED;
-    }
+
  
  private String ProductSerial;
  private String Description; 
@@ -39,8 +40,10 @@ public class Product {
  private Date createDate;
  private BigDecimal unitPrice;
  @Enumerated(EnumType.STRING)  
- private enumProductStatus productStatus;
-
+ private EnumProductStatus productStatus;
+  @OneToOne(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+  @JoinColumn(name = "token_id")
+  private Token token;
     public Long getId() {
         return id;
     }
