@@ -18,9 +18,7 @@ import javax.persistence.Id;
  */
 @Entity
 public class Token implements Serializable {
-    public enum enumTokenType{
-        DYNAMIC,STATIC;
-    }
+   
     
     private static final long serialVersionUID = 1L;
     @Id
@@ -28,7 +26,7 @@ public class Token implements Serializable {
     private Long id;
     
     @Enumerated(EnumType.STRING)  
-    private enumTokenType eTokenType;
+    private EnumTokenType eTokenType;
     private DynamicToken dynamicToken;
     private StaticToken staticToken;
     private String Token;
