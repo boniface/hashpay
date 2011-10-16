@@ -24,16 +24,13 @@ import zm.hashcode.hashpay.model.market.product.EnumProductStatus;
  * @author Peter Phillip
  */
 @Entity
-public class Product {
-    
+public class Product implements Serializable {
     
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
- 
  private String ProductSerial;
  private String Description; 
  @Temporal(javax.persistence.TemporalType.DATE)
@@ -44,6 +41,7 @@ public class Product {
   @OneToOne(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
   @JoinColumn(name = "token_id")
   private Token token;
+  
     public Long getId() {
         return id;
     }
