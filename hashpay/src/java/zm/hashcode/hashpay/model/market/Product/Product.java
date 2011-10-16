@@ -18,7 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import zm.hashcode.hashpay.model.market.product.EnumProductStatus;
-
+import zm.hashcode.hashpay.model.market.product.EnumTokenType;
 /**
  *
  * @author Peter Phillip
@@ -36,8 +36,13 @@ public class Product implements Serializable {
  @Temporal(javax.persistence.TemporalType.DATE)
  private Date createDate;
  private BigDecimal unitPrice;
+ 
  @Enumerated(EnumType.STRING)  
  private EnumProductStatus productStatus;
+ 
+ @Enumerated(EnumType.STRING) 
+  private EnumTokenType eTokenType;
+ 
   @OneToOne(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
   @JoinColumn(name = "token_id")
   private Token token;
