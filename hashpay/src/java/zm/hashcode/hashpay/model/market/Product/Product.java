@@ -17,7 +17,6 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 
 /**
- *
  * @author Peter Phillip
  */
 @Entity
@@ -29,9 +28,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    public enum enumProductStatus{
-        AVAILABLE,SOLD,CLAIMED;
-    }
+
  
  private String ProductSerial;
  private String Description; 
@@ -39,7 +36,7 @@ public class Product {
  private Date createDate;
  private BigDecimal unitPrice;
  @Enumerated(EnumType.STRING)  
- private enumProductStatus productStatus;
+ private EnumProductStatus productStatus;
 
     public Long getId() {
         return id;
