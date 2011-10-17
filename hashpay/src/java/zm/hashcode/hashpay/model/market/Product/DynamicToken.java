@@ -15,7 +15,7 @@ import javax.persistence.Id;
  * @author Peter Phillip
  */
 @Entity
-public class DynamicToken extends Token implements Serializable {
+public class DynamicToken implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

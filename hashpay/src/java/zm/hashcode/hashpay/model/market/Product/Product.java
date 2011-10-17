@@ -26,26 +26,37 @@ import zm.hashcode.hashpay.model.market.product.EnumTokenType;
 @Entity
 public class Product implements Serializable {
     
-    private static final long serialVersionUID = 1L;
+    private static long serialVersionUID = 1L;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public static void setSerialVersionUID(long aSerialVersionUID) {
+        serialVersionUID = aSerialVersionUID;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
- private String ProductSerial;
- private String Description; 
- @Temporal(javax.persistence.TemporalType.DATE)
- private Date createDate;
- private BigDecimal unitPrice;
- 
- @Enumerated(EnumType.STRING)  
- private EnumProductStatus productStatus;
- 
- @Enumerated(EnumType.STRING) 
-  private EnumTokenType eTokenType;
- 
-  @OneToOne(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
-  @JoinColumn(name = "token_id")
-  private Token token;
+    private String ProductSerialNumber;
+    
+    private String Description; 
+    
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date createDate;
+    
+    private BigDecimal unitPrice;
+
+    @Enumerated(EnumType.STRING)  
+    private EnumProductStatus productStatus;
+
+    @Enumerated(EnumType.STRING) 
+    private EnumTokenType eTokenType;
+
+    @OneToOne(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @JoinColumn(name = "token_id")
+    private Token token;
   
     public Long getId() {
         return id;
@@ -53,6 +64,54 @@ public class Product implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getProductSerialNumber() {
+        return ProductSerialNumber;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String Description) {
+        this.Description = Description;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public EnumProductStatus getProductStatus() {
+        return productStatus;
+    }
+
+    public void setProductStatus(EnumProductStatus productStatus) {
+        this.productStatus = productStatus;
+    }
+
+    public EnumTokenType geteTokenType() {
+        return eTokenType;
+    }
+
+    public void seteTokenType(EnumTokenType eTokenType) {
+        this.eTokenType = eTokenType;
+    }
+
+    public Token getToken() {
+        return token;
     }
     
     
