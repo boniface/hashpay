@@ -8,10 +8,12 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import zm.hashcode.hashpay.services.RegistrationService;
 
 /**
  *
@@ -20,6 +22,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class RegistrationServicesTest {
 
     private static ApplicationContext ctx;
+    @Autowired
+    private RegistrationService service;
 
     @Autowired
     public RegistrationServicesTest() {
@@ -47,25 +51,27 @@ public class RegistrationServicesTest {
     //
     @Test
     public void createNewProfile() {
+        service = (RegistrationService) ctx.getBean("registrationService");
+        service.registerUser("shanevdbroek@gmail.com", "password", "password");
     }
 
-    @Test
+    @Ignore
     public void activateProfile() {
     }
 
-    @Test
+    @Ignore
     public void testChangePassowrd() {
     }
 
-    @Test
+    @Ignore
     public void testAddMoneyToAccount() {
     }
 
-    @Test
+    @Ignore
     public void testTestUpdateProfile() {
     }
 
-    @Test
+    @Ignore
     public void testPurchaseAservice() {
     }
 }

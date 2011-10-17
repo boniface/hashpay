@@ -62,11 +62,11 @@ public class AccountServicesTest {
         accou = service.createAccount("DeActive", "ZMB", "Lance");
         Assert.assertNotNull(service);
     }
-    @Test
+    @Ignore
     public void testCreditAccount() {
         AccountEntriesService services = (AccountEntriesService) ctx.getBean("accountEntriesService");
         service = (AccountService) ctx.getBean("accountService");
-        Account ac = service.findAccount("9");
+        Account ac = service.findAccount("49");
         services.creditAccount(ac, BigDecimal.valueOf(200.00), "321654", "RSA");
     }
     
@@ -89,11 +89,11 @@ public class AccountServicesTest {
         service.setAccountStatus("Deactive", accou.getAccountNumber().toString());
     }
 
-    @Ignore
+    @Test
     public void testDebitAccount() {
        AccountEntriesService services = (AccountEntriesService) ctx.getBean("accountEntriesService");
         service = (AccountService) ctx.getBean("accountService");
-        Account acc = service.findAccount("48");
+        Account acc = service.findAccount("44");
         services.CreateDebitAccountEntry(acc, BigDecimal.valueOf(50.00), "321654", "RSA");
     }
 

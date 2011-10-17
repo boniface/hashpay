@@ -78,6 +78,7 @@ public class AccountFactory {
                     debitEntry(debit).build();
             acc.setBalance(newbalance);
             accountDAO.merge(acc);
+            long f = debitEntry.getId();
             accountEntryDAO.persist(debitEntry);
         } else {
             throw new InsufficientBalanceException();

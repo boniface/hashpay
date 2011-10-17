@@ -4,8 +4,18 @@
  */
 package zm.hashcode.hashpay.services.Impl;
 
+import com.sun.xml.internal.org.jvnet.mimepull.MIMEMessage;
+import java.util.Date;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
+import zm.hashcode.hashpay.infrastructure.util.authentication.PasswordEncrypt;
 import zm.hashcode.hashpay.model.people.Users;
 import zm.hashcode.hashpay.repository.jpa.UsersDAO;
 import zm.hashcode.hashpay.services.RegistrationService;
@@ -32,6 +42,24 @@ public class RegistrationServiceImpl implements RegistrationService {
             //Persists
             // hashpay/register?id="12344"&token="qwerty"
             // Send Email Link with Token
+            Users user = new Users();
+            user.setUsername(email);
+            user.setEnabled(false);
+            String encryptedPassword = PasswordEncrypt.encrypt(password);
+            user.setPassword(encryptedPassword);
+            usersDAO.persist(user);
+            
+            Users s = usersDAO.getByPropertyName("username", email);
+            
+            String body = "Hi User\n "
+                    + "Account Details:\n"
+                    + "\tUserName:" + s.getUsername() + "\n\n"
+                    + "Please follow the link to activate your account:\n\n"
+                    + "http://www.hashpay/register.com?id="+s.getId()+"&token="+s.getTemporaryToken()+"\n\n"
+                    + "Kind Regards\n"
+                    + "Hashpay Team";
+            sendingEmail(s, "Registration to Hashpay", body);
+            
 
             return "Your Has been Created ";
 
@@ -46,6 +74,15 @@ public class RegistrationServiceImpl implements RegistrationService {
             //add token user
             //merge
             //e-mail the User Link with userId & Token
+            user.setTemporaryToken("");
+            usersDAO.merge(user);
+            
+            String body = "Hi\n Please follow the link to reset your password:\n"
+                    + "hashpay/register?id="+user.getId()+"&token="+user.getTemporaryToken()+"\n"
+                    + "Kind Regards"
+                    + "Hashpay Team";
+            sendingEmail(user,"Forgot Password - Hashpay", body);
+            
             return "check for instructions";
 
 
@@ -75,6 +112,29 @@ public class RegistrationServiceImpl implements RegistrationService {
         //
         
         return "";
+    }
+    
+    private void sendingEmail(Users user, String subject, String body) {
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "mail.maxxor.com");
+        props.put("mail.from", "no-reply@hashpay.com");
+        
+        Session sessions = Session.getInstance(props, null);
+        
+        try{
+            MimeMessage msg = new MimeMessage(sessions);
+            msg.setFrom();
+            msg.setRecipients(Message.RecipientType.TO,
+                             user.getUsername());
+            msg.setSubject(subject);
+            msg.setSentDate(new Date());
+            msg.setText(body);
+            Transport.send(msg);
+            
+        }catch(MessagingException mex)
+        {
+            System.out.println("send failed, exception: " + mex);
+        }
     }
 
     public UsersDAO getUsersDAO() {
