@@ -21,7 +21,15 @@ import javax.persistence.Id;
 public class Token implements Serializable {
    
     
-    private static final long serialVersionUID = 1L;
+    private static long serialVersionUID = 1L;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public static void setSerialVersionUID(long aSerialVersionUID) {
+        serialVersionUID = aSerialVersionUID;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -68,5 +76,29 @@ public class Token implements Serializable {
 //   public StaticToken returnStaticToken(){
 //       return this.staticToken;
 //   }
+
+    public EnumTokenType geteTokenType() {
+        return eTokenType;
+    }
+
+    public void seteTokenType(EnumTokenType eTokenType) {
+        this.eTokenType = eTokenType;
+    }
+
+    public DynamicToken getDynamicToken() {
+        return dynamicToken;
+    }
+
+    public void setDynamicToken(DynamicToken dynamicToken) {
+        this.dynamicToken = dynamicToken;
+    }
+
+    public StaticToken getStaticToken() {
+        return staticToken;
+    }
+
+    public void setStaticToken(StaticToken staticToken) {
+        this.staticToken = staticToken;
+    }
     
 }
