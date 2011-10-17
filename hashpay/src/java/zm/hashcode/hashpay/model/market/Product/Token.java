@@ -20,16 +20,14 @@ import javax.persistence.Id;
 @Entity
 public class Token implements Serializable {
    
-    
-    private static long serialVersionUID = 1L;
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public Token(){
+        
     }
-
-    public static void setSerialVersionUID(long aSerialVersionUID) {
-        serialVersionUID = aSerialVersionUID;
+    public Token(Builder builder){
+        this.eTokenType = builder.getClaimType();
+        this.dynamicToken = new DynamicToken();
     }
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -40,8 +38,6 @@ public class Token implements Serializable {
     private DynamicToken dynamicToken;
     @OneToOne
     private StaticToken staticToken;
-   
-    
 
     public Long getId() {
         return id;
@@ -50,6 +46,55 @@ public class Token implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+
+    public EnumTokenType geteTokenType() {
+        return eTokenType;
+    }
+
+    public void seteTokenType(EnumTokenType eTokenType) {
+        this.eTokenType = eTokenType;
+    }
+
+    public DynamicToken getDynamicToken() {
+        return dynamicToken;
+    }
+
+    public StaticToken getStaticToken() {
+        return staticToken;
+    }
+
+    public static class Builder {
+   
+    private EnumTokenType eTokenType;
+    private DynamicToken dynamicToken;
+    private StaticToken staticToken;
+    
+    public Builder(EnumTokenType eType)
+    {
+            this.eTokenType = eType;
+    }
+    
+    public Builder eTokenType(EnumTokenType etype) {
+            this.setClaimType(etype);
+            return this;
+        }
+    
+      public void setClaimType(EnumTokenType eType) {
+            this.eTokenType = eType;
+        }   
+    
+      public EnumTokenType getClaimType() {
+            return eTokenType;
+        }
+      
+      public Token build(){
+            return new Token(this);
+        }
+    }
+    
+}
+
     
 //    public String getToken(Long id,EnumTokenType tokenType){
 //        
@@ -76,29 +121,3 @@ public class Token implements Serializable {
 //   public StaticToken returnStaticToken(){
 //       return this.staticToken;
 //   }
-
-    public EnumTokenType geteTokenType() {
-        return eTokenType;
-    }
-
-    public void seteTokenType(EnumTokenType eTokenType) {
-        this.eTokenType = eTokenType;
-    }
-
-    public DynamicToken getDynamicToken() {
-        return dynamicToken;
-    }
-
-    public void setDynamicToken(DynamicToken dynamicToken) {
-        this.dynamicToken = dynamicToken;
-    }
-
-    public StaticToken getStaticToken() {
-        return staticToken;
-    }
-
-    public void setStaticToken(StaticToken staticToken) {
-        this.staticToken = staticToken;
-    }
-    
-}
