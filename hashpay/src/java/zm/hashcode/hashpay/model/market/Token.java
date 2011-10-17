@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package zm.hashcode.hashpay.model.market.Product;
+package zm.hashcode.hashpay.model.market;
 import javax.persistence.OneToOne;
-import zm.hashcode.hashpay.model.market.product.EnumTokenType;
+import zm.hashcode.hashpay.model.market.EnumTokenType;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

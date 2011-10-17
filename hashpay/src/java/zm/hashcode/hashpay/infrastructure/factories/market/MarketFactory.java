@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContext;
 import zm.hashcode.hashpay.infrastructure.conf.GetContext;
 import zm.hashcode.hashpay.model.accounts.AccountNumber;
 import zm.hashcode.hashpay.model.market.Merchant;
-import zm.hashcode.hashpay.model.market.ProductOld;
+import zm.hashcode.hashpay.model.market.Product;
 import zm.hashcode.hashpay.repository.jpa.MerchantDAO;
 import zm.hashcode.hashpay.repository.jpa.ProductDAO;
 import zm.hashcode.hashpay.services.ProductService;
@@ -27,15 +27,15 @@ public class MarketFactory {
        private MerchantDAO merchantDAO;
        ApplicationContext ctx = GetContext.getApplicationContext();
 
-    public ProductOld createProduct(String Description,String productType, BigDecimal productPrice,String qty,String code) {
+    /*public Product createProduct(String Description,String productType, BigDecimal productPrice,String qty,String code) {
           productDAO = (ProductDAO) ctx.getBean("productDAO");  
-          ProductOld product = new ProductOld.Builder(Description,productType,new BigDecimal("0.00")).
+          Product product = new Product//.Builder(Description,productType,new BigDecimal("0.00")).
                     BalanceOnHand(qty).
                     code(code).build();   
               productDAO.persist(product);
                return product;
                   
-      }      
+      }   */   
    
     public Merchant createAccount(String Username,String emailAddres,AccountNumber ac, String password){
           merchantDAO = (MerchantDAO) ctx.getBean("merchantDAO");  
@@ -46,22 +46,13 @@ public class MarketFactory {
            return merchant;
         } 
       
-    public ProductOld removeProduct(String productDescription){
-             productDAO = (ProductDAO) ctx.getBean("productDAO");
-             ProductOld product = productDAO.getByPropertyName("productDescription", productDescription);
+    /*public Product removeProduct(String productDescription){
+             product = (ProductDAO) ctx.getBean("productDAO");
+             Product product = productDAO.getByPropertyName("productDescription", productDescription);
              productDAO.remove(product);
              return product;
-         }
+         }*/
 
-  
-
-
-      
-      
-      
-   
-  
-  
   }
 
     

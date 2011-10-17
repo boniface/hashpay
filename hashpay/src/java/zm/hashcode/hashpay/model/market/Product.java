@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package zm.hashcode.hashpay.model.market.Product;
+package zm.hashcode.hashpay.model.market;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -17,8 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
-import zm.hashcode.hashpay.model.market.product.EnumProductStatus;
-import zm.hashcode.hashpay.model.market.product.EnumTokenType;
+import zm.hashcode.hashpay.model.market.EnumProductStatus;
+import zm.hashcode.hashpay.model.market.EnumTokenType;
 /**
  *
  * @author Peter Phillip

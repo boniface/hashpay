@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package zm.hashcode.hashpay.model.market.Product;
+package zm.hashcode.hashpay.model.market;
 
 import java.io.Serializable;
 import javax.persistence.Entity;

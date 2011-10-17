@@ -35,24 +35,24 @@ public class MerchantServiceImpl implements MerchantService{
          merchant.createAccount(userName, emailAddres,accountN, passW);
     }
     // method to create product for the merchant
-    @Override
+    /*@Override
     public void addProduct(String productDescrption,String productType, BigDecimal productPrice, String qty, String code) {
         MarketFactory product = new MarketFactory(); 
         product.createProduct(productDescrption,productType, productPrice, qty, code);
-     }
-
+     }*/
+/*
     @Override
     public ProductOld removeProduct(String ProductDescritpion) {
         ProductOld product = new MarketFactory().removeProduct(ProductDescritpion);
         return product;   
     }
-
-    @Override
+*/
+   /* @Override
     public List<ProductOld> listallProductsPublished() {
       ProductOld product= new ProductOld();// create object for product
        return productDAO.getEntitiesByProperName("productDescription",product.getProductDescription().toString());
     }
-
+*/
     /**
      * @return the merchantDAO
      */

@@ -38,7 +38,7 @@ public class ProductServiceJPAImpl{
 
     public void createProduct(String Descrtn, String productType,BigDecimal price, String qyt, String token) {
         MarketFactory p = new MarketFactory();
-        p.createProduct(Descrtn, productType,price,qyt,token);
+        //p.createProduct(Descrtn, productType,price,qyt,token);
     }
 
     

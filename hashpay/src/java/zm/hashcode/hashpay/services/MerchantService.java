@@ -7,7 +7,7 @@ package zm.hashcode.hashpay.services;
 import java.math.BigDecimal;
 import java.util.List;
 import zm.hashcode.hashpay.model.accounts.AccountNumber;
-import zm.hashcode.hashpay.model.market.Merchant;
+//import zm.hashcode.hashpay.model.market.Merchant;
 import zm.hashcode.hashpay.model.market.ProductOld;
 
 /**
@@ -18,8 +18,8 @@ public interface MerchantService {
     
 
     public void requestToRegister(String userName,String emailAddres,AccountNumber accountNumber,String password);  
-    public void addProduct(String productDescrption,String productType,BigDecimal productPrice,String qty,String code);
-    public List<ProductOld> listallProductsPublished();
-    public ProductOld removeProduct(String ProductDescritpion);
+   // public void addProduct(String productDescrption,String productType,BigDecimal productPrice,String qty,String code);
+   // public List<ProductOld> listallProductsPublished();
+   // public ProductOld removeProduct(String ProductDescritpion);
        
 }

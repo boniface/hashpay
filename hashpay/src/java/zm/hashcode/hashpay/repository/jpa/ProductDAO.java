@@ -4,13 +4,14 @@
  */
 package zm.hashcode.hashpay.repository.jpa;
 
-import zm.hashcode.hashpay.model.market.ProductOld;
+import zm.hashcode.hashpay.model.market.Product;
+
 import zm.hashcode.hashpay.repository.DAO;
 
 /**
  *
- * @author 209042869
+ * @author Peter Phillip
  */
-public interface ProductDAO  extends DAO<ProductOld, Long> {
+public interface ProductDAO  extends DAO<Product, Long> {
     
 }

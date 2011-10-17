@@ -18,7 +18,7 @@ import zm.hashcode.hashpay.services.MerchantService;
 import junit.framework.Assert;
 import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.accounts.AccountNumber;
-import zm.hashcode.hashpay.model.market.ProductOld;
+import zm.hashcode.hashpay.model.market.Product;
 import zm.hashcode.hashpay.repository.jpa.ProductDAO;
 import zm.hashcode.hashpay.services.AccountEntriesService;
 import zm.hashcode.hashpay.services.AccountService;
@@ -72,15 +72,15 @@ public class MerchantServicesTest {
     @Test
     public void testAddProduct(){
          merchantService = (MerchantService) ctx.getBean("merchantService");
-         merchantService.addProduct("Bus Ticket-Single","Dynamic",BigDecimal.valueOf(400), "2", "2423141622");
+      //   merchantService.addProduct("Bus Ticket-Single","Dynamic",BigDecimal.valueOf(400), "2", "2423141622");
          Assert.assertNotNull(merchantService);
      }
     
     @Test
        public void testRemoveProduct() {
         merchantService = (MerchantService) ctx.getBean("merchantService");
-        merchantService.removeProduct("Bus Ticket-Single");
-       ProductOld product = productDAO.find(productId);
+       // merchantService.removeProduct("Bus Ticket-Single");
+       Product product = productDAO.find(productId);
        Assert.assertNull(merchantService);
         
     }
@@ -88,8 +88,8 @@ public class MerchantServicesTest {
    @Test
    public void testlistProductPublished(){
     merchantService = (MerchantService) ctx.getBean("merchantService");
-    merchantService.listallProductsPublished();
-    List<ProductOld> product = productDAO.findAll();
+   // merchantService.listallProductsPublished();
+    List<Product> product = productDAO.findAll();
     Assert.assertTrue(product.size() > 0);
   }  
    
