@@ -4,7 +4,6 @@
  */
 package zm.hashcode.hashpay.services.Impl;
 
-import com.sun.xml.internal.org.jvnet.mimepull.MIMEMessage;
 import java.util.Date;
 import java.util.Properties;
 import javax.mail.Message;
@@ -13,9 +12,10 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import zm.hashcode.hashpay.infrastructure.util.authentication.PasswordEncrypt;
+import zm.hashcode.hashpay.infrastructure.util.authentication.PasswordGenerator;
+import zm.hashcode.hashpay.infrastructure.util.email.SendEmail;
 import zm.hashcode.hashpay.model.people.Users;
 import zm.hashcode.hashpay.repository.jpa.UsersDAO;
 import zm.hashcode.hashpay.services.RegistrationService;
@@ -32,37 +32,49 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     public String registerUser(String email, String password, String confirm) {
-        if (passwordNotmatching(password, confirm)) {
-            return "Password Does Not Match";
-        } else {
+        Users s = usersDAO.getByPropertyName("username", email);
+        if (s == null)
+        {
+            return "Username already exists";
+        }else{
+            if (passwordNotmatching(password, confirm)) {
+                return "Password Does Not Match";
+            } else {
 
-            // Assign Role
-            //Assign username
-            //Assign Password
-            //Persists
-            // hashpay/register?id="12344"&token="qwerty"
-            // Send Email Link with Token
-            Users user = new Users();
-            user.setUsername(email);
-            user.setEnabled(false);
-            String encryptedPassword = PasswordEncrypt.encrypt(password);
-            user.setPassword(encryptedPassword);
-            usersDAO.persist(user);
-            
-            Users s = usersDAO.getByPropertyName("username", email);
-            
-            String body = "Hi User\n "
-                    + "Account Details:\n"
-                    + "\tUserName:" + s.getUsername() + "\n\n"
-                    + "Please follow the link to activate your account:\n\n"
-                    + "http://www.hashpay/register.com?id="+s.getId()+"&token="+s.getTemporaryToken()+"\n\n"
-                    + "Kind Regards\n"
-                    + "Hashpay Team";
-            sendingEmail(s, "Registration to Hashpay", body);
-            
+                // Assign Role
+                //Assign username
+                //Assign Password
+                //Persists
+                // hashpay/register?id="12344"&token="qwerty"
+                // Send Email Link with Token
+                Users user = new Users();
+                user.setUsername(email);
 
-            return "Your Has been Created ";
+                PasswordGenerator token = new PasswordGenerator();
+                token.generatePassword();
 
+                user.setTemporaryToken(token.getPassword());
+                user.setEnabled(false);
+                String encryptedPassword = PasswordEncrypt.encrypt(password);
+                user.setPassword(encryptedPassword);
+                usersDAO.persist(user);
+
+
+                String body = "Hi User\n "
+                        + "Account Details:\n"
+                        + "\tUserName:" + user.getUsername() + "\n\n"
+                        + "Please follow the link to activate your account:\n\n"
+                        + "http://www.hashpay/register.com?id="+user.getId()+"&token="+token.getPassword()+"\n\n"
+                        + "Kind Regards\n"
+                        + "Hashpay Team";
+                //sendingEmail(s, "Registration to Hashpay", body);
+                
+                SendEmail send = new SendEmail();
+                send.sendEmail(s, "Registration to Hashpay", body);
+
+                return "Your Has been Created ";
+
+            }
         }
     }
 
@@ -74,15 +86,20 @@ public class RegistrationServiceImpl implements RegistrationService {
             //add token user
             //merge
             //e-mail the User Link with userId & Token
-            user.setTemporaryToken("");
+            PasswordGenerator token = new PasswordGenerator();
+            token.generatePassword();
+            
+            user.setTemporaryToken(token.getPassword());
             usersDAO.merge(user);
             
             String body = "Hi\n Please follow the link to reset your password:\n"
-                    + "hashpay/register?id="+user.getId()+"&token="+user.getTemporaryToken()+"\n"
+                    + "hashpay/register?id="+user.getId()+"&token="+token.getPassword()+"\n"
                     + "Kind Regards"
                     + "Hashpay Team";
-            sendingEmail(user,"Forgot Password - Hashpay", body);
+            //sendingEmail(user,"Forgot Password - Hashpay", body);
             
+            SendEmail send = new SendEmail();
+            send.sendEmail(user, "Registration to Hashpay", body);
             return "check for instructions";
 
 
@@ -96,13 +113,14 @@ public class RegistrationServiceImpl implements RegistrationService {
         if (user.getTemporaryToken().equals(token)) {
             user.setEnabled(true);
             user.setTemporaryToken(null);
+            usersDAO.merge(user);
             return "Account Activated , Login";
         }
         return "Error message";
     }
 
     @Override
-    public String resetPassword(String token, Long Id) {
+    public String resetPassword(String token, Long id) {
        //get User;
         //check token
         //generate new password
@@ -110,8 +128,44 @@ public class RegistrationServiceImpl implements RegistrationService {
         // delete Token
         //email user the password
         //
+        Users user = usersDAO.find(id);
+        if (user.getTemporaryToken().equals(token)) {
+            PasswordGenerator newPassword = new PasswordGenerator();
+            newPassword.generatePassword();
+
+            user.setPassword(newPassword.getPassword());
+            user.setTemporaryToken(null);
+            usersDAO.merge(user);
+            
+            String body = "Hi "+user.getName()+"\n Your new password is as follows:\n"
+                    + "\t"+user.getPassword()+"\n"
+                    + "Please login in with these new credentials\n\n"
+                    + "Kind Regards"
+                    + "Hashpay Team";
+            //sendingEmail(user,"Reset Password - Hashpay", body);
+            SendEmail send = new SendEmail();
+            send.sendEmail(user, "Registration to Hashpay", body);
+        }
         
         return "";
+    }
+    
+    @Override
+    public String changePassword(String email,String oldpassword, String newpassword, String confirmnewpassword) {
+        Users user = usersDAO.getByPropertyName("username", email);
+        if(oldpasswordmatching(user,oldpassword)){
+            return "Old password was incorrect";
+        }else{
+            if (passwordNotmatching(newpassword, confirmnewpassword) ) {
+                    return "Password Does Not Match";
+                } else {
+                String encryptedPassword = PasswordEncrypt.encrypt(newpassword);
+                user.setPassword(encryptedPassword);
+                usersDAO.merge(user);
+
+                return "Password has been changed";
+            }
+        }
     }
     
     private void sendingEmail(Users user, String subject, String body) {
@@ -154,4 +208,13 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
         return true;
     }
+
+    private boolean oldpasswordmatching(Users user, String oldpassword) {
+        String dencryptedPassword = PasswordEncrypt.encrypt(oldpassword);
+        if (dencryptedPassword.equals(user.getPassword()))
+            return false;
+        return true;
+    }
+
+   
 }

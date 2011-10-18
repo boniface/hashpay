@@ -17,4 +17,6 @@ public interface RegistrationService {
     public String activateAccount(String token, Long id);
 
     public  String resetPassword(String token,Long id);
+    
+    public String changePassword(String email,String oldpassword, String newpassword, String confirmnewpassword);
 }

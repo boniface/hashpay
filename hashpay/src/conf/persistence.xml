@@ -7,7 +7,6 @@
     <property name="hibernate.generate_statistics" value="true"/>
     <class>zm.hashcode.hashpay.model.accounts.Account</class>
     <class>zm.hashcode.hashpay.model.accounts.AccountEntry</class>
-    
     <shared-cache-mode>ALL</shared-cache-mode>
   </persistence-unit>
 </persistence>

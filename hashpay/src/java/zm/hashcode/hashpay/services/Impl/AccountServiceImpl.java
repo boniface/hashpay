@@ -29,38 +29,47 @@ public class AccountServiceImpl implements AccountService{
         @Autowired
     private AccountDAO accountDAO;
     private AccountNumberDAO accountNumberDAO;
-    private static ApplicationContext ctx;
+    private static ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:zm/hashcode/hashpay/infrastructure/conf/applicationContext-*.xml");
     
     @Override
     public Account createAccount(String status, String currency, String user) {
         AccountFactory f = new AccountFactory();
         Account acc = f.createNewAccount(currency,status, user);
+        accountDAO.persist(acc);
         return acc;
     }
 
     @Override
     public void setAccountStatus(String status, String accountNumber) {
-        AccountFactory f = new AccountFactory();
-        f.setAccountStatus(status, accountNumber);
+        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
+        accountNumberDAO = (AccountNumberDAO) ctx.getBean("accountNumberDAO");
+        AccountNumber a = accountNumberDAO.find(Long.valueOf(accountNumber));
+        Account uss = accountDAO.getByPropertyName("accountNumber", a);
+        uss.setAccountStatus(status);
+        accountDAO.merge(uss);
     }
 
     @Override
     public Account checkAccountStatus(String accountNumber) {
-        AccountFactory f = new AccountFactory();
-        Account account = f.checkAccountStatus(accountNumber);
-        return account;
+        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
+        accountNumberDAO = (AccountNumberDAO) ctx.getBean("accountNumberDAO");
+        AccountNumber a = accountNumberDAO.find(Long.valueOf(accountNumber));
+        Account uss = accountDAO.getByPropertyName("accountNumber", a);
+        return uss;
     }
 
     @Override
     public BigDecimal checkBalance(String accountNumber) {
-        AccountFactory f = new AccountFactory();
-        BigDecimal balance = f.checkBalance(accountNumber);
-        return balance;
+        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
+        accountNumberDAO = (AccountNumberDAO) ctx.getBean("accountNumberDAO");
+        AccountNumber a = accountNumberDAO.find(Long.valueOf(accountNumber));
+
+        Account balance = accountDAO.getByPropertyName("accountNumber", a);
+        return (balance.getBalance());
     }
     @Override
     public Account checkStatus(String accountNumber) {
-        AccountFactory f = new AccountFactory();
-        Account account = f.checkAccountStatus(accountNumber);
+        Account account = checkAccountStatus(accountNumber);
         return account;
     }
 

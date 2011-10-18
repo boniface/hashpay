@@ -21,16 +21,13 @@ import zm.hashcode.hashpay.services.AccountService;
 
 /**
  *
- * @author 209052414
+ * @author Shane van der Broeck
  */
 public class AccountFactory {
      
     @Autowired
-    private AccountService accountService;
     private AccountDAO accountDAO;
     private AccountEntryDAO accountEntryDAO;
-    private AccountNumberDAO accountNumberDAO;
-    private AccountEntriesService accountEntriesService;
     ApplicationContext ctx = GetContext.getApplicationContext();
     
     public BigDecimal getBalance(AccountEntry account) {
@@ -40,30 +37,11 @@ public class AccountFactory {
     }
     
     public Account createNewAccount(String currency,String status, String user) {
-        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
         Account acc = new Account.Builder(currency, new BigDecimal("0.00")).
                 accountStatus(status).
                 createdBy(user).
                 creationDate(new Date()).build();
-        accountDAO.persist(acc);
         return acc;
-    }
-    public void setAccountStatus(String status, String accountNum)
-    {
-        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
-        accountNumberDAO = (AccountNumberDAO) ctx.getBean("accountNumberDAO");
-        AccountNumber a = accountNumberDAO.find(Long.valueOf(accountNum));
-        Account uss = accountDAO.getByPropertyName("accountNumber", a);
-        uss.setAccountStatus(status);
-        accountDAO.merge(uss);
-    }
-    public Account checkAccountStatus(String accountNumber)
-    {
-        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
-        accountNumberDAO = (AccountNumberDAO) ctx.getBean("accountNumberDAO");
-        AccountNumber a = accountNumberDAO.find(Long.valueOf(accountNumber));
-        Account uss = accountDAO.getByPropertyName("accountNumber", a);
-        return uss;
     }
     
     public AccountEntry createDebitEntry(Account acc, BigDecimal debit, String description, String currency) throws InsufficientBalanceException {
@@ -78,7 +56,6 @@ public class AccountFactory {
                     debitEntry(debit).build();
             acc.setBalance(newbalance);
             accountDAO.merge(acc);
-            long f = debitEntry.getId();
             accountEntryDAO.persist(debitEntry);
         } else {
             throw new InsufficientBalanceException();
@@ -98,15 +75,5 @@ public class AccountFactory {
         accountDAO.merge(acc);
             accountEntryDAO.persist(creditEntry);
         return creditEntry ;
-    }
-    public BigDecimal checkBalance(String accountNum)
-    {
-        accountDAO = (AccountDAO) ctx.getBean("accountDAO");
-        accountNumberDAO = (AccountNumberDAO) ctx.getBean("accountNumberDAO");
-        AccountNumber a = accountNumberDAO.find(Long.valueOf(accountNum));
-
-        Account balance = accountDAO.getByPropertyName("accountNumber", a);
-        return (balance.getBalance());
-        
     }
 }

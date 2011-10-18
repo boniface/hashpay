@@ -59,41 +59,41 @@ public class AccountServicesTest {
     @Ignore
     public void createAccount() {
         service = (AccountService) ctx.getBean("accountService");
-        accou = service.createAccount("DeActive", "ZMB", "Lance");
+        accou = service.createAccount("deActive", "ZMB", "Kim");
         Assert.assertNotNull(service);
     }
     @Ignore
     public void testCreditAccount() {
         AccountEntriesService services = (AccountEntriesService) ctx.getBean("accountEntriesService");
         service = (AccountService) ctx.getBean("accountService");
-        Account ac = service.findAccount("49");
+        Account ac = service.findAccount("50");
         services.creditAccount(ac, BigDecimal.valueOf(200.00), "321654", "RSA");
     }
     
-    @Ignore
+    @Test
     public void checkBalance() {
         service = (AccountService) ctx.getBean("accountService");
-        BigDecimal d= service.checkBalance(accou.getAccountNumber().toString());
-        Assert.assertEquals(d, new BigDecimal("200.00"));
+        BigDecimal d= service.checkBalance("50");
+        Assert.assertEquals(d, new BigDecimal("350.00"));
     }
 
     @Ignore
     public void activateAccount() {
         service = (AccountService) ctx.getBean("accountService");
-        service.setAccountStatus("Active", accou.getAccountNumber().toString());
+        service.setAccountStatus("Active", "50");
     }
 
     @Ignore
     public void disableAccount() {
         service = (AccountService) ctx.getBean("accountService");
-        service.setAccountStatus("Deactive", accou.getAccountNumber().toString());
+        service.setAccountStatus("Deactive", "50");
     }
 
-    @Test
+    @Ignore
     public void testDebitAccount() {
        AccountEntriesService services = (AccountEntriesService) ctx.getBean("accountEntriesService");
         service = (AccountService) ctx.getBean("accountService");
-        Account acc = service.findAccount("44");
+        Account acc = service.findAccount("50");
         services.CreateDebitAccountEntry(acc, BigDecimal.valueOf(50.00), "321654", "RSA");
     }
 

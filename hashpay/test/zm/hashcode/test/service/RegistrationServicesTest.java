@@ -49,18 +49,22 @@ public class RegistrationServicesTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-    @Test
+    @Ignore
     public void createNewProfile() {
         service = (RegistrationService) ctx.getBean("registrationService");
         service.registerUser("shanevdbroek@gmail.com", "password", "password");
     }
 
-    @Ignore
+    @Test
     public void activateProfile() {
+        service = (RegistrationService) ctx.getBean("registrationService");
+        service.activateAccount("p8q1Om0q", Long.valueOf(84));
     }
 
-    @Ignore
+    @Test
     public void testChangePassowrd() {
+        service = (RegistrationService) ctx.getBean("registrationService");
+        service.changePassword("shanevdbroek@gmail.com","password", "1234", "1234");
     }
 
     @Ignore

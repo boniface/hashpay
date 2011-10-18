@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Temporal;
 
 /**
@@ -32,7 +33,7 @@ public class AccountEntry implements Serializable {
     private BigDecimal balance;
     private String description;
     private String currencySymbol;
-    @Column(name="accountNumber")
+    @JoinColumn(name = "accountNumber")
     private Long accountID;
     
     /**
