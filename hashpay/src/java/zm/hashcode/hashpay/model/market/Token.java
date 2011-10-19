@@ -120,12 +120,12 @@ public class Token implements Serializable {
 }
 
     
-//    public String getToken(Long id,EnumTokenType tokenType){
+//    public String getTokenByType(Long id,EnumTokenType tokenType){
 //        
 //       if(tokenType != null && tokenType == eTokenType.DYNAMIC){
 //       
 //            this.dynamicToken = new DynamicToken();
-//            this.dynamicToken.setId(id);
+//            //this.dynamicToken.setId(id);
 //           
 //            return this.dynamicToken;
 //            

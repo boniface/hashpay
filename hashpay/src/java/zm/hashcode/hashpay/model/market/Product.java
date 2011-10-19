@@ -30,18 +30,17 @@ public class Product implements Serializable {
         
     }
     
-    public Product(Builder build){
-        
+    public Product(Builder builder){
+    this.ProductSerialNumber = builder.getProductSerialNumber();
+    this.Description = builder.getDescription(); 
+    this.createDate = builder.getCreateDate();
+    this.unitPrice = builder.getUnitPrice();
+    this.productStatus = builder.getProductStatus();
+    this.eTokenType = builder.geteTokenType();
+    this.token = new Token();
     }
-    private static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public static void setSerialVersionUID(long aSerialVersionUID) {
-        serialVersionUID = aSerialVersionUID;
-    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
