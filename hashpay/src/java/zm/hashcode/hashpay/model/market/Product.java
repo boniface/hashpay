@@ -11,14 +11,9 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import zm.hashcode.hashpay.model.market.EnumProductStatus;
+import javax.persistence.GeneratedValue; import javax.persistence.GenerationType; import javax.persistence.Id; import javax.persistence.JoinColumn; import javax.persistence.OneToOne; import javax.persistence.Temporal; import zm.hashcode.hashpay.model.market.EnumProductStatus;
 import zm.hashcode.hashpay.model.market.EnumTokenType;
+
 /**
  *
  * @author Peter Phillip
@@ -189,17 +184,19 @@ public class Product implements Serializable {
         public void setDatedClaimed(Date datedClaimed) {
             this.dateClaimed = datedClaimed;
         }
-    
+      
         public Builder productSerialNumber(String pSerial){
             this.ProductSerialNumber = pSerial; 
             return this;
         }
-
+        
+   
         public Builder description(String desc){
             this.Description = desc;
          return this;
         }
-
+        
+  
         public Builder createDate(Date cDate){
             this.createDate = cDate;
             return this; 
@@ -209,12 +206,12 @@ public class Product implements Serializable {
             this.unitPrice = uPrice;
             return this;
         }
-   
+ 
         public Builder productStatus(EnumProductStatus proStatus){
             this.setProductStatus(proStatus);
             return this;
         } 
-   
+  
         public Builder eTokenType(EnumTokenType eType){
             this.eTokenType = eType;
             return this;
