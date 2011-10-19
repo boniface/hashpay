@@ -15,8 +15,10 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import zm.hashcode.hashpay.infrastructure.factories.market.MarketFactory;
 import zm.hashcode.hashpay.model.market.AccountingLedger;
+import zm.hashcode.hashpay.model.people.Users;
 import zm.hashcode.hashpay.repository.jpa.AccountingLedgerDAO;
 
 
@@ -35,6 +37,7 @@ public class AccountLedgerTest {
 
     @BeforeClass
     public static void setUpClass() throws Exception {
+        ctx = new ClassPathXmlApplicationContext("classpath:zm/hashcode/hashpay/infrastructure/conf/applicationContext-*.xml");
     }
 
     @AfterClass
@@ -54,7 +57,7 @@ public class AccountLedgerTest {
      @Test
     public void addProducttoSales() {
       accountingLedgerDAO = (AccountingLedgerDAO) ctx.getBean("accountingLedgerDAO");   
-      AccountingLedger acc = new MarketFactory().addProductSales("Air-time", BigDecimal.valueOf(20.00), new Date(), "Lance");
+      AccountingLedger acc = new MarketFactory().addProductSales("Air-time", BigDecimal.valueOf(20.00), new Date(),"Lance");
       Id = acc.getId();
       Assert.assertNotNull(acc.getId());
     }
@@ -74,7 +77,7 @@ public class AccountLedgerTest {
        acc.setAmountSold(BigDecimal.valueOf(40.00));
        accountingLedgerDAO.merge(acc);
        AccountingLedger acc2 = accountingLedgerDAO.find(Id);
-       Assert.assertEquals(BigDecimal.valueOf(40.00),acc2.getAmountSold());          
+       Assert.assertEquals(BigDecimal.valueOf(40.00),acc.getAmountSold());          
     }
 
     @Test
@@ -94,8 +97,8 @@ public class AccountLedgerTest {
     @Test
     public void testtGetByParamater() {
      accountingLedgerDAO = (AccountingLedgerDAO) ctx.getBean("accountingLedgerDAO"); 
-     AccountingLedger acc = accountingLedgerDAO.getByPropertyName("user", "Lance");
-     Assert.assertEquals("Lance",acc.getUser());
+     AccountingLedger acc = accountingLedgerDAO.getByPropertyName("Username", "Lance");
+     Assert.assertEquals("Lance",acc.getUsername());
   }
 
     @Ignore
@@ -106,5 +109,7 @@ public class AccountLedgerTest {
         AccountingLedger acc2 = accountingLedgerDAO.find(Id);
         Assert.assertNull(acc2);   
           
-    }
+  }
+     
 }
+       

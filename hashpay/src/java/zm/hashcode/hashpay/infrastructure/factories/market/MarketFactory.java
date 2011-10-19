@@ -12,6 +12,7 @@ import zm.hashcode.hashpay.infrastructure.conf.GetContext;
 import zm.hashcode.hashpay.model.accounts.AccountNumber;
 import zm.hashcode.hashpay.model.market.AccountingLedger;
 import zm.hashcode.hashpay.model.market.Merchant;
+import zm.hashcode.hashpay.model.people.Users;
 import zm.hashcode.hashpay.repository.jpa.AccountingLedgerDAO;
 import zm.hashcode.hashpay.repository.jpa.MerchantDAO;
 import zm.hashcode.hashpay.repository.jpa.ProductDAO;

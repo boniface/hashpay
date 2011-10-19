@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import zm.hashcode.hashpay.model.people.Users;
@@ -30,9 +31,11 @@ public class AccountingLedger implements Serializable {
     private Date soldDate;
     private String Description;
     private BigDecimal amountSold; 
-    @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
-    @JoinColumn(name = "AccountingLedger_id")
-    private Users user;
+    private String Username;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users users;
+   
 
     public AccountingLedger() {
     }
@@ -113,24 +116,38 @@ public class AccountingLedger implements Serializable {
     }
 
     /**
+     * @return the Username
+     */
+    public String getUsername() {
+        return Username;
+    }
+
+    /**
+     * @param Username the Username to set
+     */
+    public void setUsername(String Username) {
+        this.Username = Username;
+    }
+
+    /**
      * @return the user
      */
-    public Users getUser() {
-        return user;
-    }
+   // public Users getUser() {
+     //   return user;
+    //}
 
     /**
      * @param user the user to set
      */
-    public void setUser(Users user) {
-        this.user = user;
-    }
+    //public void setUser(Users user) {
+      //  this.user = user;
+    //}
     
      public static class Builder {
         private Date soldDate;
         private String Description;
         private BigDecimal amountSold; 
-        private String user;
+        private String Username;
         
         public Builder(String description,BigDecimal amountSold){
             this.Description=description;
@@ -143,7 +160,7 @@ public class AccountingLedger implements Serializable {
         }
         
        public Builder userSellingProduct(String user){
-           this.user=user;
+           this.Username=user;
            return this;
        }
         
@@ -159,6 +176,7 @@ public class AccountingLedger implements Serializable {
         this.Description=builder.Description;
         this.amountSold=builder.amountSold;
         this.soldDate= builder.soldDate;
+        this.Username= builder.Username;
         
    }
 }
