@@ -29,7 +29,10 @@ public class Product implements Serializable {
     public Product(){
         
     }
-   
+    
+    public Product(Builder build){
+        
+    }
     private static long serialVersionUID = 1L;
 
     public static long getSerialVersionUID() {
