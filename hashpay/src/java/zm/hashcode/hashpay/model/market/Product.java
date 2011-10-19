@@ -39,6 +39,7 @@ public class Product implements Serializable {
     this.eTokenType = builder.geteTokenType();
     this.token = new Token();
     }
+    
     private static final long serialVersionUID = 1L;
 
     @Id
