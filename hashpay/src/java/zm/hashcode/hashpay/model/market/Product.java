@@ -26,6 +26,10 @@ import zm.hashcode.hashpay.model.market.EnumTokenType;
 @Entity
 public class Product implements Serializable {
     
+    public Product(){
+        
+    }
+   
     private static long serialVersionUID = 1L;
 
     public static long getSerialVersionUID() {
@@ -88,6 +92,7 @@ public class Product implements Serializable {
 
     public BigDecimal getUnitPrice() {
         return unitPrice;
+        
     }
 
     public void setUnitPrice(BigDecimal unitPrice) {
@@ -114,5 +119,7 @@ public class Product implements Serializable {
         return token;
     }
     
-    
+    public static class Builder{
+        
+    }
 }
