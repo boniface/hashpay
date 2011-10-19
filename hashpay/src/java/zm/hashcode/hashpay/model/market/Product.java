@@ -48,6 +48,8 @@ public class Product implements Serializable {
     private String Description; 
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date createDate;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateClaimed;
     private BigDecimal unitPrice;
     @Enumerated(EnumType.STRING)  
     private EnumProductStatus productStatus;
@@ -71,6 +73,14 @@ public class Product implements Serializable {
 
     public String getDescription() {
         return Description;
+    }
+    
+    public Date getDatedClaimed() {
+        return dateClaimed;
+    }
+    
+    public void setDatedClaimed(Date datedClaimed) {
+        this.dateClaimed = datedClaimed;
     }
 
     public void setDescription(String Description) {
@@ -122,6 +132,7 @@ public class Product implements Serializable {
     private BigDecimal unitPrice;
     private EnumProductStatus productStatus;
     private EnumTokenType eTokenType;
+    private Date dateClaimed;
 
         public String getProductSerialNumber() {
             return ProductSerialNumber;
@@ -170,7 +181,49 @@ public class Product implements Serializable {
         public void seteTokenType(EnumTokenType eTokenType) {
             this.eTokenType = eTokenType;
         }
+        
+        public Date getDatedClaimed() {
+            return dateClaimed;
+        }
+
+        public void setDatedClaimed(Date datedClaimed) {
+            this.dateClaimed = datedClaimed;
+        }
     
-    
+        public Builder productSerialNumber(String pSerial){
+            this.ProductSerialNumber = pSerial; 
+            return this;
+        }
+
+        public Builder description(String desc){
+            this.Description = desc;
+         return this;
+        }
+
+        public Builder createDate(Date cDate){
+            this.createDate = cDate;
+            return this; 
+        }
+ 
+        public  Builder unitPrice(BigDecimal uPrice){
+            this.unitPrice = uPrice;
+            return this;
+        }
+   
+        public Builder productStatus(EnumProductStatus proStatus){
+            this.setProductStatus(proStatus);
+            return this;
+        } 
+   
+        public Builder eTokenType(EnumTokenType eType){
+            this.eTokenType = eType;
+            return this;
+        }
+        
+          public Builder datedClaimed(Date datedClaimed) {
+            this.setDatedClaimed(datedClaimed);
+            return this;
+        }
     }
 }
+
