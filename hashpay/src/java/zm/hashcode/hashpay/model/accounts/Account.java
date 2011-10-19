@@ -42,7 +42,7 @@ public class Account implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date creationDate;
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
-    @JoinColumn(name = "accountNumber")
+    @JoinColumn(referencedColumnName="accountNumber_id", name = "accountid")
     private List<AccountEntry> entries = new ArrayList<AccountEntry>();
     
     /**

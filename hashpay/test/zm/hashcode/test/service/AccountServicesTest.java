@@ -62,7 +62,7 @@ public class AccountServicesTest {
         accou = service.createAccount("deActive", "ZMB", "Kim");
         Assert.assertNotNull(service);
     }
-    @Ignore
+    @Test
     public void testCreditAccount() {
         AccountEntriesService services = (AccountEntriesService) ctx.getBean("accountEntriesService");
         service = (AccountService) ctx.getBean("accountService");
@@ -70,7 +70,7 @@ public class AccountServicesTest {
         services.creditAccount(ac, BigDecimal.valueOf(200.00), "321654", "RSA");
     }
     
-    @Test
+    @Ignore
     public void checkBalance() {
         service = (AccountService) ctx.getBean("accountService");
         BigDecimal d= service.checkBalance("50");
