@@ -130,6 +130,54 @@ public class Product implements Serializable {
     private BigDecimal unitPrice;
     private EnumProductStatus productStatus;
     private EnumTokenType eTokenType;
+
+        public String getProductSerialNumber() {
+            return ProductSerialNumber;
+        }
+
+        public void setProductSerialNumber(String ProductSerialNumber) {
+            this.ProductSerialNumber = ProductSerialNumber;
+        }
+
+        public String getDescription() {
+            return Description;
+        }
+
+        public void setDescription(String Description) {
+            this.Description = Description;
+        }
+
+        public Date getCreateDate() {
+            return createDate;
+        }
+
+        public void setCreateDate(Date createDate) {
+            this.createDate = createDate;
+        }
+
+        public BigDecimal getUnitPrice() {
+            return unitPrice;
+        }
+
+        public void setUnitPrice(BigDecimal unitPrice) {
+            this.unitPrice = unitPrice;
+        }
+
+        public EnumProductStatus getProductStatus() {
+            return productStatus;
+        }
+
+        public void setProductStatus(EnumProductStatus productStatus) {
+            this.productStatus = productStatus;
+        }
+
+        public EnumTokenType geteTokenType() {
+            return eTokenType;
+        }
+
+        public void seteTokenType(EnumTokenType eTokenType) {
+            this.eTokenType = eTokenType;
+        }
     
     
     }
