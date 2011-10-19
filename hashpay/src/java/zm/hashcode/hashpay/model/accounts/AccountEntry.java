@@ -33,7 +33,7 @@ public class AccountEntry implements Serializable {
     private BigDecimal balance;
     private String description;
     private String currencySymbol;
-    @JoinColumn(table="account") 
+    @JoinColumn(referencedColumnName="accountID", name = "accountNumber_id") 
     private Long accountID;
     
     /**

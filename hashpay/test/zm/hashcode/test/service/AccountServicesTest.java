@@ -66,7 +66,7 @@ public class AccountServicesTest {
     public void testCreditAccount() {
         AccountEntriesService services = (AccountEntriesService) ctx.getBean("accountEntriesService");
         service = (AccountService) ctx.getBean("accountService");
-        Account ac = service.findAccount("50");
+        Account ac = service.findAccount("51");
         services.creditAccount(ac, BigDecimal.valueOf(200.00), "321654", "RSA");
     }
     
