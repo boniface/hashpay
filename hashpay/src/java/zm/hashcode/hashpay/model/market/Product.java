@@ -41,26 +41,18 @@ public class Product implements Serializable {
     }
     
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String ProductSerialNumber;
-    
     private String Description; 
-    
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date createDate;
-    
     private BigDecimal unitPrice;
-
     @Enumerated(EnumType.STRING)  
     private EnumProductStatus productStatus;
-
     @Enumerated(EnumType.STRING) 
     private EnumTokenType eTokenType;
-
     @OneToOne(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "token_id")
     private Token token;
