@@ -6,6 +6,7 @@ package zm.hashcode.hashpay.model.market;
 import javax.persistence.OneToOne;
 import zm.hashcode.hashpay.model.market.EnumTokenType;
 import java.io.Serializable;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -38,7 +39,9 @@ public class Token implements Serializable {
     private DynamicToken dynamicToken;
     @OneToOne
     private StaticToken staticToken;
-
+    @Embedded
+    private MetaDataToken metaData;
+    
     public Long getId() {
         return id;
     }
@@ -64,15 +67,25 @@ public class Token implements Serializable {
         return staticToken;
     }
 
+    public MetaDataToken getMetaData() {
+        return metaData;
+    }
+
+    public void setMetaData(MetaDataToken metaData) {
+        this.metaData = metaData;
+    }
+
     public static class Builder {
    
     private EnumTokenType eTokenType;
     private DynamicToken dynamicToken;
     private StaticToken staticToken;
+    private MetaDataToken metaData;
     
-    public Builder(EnumTokenType eType)
+    public Builder(EnumTokenType eType, MetaDataToken mData)
     {
             this.eTokenType = eType;
+            this.metaData = mData;
     }
     
     public Builder eTokenType(EnumTokenType etype) {
@@ -80,6 +93,11 @@ public class Token implements Serializable {
             return this;
         }
     
+    public Builder metaData(MetaDataToken metaData){
+        this.setMetaData(metaData);
+        return this;
+        
+    }
       public void setClaimType(EnumTokenType eType) {
             this.eTokenType = eType;
         }   
@@ -90,6 +108,14 @@ public class Token implements Serializable {
       
       public Token build(){
             return new Token(this);
+        }
+
+        public MetaDataToken getMetaData() {
+            return metaData;
+        }
+
+        public void setMetaData(MetaDataToken metaData) {
+            this.metaData = metaData;
         }
     }
     
