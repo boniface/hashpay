@@ -78,8 +78,6 @@ public class Token implements Serializable {
     public static class Builder {
    
     private EnumTokenType eTokenType;
-    private DynamicToken dynamicToken;
-    private StaticToken staticToken;
     private MetaDataToken metaData;
     
     public Builder(EnumTokenType eType, MetaDataToken mData)
