@@ -124,5 +124,13 @@ public class Product implements Serializable {
     
     public static class Builder{
         
+    private String ProductSerialNumber;
+    private String Description; 
+    private Date createDate;
+    private BigDecimal unitPrice;
+    private EnumProductStatus productStatus;
+    private EnumTokenType eTokenType;
+    
+    
     }
 }
