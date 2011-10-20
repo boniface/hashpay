@@ -69,7 +69,7 @@ public class VoucherServicesTest {
          service.createVoucher(new BigDecimal("2000.00"), CurrencyType.ZMK);
          voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
          Voucher voucher = voucherDAO.getByPropertyName("Vouchervalue",new BigDecimal("2000.00").toString());
-         Assert.assertEquals(new BigDecimal("2000.00").toString(),voucher.getVoucherValue());
+         Assert.assertEquals(new BigDecimal("2000.00").toString(),voucher.getVoucherValue().toString());
     }
     @Ignore
     public void sellVoucher(){
@@ -101,7 +101,7 @@ public class VoucherServicesTest {
     public void createBulkVouchers(){
         service = (VoucherService) ctx.getBean("voucherService");
         service.createVouchers(new BigDecimal("150.95"), CurrencyType.ZMK, 9);
-        Long number = voucherDAO.count();
-        Assert.assertEquals(new Long(10),number);
+        List <Voucher> voucher = voucherDAO.findAll();
+        Assert.assertTrue(voucher.size()>9);
     }
 }
