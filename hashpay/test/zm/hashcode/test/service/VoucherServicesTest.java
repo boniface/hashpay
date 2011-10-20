@@ -63,13 +63,15 @@ public class VoucherServicesTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-    @Ignore
+    @Test
     public void createVoucher() {
          service = (VoucherService) ctx.getBean("voucherService");
          service.createVoucher(new BigDecimal("2000.00"), CurrencyType.ZMK);
-         Assert.assertNotNull(service);
+         voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
+         Voucher voucher = voucherDAO.getByPropertyName("Vouchervalue",new BigDecimal("2000.00").toString());
+         Assert.assertEquals(new BigDecimal("2000.00").toString(),voucher.getVoucherValue());
     }
-    @Test
+    @Ignore
     public void sellVoucher(){
         service = (VoucherService) ctx.getBean("voucherService");
         voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
@@ -83,7 +85,7 @@ public class VoucherServicesTest {
         } catch (InsufficientBalanceException ex) {
             Logger.getLogger(VoucherServicesTest.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Assert.assertNotNull(voucher);
+        Assert.assertNotNull(voucher.getId());
     }
     @Ignore
     public void claimVoucher() throws InvalidVoucherException{
@@ -97,7 +99,8 @@ public class VoucherServicesTest {
     @Ignore
     public void createBulkVouchers(){
         service = (VoucherService) ctx.getBean("voucherService");
-        service.createVouchers(new BigDecimal("150.95"), CurrencyType.ZMK, 10);
-        Assert.assertNotNull(service);
+        service.createVouchers(new BigDecimal("150.95"), CurrencyType.ZMK, 9);
+        Long number = voucherDAO.count();
+        Assert.assertEquals(new Long(10),number);
     }
 }
