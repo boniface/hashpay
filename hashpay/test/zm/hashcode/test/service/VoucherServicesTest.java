@@ -73,6 +73,7 @@ public class VoucherServicesTest {
     }
     @Ignore
     public void sellVoucher(){
+        
         service = (VoucherService) ctx.getBean("voucherService");
         voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
         accountDAO = (AccountDAO)ctx.getBean("accountDAO");
