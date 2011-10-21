@@ -26,6 +26,6 @@ public interface VoucherService {
 
     public void createVouchers(BigDecimal amount, CurrencyType currency, int number);
     
-    public void createVoucher(BigDecimal amount, CurrencyType currency);
+    public Voucher createVoucher(BigDecimal amount, CurrencyType currency);
     
 }

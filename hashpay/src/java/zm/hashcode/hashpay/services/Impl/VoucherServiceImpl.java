@@ -51,9 +51,10 @@ public class VoucherServiceImpl implements VoucherService {
     }
     
     @Override
-    public void createVoucher(BigDecimal amount, CurrencyType currency){
+    public Voucher createVoucher(BigDecimal amount, CurrencyType currency){
         VoucherFactory f = new VoucherFactory();
-        f.createVoucher(amount, currency);  
+       Voucher voucher = f.createVoucher(amount, currency);  
+       return voucher;
     }
 
     //THIS METHOD NEED TO BE SYNCHRONISED AND ATOMIC
