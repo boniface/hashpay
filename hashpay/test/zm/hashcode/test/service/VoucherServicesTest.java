@@ -67,19 +67,17 @@ public class VoucherServicesTest {
     @Test
     public void createVoucher() {
          service = (VoucherService) ctx.getBean("voucherService");
-         service.createVouchers(new BigDecimal("2000.00"), CurrencyType.ZMK,1);
-         voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
-         Voucher voucher = voucherDAO.getByPropertyName("Vouchervalue",new BigDecimal("2000.00").toString());
-         Assert.assertNotNull(voucher.getVoucherValue().toString());
+         Voucher voucher = service.createVoucher(new BigDecimal("2000.00"), CurrencyType.ZMK);
+         Assert.assertNotNull(voucher.getId());
     }
-    @Ignore
+    @Test
     public void sellVoucher(){
         
         service = (VoucherService) ctx.getBean("voucherService");
         voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
         accountDAO = (AccountDAO)ctx.getBean("accountDAO");
 
-        Voucher voucher = voucherDAO.find(Long.valueOf("129"));
+        Voucher voucher = voucherDAO.find(Long.valueOf("302"));
         Account account = accountDAO.find(new Long("123"));
         
         try {
@@ -103,10 +101,11 @@ public class VoucherServicesTest {
         }
        Assert.assertEquals("CLAIMED", status);
     }
-    @Ignore
+    @Test
     public void createBulkVouchers(){
         service = (VoucherService) ctx.getBean("voucherService");
         service.createVouchers(new BigDecimal("150.95"), CurrencyType.ZMK, 9);
+        voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
         List <Voucher> voucher = voucherDAO.findAll();
         Assert.assertTrue(voucher.size()>9);
     }

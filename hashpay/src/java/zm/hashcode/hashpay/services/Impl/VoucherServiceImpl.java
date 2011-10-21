@@ -54,6 +54,7 @@ public class VoucherServiceImpl implements VoucherService {
     public Voucher createVoucher(BigDecimal amount, CurrencyType currency){
         VoucherFactory f = new VoucherFactory();
        Voucher voucher = f.createVoucher(amount, currency);  
+       voucherDAO.persist(voucher);
        return voucher;
     }
 

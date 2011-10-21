@@ -105,7 +105,7 @@ public class VoucherTest {
         Assert.assertEquals("Bongani", voucher.getClaimer());
     }
 
-    @Ignore
+    @Test
     public void testDelete() {
         voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
         Voucher voucher = voucherDAO.find(voucherId);
