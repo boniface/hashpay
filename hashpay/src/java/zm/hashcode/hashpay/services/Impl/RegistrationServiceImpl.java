@@ -33,7 +33,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public String registerUser(String email, String password, String confirm) {
         Users s = usersDAO.getByPropertyName("username", email);
-        if (s == null)
+        if (s != null)
         {
             return "Username already exists";
         }else{
