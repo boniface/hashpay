@@ -102,7 +102,7 @@ public class ProductTest {
     public void testtGetByParamater() {
     productDAO = (ProductDAO) ctx.getBean("productDAO"); 
     Product product = productDAO.getByPropertyName("productSerialNumber", "2342");
-    Assert.assertEquals("Air-time",product.getProductSerialNumber());
+    Assert.assertEquals("2342",product.getProductSerialNumber());
   }
 
      @Ignore
