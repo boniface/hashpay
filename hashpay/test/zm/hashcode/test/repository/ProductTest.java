@@ -70,7 +70,7 @@ public class ProductTest {
     public void testRead() {
          productDAO = (ProductDAO) ctx.getBean("productDAO");
          Product product = productDAO.find(productId);
-      //   Assert.assertEquals("Air-time", product.getProductDescription());
+         Assert.assertEquals("2342", product.getProductSerialNumber());
   }
   
  
@@ -78,10 +78,10 @@ public class ProductTest {
     public void testUpdate() {
        productDAO = (ProductDAO) ctx.getBean("productDAO"); 
        Product product = productDAO.find(productId);
-     //  product.setProductPrice(BigDecimal.valueOf(10.00));
+       product.setUnitPrice(BigDecimal.valueOf(10.00));
        productDAO.merge(product);
        Product product2 = productDAO.find(productId);
-      // Assert.assertEquals(BigDecimal.valueOf(10.00),product.getProductPrice());          
+       Assert.assertEquals(BigDecimal.valueOf(10.00),product.getUnitPrice());          
     }
 
     @Test
@@ -101,8 +101,8 @@ public class ProductTest {
     @Test
     public void testtGetByParamater() {
     productDAO = (ProductDAO) ctx.getBean("productDAO"); 
-    Product product = productDAO.getByPropertyName("productDescription", "Air-time");
-  //  Assert.assertEquals("Air-time",product.getProductDescription());
+    Product product = productDAO.getByPropertyName("productSerialNumber", "2342");
+    Assert.assertEquals("Air-time",product.getProductSerialNumber());
   }
 
      @Ignore
