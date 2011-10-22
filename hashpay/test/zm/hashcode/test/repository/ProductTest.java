@@ -5,6 +5,7 @@
 package zm.hashcode.test.repository;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -18,6 +19,8 @@ import zm.hashcode.hashpay.model.market.Product;
 import zm.hashcode.hashpay.repository.jpa.ProductDAO;
 import junit.framework.Assert;
 import org.junit.Ignore;
+import zm.hashcode.hashpay.model.market.EnumProductStatus;
+import zm.hashcode.hashpay.model.market.EnumTokenType;
 
 
 /**
@@ -28,6 +31,8 @@ public class ProductTest {
     
     private static Long productId;
     private ProductDAO productDAO;
+    private EnumTokenType tType;
+    private EnumProductStatus proStatus;
     private static ApplicationContext ctx;
     
     public ProductTest() {
@@ -52,11 +57,12 @@ public class ProductTest {
     
      @Test
     public void createAccount() {
+         Date date = null;
         productDAO = (ProductDAO) ctx.getBean("productDAO");
-    //    ProductOld product = new MarketFactory().createProduct("Air-time","Static", BigDecimal.valueOf(5400),"80", "52424127171020");
-        //productDAO.persist(product);
-   //     productId = product.getId();
-    //    Assert.assertNotNull(product.getId());
+        Product product = new MarketFactory().createProduct("2342","testing product",date,new BigDecimal("27000.00"),proStatus.AVAILABLE,tType.DYNAMIC);
+        productDAO.persist(product);
+        productId = product.getId();
+        Assert.assertNotNull(product.getId());
     }
 
 

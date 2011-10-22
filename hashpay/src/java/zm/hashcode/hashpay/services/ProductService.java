@@ -4,15 +4,21 @@
  */
 package zm.hashcode.hashpay.services;
 import java.math.BigDecimal;
-import zm.hashcode.hashpay.model.market.ProductOld;
+import java.util.Date;
+import zm.hashcode.hashpay.model.market.EnumProductStatus;
+import zm.hashcode.hashpay.model.market.EnumTokenType;
+import zm.hashcode.hashpay.model.market.Product;
 
 /**
  *
- * @author Thozamile Sikwata
+ * @author Peter Phillip
  */
 public interface ProductService {
     
-     public void createProduct(String Descrtn, BigDecimal pValue,String qyt,String token);
-     public ProductOld validated_product(String Description,String productType);
-      
+     public void createProduct(String pserial, String desc, Date cdate, BigDecimal uPrice,EnumProductStatus proStatus, EnumTokenType tokType);
+    
+     public boolean claimProduct(String serialNumber, Date date);
+     public Product sellProduct(String desc);
+     public void removeProduct(String desc);   
+     public Product findProduct(String serialNumber);
 }

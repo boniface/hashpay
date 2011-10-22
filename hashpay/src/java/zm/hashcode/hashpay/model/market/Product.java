@@ -119,6 +119,8 @@ public class Product implements Serializable {
         return token;
     }
     
+   
+    
     public static class Builder{
         
     private String ProductSerialNumber;
@@ -128,6 +130,17 @@ public class Product implements Serializable {
     private EnumProductStatus productStatus;
     private EnumTokenType eTokenType;
     private Date dateClaimed;
+    
+     public Builder(String pserial, String desc, Date cdate, BigDecimal uPrice,EnumProductStatus proStatus, EnumTokenType tokType)
+     {
+         this.ProductSerialNumber = pserial;
+         this.Description = desc;
+         this.createDate = cdate;
+         this.unitPrice = uPrice; 
+         this.productStatus = proStatus; 
+         this.eTokenType = tokType;
+         
+     }
 
         public String getProductSerialNumber() {
             return ProductSerialNumber;
@@ -220,6 +233,10 @@ public class Product implements Serializable {
           public Builder datedClaimed(Date datedClaimed) {
             this.setDatedClaimed(datedClaimed);
             return this;
+        }
+          
+           public Product build() {
+            return new Product(this);
         }
     }
 }

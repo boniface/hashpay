@@ -5,19 +5,24 @@
 package zm.hashcode.hashpay.services.Impl;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import zm.hashcode.hashpay.infrastructure.factories.market.MarketFactory;
+import zm.hashcode.hashpay.model.market.EnumProductStatus;
+import zm.hashcode.hashpay.model.market.EnumTokenType;
+import zm.hashcode.hashpay.model.market.Product;
 import zm.hashcode.hashpay.repository.jpa.ProductDAO;
+import zm.hashcode.hashpay.services.ProductService;
 
 /**
  *
- * @author 209042869
+ * @author Peter Phillip
  */
 @Repository("productService")
 @Transactional
-public class ProductServiceJPAImpl{
+public class ProductServiceJPAImpl implements ProductService {
   
       @Autowired
     private ProductDAO productDAO;
@@ -36,11 +41,41 @@ public class ProductServiceJPAImpl{
         this.productDAO = productDAO;
     }
 
-    public void createProduct(String Descrtn, String productType,BigDecimal price, String qyt, String token) {
-        MarketFactory p = new MarketFactory();
-        //p.createProduct(Descrtn, productType,price,qyt,token);
+    @Override
+    public void createProduct(String pserial, String desc, Date cdate, BigDecimal uPrice, EnumProductStatus proStatus, EnumTokenType tokType) {
+         
+        MarketFactory pro = new MarketFactory();
+        pro.createProduct( pserial,  desc,  cdate,  uPrice, proStatus,  tokType);
+        
+    }
+    
+    @Override
+    public boolean claimProduct(String serialNumber, Date date) {
+        MarketFactory pro = new MarketFactory();
+        pro.claimProduct(serialNumber, date);
+        return true;
     }
 
+    @Override
+    public Product sellProduct(String serialNumber) {
+        MarketFactory pro = new MarketFactory();
+       Product prodcut = new Product();
+       prodcut = pro.sellProduct(serialNumber);
+       return prodcut;
+    }
+
+    @Override
+    public void removeProduct(String desc) {
+       MarketFactory pro = new MarketFactory();
+       pro.removeProduct(desc);
+    }
+    @Override
+    public Product findProduct(String serialNumber){
+        MarketFactory pro = new MarketFactory();
+       Product product = new Product();
+       product = pro.findProduct(serialNumber);
+       return product;
+    }
     
     
 }

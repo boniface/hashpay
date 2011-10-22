@@ -8,10 +8,14 @@ import java.math.BigDecimal;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import zm.hashcode.hashpay.infrastructure.conf.GetContext;
 import zm.hashcode.hashpay.model.accounts.AccountNumber;
 import zm.hashcode.hashpay.model.market.AccountingLedger;
+import zm.hashcode.hashpay.model.market.EnumProductStatus;
+import zm.hashcode.hashpay.model.market.EnumTokenType;
 import zm.hashcode.hashpay.model.market.Merchant;
+import zm.hashcode.hashpay.model.market.Product;
 import zm.hashcode.hashpay.model.people.Users;
 import zm.hashcode.hashpay.repository.jpa.AccountingLedgerDAO;
 import zm.hashcode.hashpay.repository.jpa.MerchantDAO;
@@ -20,7 +24,7 @@ import zm.hashcode.hashpay.services.ProductService;
 
 /**
  *
- * @author thozamile Sikwata
+ * @author Peter Phillip
  */
 public class MarketFactory {
     
@@ -31,15 +35,12 @@ public class MarketFactory {
        private AccountingLedgerDAO accountingLedgerDAO;
        ApplicationContext ctx = GetContext.getApplicationContext();
 
-    /*public Product createProduct(String Description,String productType, BigDecimal productPrice,String qty,String code) {
+    public Product createProduct(String pserial, String desc, Date cdate, BigDecimal uPrice,EnumProductStatus proStatus, EnumTokenType tokType) {
           productDAO = (ProductDAO) ctx.getBean("productDAO");  
-          Product product = new Product//.Builder(Description,productType,new BigDecimal("0.00")).
-                    BalanceOnHand(qty).
-                    code(code).build();   
+          Product product = new Product.Builder(pserial,desc,cdate,uPrice,proStatus,tokType).build();
               productDAO.persist(product);
-               return product;
-                  
-      }   */   
+               return product;        
+      }   
    
     public Merchant createAccount(String Username,String emailAddres,AccountNumber ac, String password){
           merchantDAO = (MerchantDAO) ctx.getBean("merchantDAO");  
@@ -59,13 +60,37 @@ public class MarketFactory {
          return ledger;
      }
     
-    /*public Product removeProduct(String productDescription){
-             product = (ProductDAO) ctx.getBean("productDAO");
-             Product product = productDAO.getByPropertyName("productDescription", productDescription);
+    public Product removeProduct(String serialNumber){
+             productDAO = (ProductDAO) ctx.getBean("productDAO");
+             Product product = productDAO.getByPropertyName("ProductSerialNumber", serialNumber);
              productDAO.remove(product);
              return product;
-         }*/
-
+         }
+    
+      public Product sellProduct(String serialNumber){
+             productDAO = (ProductDAO) ctx.getBean("productDAO");
+             Product product = productDAO.getByPropertyName("ProductSerialNumber", serialNumber);
+             return product;
+         }
+    
+        public void claimProduct(String serialNumber, Date date){
+             productDAO = (ProductDAO) ctx.getBean("productDAO");
+             Product product = productDAO.getByPropertyName("ProductSerialNumber", serialNumber);
+             product.setDatedClaimed(date);
+             
+             productDAO.merge(product);
+         }
+        
+            
+       public Product findProduct(String serialNumber) {
+        ctx = new ClassPathXmlApplicationContext("classpath:zm/hashcode/hashpay/infrastructure/conf/applicationContext-*.xml");
+        productDAO = (ProductDAO) ctx.getBean("productDAO");
+        
+        productDAO = (ProductDAO) ctx.getBean("productDAO");
+        Product pp = productDAO.find(Long.valueOf(serialNumber));
+        
+        return pp;
+    }
   }
 
     
