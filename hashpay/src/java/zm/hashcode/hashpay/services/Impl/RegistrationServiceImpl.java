@@ -93,7 +93,8 @@ public class RegistrationServiceImpl implements RegistrationService {
             usersDAO.merge(user);
             
             String body = "Hi\n Please follow the link to reset your password:\n"
-                    + "hashpay/register?id="+user.getId()+"&token="+token.getPassword()+"\n"
+                    + "http://localhost:8084/hashpay/login.jsp#register/activate.html?token="+token.getPassword()+"&"+"id="+user.getId()+"\n"
+                    //+ "hashpay/register?id="+user.getId()+"&token="+token.getPassword()+"\n"
                     + "Kind Regards"
                     + "Hashpay Team";
             //sendingEmail(user,"Forgot Password - Hashpay", body);

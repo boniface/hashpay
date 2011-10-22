@@ -29,13 +29,14 @@ public class RegisterController {
     public String register( Model model) {
         RegisterBean user = new RegisterBean();
         model.addAttribute(user);
-       
+       service.registerUser(user.getEmailAddress(), user.getPassword(), user.getRetypePassword());
         return "register";
     }
 
     @RequestMapping(value = "newaccount.html", method = RequestMethod.POST)
     public String createNewAccount(@Valid RegisterBean user, BindingResult bindingResultl,Model model) {
-                
+                model.addAttribute(user);
+       service.registerUser(user.getEmailAddress(), user.getPassword(), user.getRetypePassword());
         if (bindingResultl.hasErrors()) {
             
             return "register";
