@@ -70,7 +70,7 @@ public class VoucherServicesTest {
          Voucher voucher = service.createVoucher(new BigDecimal("2000.00"), CurrencyType.ZMK);
          Assert.assertNotNull(voucher.getId());
     }
-    @Test
+    @Ignore
     public void sellVoucher(){
         
         service = (VoucherService) ctx.getBean("voucherService");
