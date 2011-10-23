@@ -59,7 +59,7 @@ public class AccountServicesTest {
     // The methods must be annotated with annotation @Test. For example:
     //
     
-    @Ignore
+    @Test
     public void createAccount() {
         service = (AccountService) ctx.getBean("accountService");
         accou = service.createAccount("deActive", "ZMB", "Shane");
@@ -69,8 +69,8 @@ public class AccountServicesTest {
     public void testCreditAccount() {
         AccountEntriesService services = (AccountEntriesService) ctx.getBean("accountEntriesService");
         service = (AccountService) ctx.getBean("accountService");
-        Account ac = service.findAccount("1");
-        services.creditAccount(ac, BigDecimal.valueOf(200.00), "321654", "RSA");
+        Account ac = service.findAccount("81");
+         services.creditAccount(ac, BigDecimal.valueOf(200.00), "321654", "RSA");
         Assert.assertNotNull(ac.getBalance());
     }
     

@@ -5,7 +5,6 @@
 package zm.hashcode.test.repository;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -21,6 +20,8 @@ import junit.framework.Assert;
 import org.junit.Ignore;
 import zm.hashcode.hashpay.model.market.EnumProductStatus;
 import zm.hashcode.hashpay.model.market.EnumTokenType;
+import zm.hashcode.hashpay.model.vouchers.CurrencyType;
+
 
 
 /**
@@ -31,8 +32,6 @@ public class ProductTest {
     
     private static Long productId;
     private ProductDAO productDAO;
-    private EnumTokenType tType;
-    private EnumProductStatus proStatus;
     private static ApplicationContext ctx;
     
     public ProductTest() {
@@ -57,12 +56,10 @@ public class ProductTest {
     
      @Test
     public void createAccount() {
-         Date date = null;
-        productDAO = (ProductDAO) ctx.getBean("productDAO");
-        Product product = new MarketFactory().createProduct("2342","testing product",date,new BigDecimal("27000.00"),proStatus.AVAILABLE,tType.DYNAMIC);
-        productDAO.persist(product);
-        productId = product.getId();
-        Assert.assertNotNull(product.getId());
+         productDAO = (ProductDAO) ctx.getBean("productDAO");
+         Product  product = new MarketFactory().createProduct("1414224231", "Bus-Ticket", BigDecimal.valueOf(400.00), EnumProductStatus.AVAILABLE, EnumTokenType.DYNAMIC,CurrencyType.ZMK);
+         productId = product.getId();
+         Assert.assertNotNull(product.getId());
     }
 
 
@@ -70,7 +67,7 @@ public class ProductTest {
     public void testRead() {
          productDAO = (ProductDAO) ctx.getBean("productDAO");
          Product product = productDAO.find(productId);
-         Assert.assertEquals("2342", product.getProductSerialNumber());
+        Assert.assertEquals("Bus-Ticket",product.getDescription());
   }
   
  
@@ -78,10 +75,12 @@ public class ProductTest {
     public void testUpdate() {
        productDAO = (ProductDAO) ctx.getBean("productDAO"); 
        Product product = productDAO.find(productId);
-       product.setUnitPrice(BigDecimal.valueOf(10.00));
+       product.setUnitPrice(BigDecimal.valueOf(509.00));
        productDAO.merge(product);
        Product product2 = productDAO.find(productId);
-       Assert.assertEquals(BigDecimal.valueOf(10.00),product.getUnitPrice());          
+       Assert.assertEquals(BigDecimal.valueOf(509.00),product.getUnitPrice());          
+
+  
     }
 
     @Test
@@ -101,8 +100,9 @@ public class ProductTest {
     @Test
     public void testtGetByParamater() {
     productDAO = (ProductDAO) ctx.getBean("productDAO"); 
-    Product product = productDAO.getByPropertyName("productSerialNumber", "2342");
-    Assert.assertEquals("2342",product.getProductSerialNumber());
+    Product product = productDAO.getByPropertyName("Description", "Bus-Ticket");
+    Assert.assertEquals("Bus-Ticket",product.getDescription());
+
   }
 
      @Ignore
@@ -115,5 +115,6 @@ public class ProductTest {
           
     }
    
-  
+
+
 }

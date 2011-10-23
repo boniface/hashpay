@@ -16,12 +16,20 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import zm.hashcode.hashpay.services.MerchantService;
 import junit.framework.Assert;
+import org.junit.Ignore;
+import zm.hashcode.hashpay.infrastructure.factories.market.MarketFactory;
 import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.accounts.AccountNumber;
+import zm.hashcode.hashpay.model.market.EnumProductStatus;
+import zm.hashcode.hashpay.model.market.EnumTokenType;
 import zm.hashcode.hashpay.model.market.Product;
+import zm.hashcode.hashpay.model.vouchers.CurrencyType;
 import zm.hashcode.hashpay.repository.jpa.ProductDAO;
+import zm.hashcode.hashpay.repository.jpa.UsersDAO;
 import zm.hashcode.hashpay.services.AccountEntriesService;
 import zm.hashcode.hashpay.services.AccountService;
+import zm.hashcode.hashpay.services.ProductService;
+import zm.hashcode.hashpay.services.RegistrationService;
 
 /**
  *
@@ -31,12 +39,13 @@ public class MerchantServicesTest {
 
    
     @Autowired
-    private MerchantService merchantService;
-    private AccountService service;
+    private RegistrationService registrationService;
     private static Long productId;
     private ProductDAO productDAO;
     private static Account accou;
     private static ApplicationContext ctx;
+    private ProductService productService;
+    private AccountService service;
     
   
     public MerchantServicesTest() {
@@ -64,31 +73,29 @@ public class MerchantServicesTest {
     //
     @Test
     public void createRequestAccount() {
-        merchantService = (MerchantService) ctx.getBean("merchantService");
-        merchantService.requestToRegister("Thozamile Sikwata","thozamilesikwata@live.com",new AccountNumber(), "2424fsgs");
-        Assert.assertNotNull(merchantService);
+        registrationService=(RegistrationService) ctx.getBean("registrationService");
+        registrationService.registerUser("thozamilesikwata@live.com", "pele", "pele");
+        Assert.assertNotNull(registrationService);
     }
 
     @Test
     public void testAddProduct(){
-         merchantService = (MerchantService) ctx.getBean("merchantService");
-      //   merchantService.addProduct("Bus Ticket-Single","Dynamic",BigDecimal.valueOf(400), "2", "2423141622");
-         Assert.assertNotNull(merchantService);
+         productService = (ProductService) ctx.getBean("productService");
+         Product product = productService.createProduct("12332", "Bus-Ticket", BigDecimal.valueOf(500.11), EnumProductStatus.AVAILABLE, EnumTokenType.DYNAMIC, CurrencyType.ZMK);
+         Assert.assertNotNull(product.getId());
      }
     
     @Test
        public void testRemoveProduct() {
-        merchantService = (MerchantService) ctx.getBean("merchantService");
-       // merchantService.removeProduct("Bus Ticket-Single");
-       Product product = productDAO.find(productId);
-       Assert.assertNull(merchantService);
+        MarketFactory prd= new MarketFactory();
+        prd.removeProduct("Bus-Ticket");
+        Assert.assertNotNull(prd);
         
     }
     
    @Test
    public void testlistProductPublished(){
-    merchantService = (MerchantService) ctx.getBean("merchantService");
-   // merchantService.listallProductsPublished();
+    productDAO = (ProductDAO) ctx.getBean("productDAO");
     List<Product> product = productDAO.findAll();
     Assert.assertTrue(product.size() > 0);
   }  

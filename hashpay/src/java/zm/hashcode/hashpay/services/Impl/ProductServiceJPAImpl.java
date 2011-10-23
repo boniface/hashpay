@@ -6,15 +6,29 @@ package zm.hashcode.hashpay.services.Impl;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import zm.hashcode.hashpay.infrastructure.exceptions.InsufficientBalanceException;
+import zm.hashcode.hashpay.infrastructure.exceptions.InvalidProductException;
+import zm.hashcode.hashpay.infrastructure.exceptions.InvalidVoucherException;
 import zm.hashcode.hashpay.infrastructure.factories.market.MarketFactory;
+import zm.hashcode.hashpay.infrastructure.util.voucher.VoucherUtility;
+import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.market.EnumProductStatus;
 import zm.hashcode.hashpay.model.market.EnumTokenType;
 import zm.hashcode.hashpay.model.market.Product;
+import zm.hashcode.hashpay.model.vouchers.CurrencyType;
 import zm.hashcode.hashpay.repository.jpa.ProductDAO;
+
+import zm.hashcode.hashpay.services.AccountEntriesService;
 import zm.hashcode.hashpay.services.ProductService;
+
 
 /**
  *
@@ -24,8 +38,12 @@ import zm.hashcode.hashpay.services.ProductService;
 @Transactional
 public class ProductServiceJPAImpl implements ProductService {
   
-      @Autowired
+    @Autowired
     private ProductDAO productDAO;
+    private VoucherUtility util;
+    private AccountEntriesService accountService;
+    private static ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:zm/hashcode/hashpay/infrastructure/conf/applicationContext-*.xml");
+
    
     /**
      * @return the productDAO
@@ -41,41 +59,47 @@ public class ProductServiceJPAImpl implements ProductService {
         this.productDAO = productDAO;
     }
 
+
+
     @Override
-    public void createProduct(String pserial, String desc, Date cdate, BigDecimal uPrice, EnumProductStatus proStatus, EnumTokenType tokType) {
-         
-        MarketFactory pro = new MarketFactory();
-        pro.createProduct( pserial,  desc,  cdate,  uPrice, proStatus,  tokType);
-        
-    }
-    
-    @Override
-    public boolean claimProduct(String serialNumber, Date date) {
-        MarketFactory pro = new MarketFactory();
-        pro.claimProduct(serialNumber, date);
-        return true;
+    public Product createProduct(String ProductSerialNumber, String Description, BigDecimal unitPrice, EnumProductStatus productStatus, EnumTokenType eTokenType,CurrencyType currencySymbol) {
+         MarketFactory p = new MarketFactory();
+         Product product= p.createProduct(ProductSerialNumber, Description, unitPrice, productStatus, eTokenType,currencySymbol);
+         return product;
     }
 
     @Override
-    public Product sellProduct(String serialNumber) {
-        MarketFactory pro = new MarketFactory();
-       Product prodcut = new Product();
-       prodcut = pro.sellProduct(serialNumber);
-       return prodcut;
+    public Product buyProduct(Account accNumber, Product product) throws InsufficientBalanceException {
+            Product prod= productDAO.find(product.getId());
+            accountService = (AccountEntriesService) ctx.getBean("accountEntriesService");
+            accountService.CreateDebitAccountEntry(accNumber, prod.getUnitPrice(),prod.getTokenNumber(), prod.getCurrencySymbol().toString());
+            prod.setProductStatus(EnumProductStatus.SOLD);
+            productDAO.merge(prod);
+           return prod;
     }
 
     @Override
-    public void removeProduct(String desc) {
-       MarketFactory pro = new MarketFactory();
-       pro.removeProduct(desc);
+    public Product validatedProduct(String hash, String code, Account account) throws InvalidVoucherException {
+         accountService = (AccountEntriesService) ctx.getBean("accountEntriesService");
+        String codeGen = new VoucherUtility().getService().getConstructedCode(hash, code);
+        Product product = productDAO.getByPropertyName("tokenNumber", codeGen);
+        if (EnumProductStatus.SOLD == product.getProductStatus()) {
+            accountService.creditAccount(account,new BigDecimal(product.getUnitPrice().toString()),product.getTokenNumber().toString(), product.getCurrencySymbol().toString());
+            product.setProductStatus(EnumProductStatus.CLAIMED);
+            product.setDatedClaimed(new Date());
+            product.setClaimer(account.getCreatedBy().toString());
+            productDAO.merge(product);
+            
+        } else {
+            try {
+                throw new InvalidProductException();
+            } catch (InvalidProductException ex) {
+                Logger.getLogger(ProductServiceJPAImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            
+            }
+             return product;
     }
-    @Override
-    public Product findProduct(String serialNumber){
-        MarketFactory pro = new MarketFactory();
-       Product product = new Product();
-       product = pro.findProduct(serialNumber);
-       return product;
-    }
-    
     
 }

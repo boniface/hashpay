@@ -61,7 +61,6 @@ public class AccountTest {
         //accountDAO.persist(account);
         //Assert.assertNotNull(account.getId());
         Account account = new AccountFactory().createNewAccount("RSA", "Active", "Shane");
-
         Id = account.getId();
         Assert.assertNotNull(account.getId());
     }
@@ -77,12 +76,11 @@ public class AccountTest {
     @Test
     public void testUpdate() {
         accountDAO = (AccountDAO) ctx.getBean("accountDAO");
-        
         Account account = accountDAO.find(Id);
-        account.setAccountStatus("Deactive");
+        account.setAccountStatus("active");
         accountDAO.merge(account);
         Account account2 = accountDAO.find(Id);
-        Assert.assertEquals("Deactive", account.getAccountStatus());
+        Assert.assertEquals("active", account.getAccountStatus());
     }
 
     @Test

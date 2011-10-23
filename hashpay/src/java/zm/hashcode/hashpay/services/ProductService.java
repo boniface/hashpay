@@ -4,21 +4,25 @@
  */
 package zm.hashcode.hashpay.services;
 import java.math.BigDecimal;
-import java.util.Date;
+import zm.hashcode.hashpay.infrastructure.exceptions.InsufficientBalanceException;
+import zm.hashcode.hashpay.infrastructure.exceptions.InvalidVoucherException;
+import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.market.EnumProductStatus;
 import zm.hashcode.hashpay.model.market.EnumTokenType;
 import zm.hashcode.hashpay.model.market.Product;
+import zm.hashcode.hashpay.model.vouchers.CurrencyType;
+
 
 /**
  *
- * @author Peter Phillip
+ * @author Thozamile
  */
 public interface ProductService {
     
-     public void createProduct(String pserial, String desc, Date cdate, BigDecimal uPrice,EnumProductStatus proStatus, EnumTokenType tokType);
-    
-     public boolean claimProduct(String serialNumber, Date date);
-     public Product sellProduct(String desc);
-     public void removeProduct(String desc);   
-     public Product findProduct(String serialNumber);
+
+     public Product createProduct(String ProductSerialNumber, String Description, BigDecimal unitPrice, EnumProductStatus productStatus, EnumTokenType eTokenType,CurrencyType currencySymbol);
+     public Product buyProduct(Account accNumber, Product voucher)throws InsufficientBalanceException ;
+     public Product validatedProduct(String hash, String code, Account account) throws InvalidVoucherException;
+      
+ 
 }
