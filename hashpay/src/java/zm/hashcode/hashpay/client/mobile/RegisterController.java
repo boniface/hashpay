@@ -47,9 +47,10 @@ public class RegisterController {
         return "message";
     }
 
-    @RequestMapping(value = "activate.html", method = RequestMethod.GET)
+    @RequestMapping(value = "activate.html", method = RequestMethod.GET, params="token={token}")
     public String activate(@RequestParam("token") String token, Model model) {
         // Call with params =domain/hashpay/register/actrivate.html?token=12345
+        service.activateAccount(token, Long.valueOf("110"));
         System.out.println("The Token Sent was " + token);
 //        String message = service.activateAccount(token);
         model.addAttribute("message"," You account has been Activated. Please Login to start using it");

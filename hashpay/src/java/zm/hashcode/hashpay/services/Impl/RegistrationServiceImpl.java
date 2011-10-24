@@ -64,13 +64,14 @@ public class RegistrationServiceImpl implements RegistrationService {
                         + "Account Details:\n"
                         + "\tUserName:" + user.getUsername() + "\n\n"
                         + "Please follow the link to activate your account:\n\n"
-                        + "http://www.hashpay/register.com?id="+user.getId()+"&token="+token.getPassword()+"\n\n"
+                        //+ "http://www.hashpay/register.com?id="+user.getId()+"&token="+token.getPassword()+"\n\n"
+                        + "http://localhost:8084/hashpay/register/activate.html?token="+token.getPassword()+"&id="+user.getId()+"\n\n"
                         + "Kind Regards\n"
                         + "Hashpay Team";
-                //sendingEmail(s, "Registration to Hashpay", body);
+                sendingEmail(user, "Registration to Hashpay", body);
                 
-                SendEmail send = new SendEmail();
-                send.sendEmail(s, "Registration to Hashpay", body);
+                //SendEmail send = new SendEmail();
+                //send.sendEmail(s, "Registration to Hashpay", body);
 
                 return "Your Has been Created ";
 
