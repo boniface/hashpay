@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
+
 <html>
     <head>
         <title>Hash Pay Mobile App</title>
@@ -12,20 +16,21 @@
             <!-- begin first page -->
             <section id="page1" data-role="page"  data-theme="b">
 
-                <header data-role="header"><h1>Welcome HashPay </h1>
+                <header data-role="header"><h1>Hash Pay </h1>
                 </header>
                 <div data-role="content" class="content">
 
-                    <form id="myform" action="j_spring_security_check" method="post">
+                   <f:form  method="POST" modelAttribute="usr" action="forgotpassword.html">
                         <div data-role="fieldcontain">
-                            <label for="email-address">Email Address:</label>
-                            <input type="text" name="j_username" id="email-address" />
+                            <label for="emailAddress">Email Address:</label>
+                            <input type="text" name="emailAddress" id="emailAddress" />
                         </div>
+
                         <div data-role="controlgroup" data-type="horizontal">
-                            <input type="submit" value="Login" data-theme="b" />
+                            <input type="submit" value="Send" data-theme="b" />
                         </div>
-                        
-                    </form>
+
+                    </f:form>
                 </div>
                 <footer data-role="footer"><h1>Hash Pay</h1></footer>
             </section>

@@ -12,12 +12,16 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import zm.hashcode.hashpay.infrastructure.util.authentication.PasswordEncrypt;
 import zm.hashcode.hashpay.infrastructure.util.authentication.PasswordGenerator;
 import zm.hashcode.hashpay.infrastructure.util.email.SendEmail;
+import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.people.Users;
 import zm.hashcode.hashpay.repository.jpa.UsersDAO;
+import zm.hashcode.hashpay.services.AccountService;
 import zm.hashcode.hashpay.services.RegistrationService;
 
 /**
@@ -29,6 +33,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Autowired
     private UsersDAO usersDAO;
+    private AccountService accountService;
+     private static ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:zm/hashcode/hashpay/infrastructure/conf/applicationContext-*.xml");
 
     @Override
     public String registerUser(String email, String password, String confirm) {
@@ -57,6 +63,10 @@ public class RegistrationServiceImpl implements RegistrationService {
                 user.setEnabled(false);
                 String encryptedPassword = PasswordEncrypt.encrypt(password);
                 user.setPassword(encryptedPassword);
+                //accountService = (AccountService) ctx.getBean("accountService");
+                //Account account = accountService.createAccount("Deactive", "RSA", email);
+                //user.setAccount(account);
+                
                 usersDAO.persist(user);
 
 
@@ -68,10 +78,10 @@ public class RegistrationServiceImpl implements RegistrationService {
                         + "http://localhost:8084/hashpay/register/activate.html?token="+token.getPassword()+"&id="+user.getId()+"\n\n"
                         + "Kind Regards\n"
                         + "Hashpay Team";
-                sendingEmail(user, "Registration to Hashpay", body);
+                //sendingEmail(user, "Registration to Hashpay", body);
                 
-                //SendEmail send = new SendEmail();
-                //send.sendEmail(s, "Registration to Hashpay", body);
+                SendEmail send = new SendEmail();
+                send.sendEmail(s, "Registration to Hashpay", body);
 
                 return "Your Has been Created ";
 
@@ -94,7 +104,7 @@ public class RegistrationServiceImpl implements RegistrationService {
             usersDAO.merge(user);
             
             String body = "Hi\n Please follow the link to reset your password:\n"
-                    + "http://localhost:8084/hashpay/login.jsp#register/activate.html?token="+token.getPassword()+"&"+"id="+user.getId()+"\n"
+                    + "http://localhost:8084/hashpay/register/resetpassword.html?token="+token.getPassword()+"&"+"id="+user.getId()+"\n"
                     //+ "hashpay/register?id="+user.getId()+"&token="+token.getPassword()+"\n"
                     + "Kind Regards"
                     + "Hashpay Team";

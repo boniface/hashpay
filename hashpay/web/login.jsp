@@ -26,7 +26,7 @@
                             <input type="password" name="j_password" id="password" />
                         </div>
                         <div data-role="controlgroup" data-type="horizontal">
-                            <a href="forgotPassword.jsp" data-role="button" data-theme="b">Forgot Password</a>
+                            <a href="register/Emailpassword.html" data-role="button" data-theme="b">Forgot Password</a>
                             <input type="submit" value="Login" data-theme="b" />
                             <input type="reset" value="Reset" data-theme="b"/>
                         </div>

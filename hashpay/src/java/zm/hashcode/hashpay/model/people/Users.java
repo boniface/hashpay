@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import zm.hashcode.hashpay.model.accounts.Account;
 
 /**
  *
@@ -41,6 +43,9 @@ public class Users implements Serializable, Person {
     @OneToMany(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "user_id")
     private List<Roles> roles = new ArrayList<Roles>();
+    @OneToOne(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
+    @JoinColumn(name = "account_id")
+    private Account account; 
 
     public Long getId() {
         return id;
@@ -149,5 +154,19 @@ public class Users implements Serializable, Person {
      */
     public void setTemporaryToken(String temporaryToken) {
         this.temporaryToken = temporaryToken;
+    }
+
+    /**
+     * @return the account
+     */
+    public Account getAccount() {
+        return account;
+    }
+
+    /**
+     * @param account the account to set
+     */
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

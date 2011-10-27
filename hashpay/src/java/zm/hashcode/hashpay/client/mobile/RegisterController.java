@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import zm.hashcode.hashpay.client.mobile.model.LoginBean;
 import zm.hashcode.hashpay.client.mobile.model.RegisterBean;
 import zm.hashcode.hashpay.services.RegistrationService;
 
@@ -29,7 +30,7 @@ public class RegisterController {
     public String register( Model model) {
         RegisterBean user = new RegisterBean();
         model.addAttribute(user);
-       service.registerUser(user.getEmailAddress(), user.getPassword(), user.getRetypePassword());
+       //service.registerUser(user.getEmailAddress(), user.getPassword(), user.getRetypePassword());
         return "register";
     }
 
@@ -47,32 +48,44 @@ public class RegisterController {
         return "message";
     }
 
-    @RequestMapping(value = "activate.html", method = RequestMethod.GET, params="token={token}")
-    public String activate(@RequestParam("token") String token, Model model) {
+    @RequestMapping(value = "activate.html", method = RequestMethod.GET)
+    public String activate(@RequestParam("token") String token,@RequestParam("id")String id, Model model) {
         // Call with params =domain/hashpay/register/actrivate.html?token=12345
-        service.activateAccount(token, Long.valueOf("110"));
+        LoginBean user = new LoginBean();
+        model.addAttribute(user);
+        service.activateAccount(token, Long.valueOf(id));
         System.out.println("The Token Sent was " + token);
 //        String message = service.activateAccount(token);
         model.addAttribute("message"," You account has been Activated. Please Login to start using it");
         return "message";
     }
-
-    @RequestMapping(value = "forgotpassword.html", method = RequestMethod.GET)
-    public String forgotPassword(@RequestParam("token") String token, Model model) {
+    @RequestMapping(value = "Emailpassword.html", method = RequestMethod.GET)
+    public String forgot( Model model) {
+        LoginBean usr = new LoginBean();
+        model.addAttribute(usr);
+       //service.registerUser(user.getEmailAddress(), user.getPassword(), user.getRetypePassword());
+        return "forgotPassword";
+    }
+    
+    @RequestMapping(value = "forgotpassword.html", method = RequestMethod.POST)
+    public String forgotPassword(@Valid LoginBean usr, BindingResult bindingResultl,Model model) {
         
+        model.addAttribute(usr);
+        service.forgotPassowrd(usr.getEmailAddress());
         // Call with params =domain/hashpay/register/actrivate.html?token=12345
-        System.out.println("The Token Sent was " + token);
+        //System.out.println("The Token Sent was " + token);
 //        String message = service.activateAccount(token);
-//        model.addAttribute(message);
+        model.addAttribute("message","An email has been sent to your account to reset your account");
         return "message";
     }
 
     @RequestMapping(value = "resetpassword.html", method = RequestMethod.GET)
-    public String resetPassword(@RequestParam("token") String token, Model model) {
+    public String resetPassword(@RequestParam("token") String token,@RequestParam("id") String id, Model model) {
           // Call with params =domain/hashpay/register/actrivate.html?token=12345
+        service.resetPassword(token, Long.valueOf(id));
         System.out.println("The Token Sent was " + token);
 //        String message = getService().activateAccount(token);
-//        model.addAttribute(message);
+        model.addAttribute("message", "An email has been send with your new password");
         return "message";
     }
 
