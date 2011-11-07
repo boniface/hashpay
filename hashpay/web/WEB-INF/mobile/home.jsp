@@ -17,11 +17,15 @@
                             <li><a href="#">Profile</a></li>
                             <li><a href="#">Accounts</a></li> 
                         </ul>
-                       
+
                     </nav>
                 </header>
                 <div data-role="content" class="content">
-                    <p>First page!</p>
+                    <a href="#" data-role="button">Airtime</a>
+                    <a href="#" data-role="button">Movie Tickets</a>
+                    <a href="#" data-role="button">Electricity</a>
+                        <!--
+        <p>First page!</p>
 
                     <h3>Buttons</h3>
                     <a href="#" data-role="button">Link-based button</a>
@@ -44,19 +48,19 @@
                     </form>
 
 
-                    <p><a href="#page2" data-rel="dialog">HashPay Diaolog</a></p>
+                    <p><a href="#page2" data-rel="dialog">HashPay Diaolog</a></p>-->
                 </div>
                 <footer data-role="footer"><h1>hash Pay </h1></footer>
             </section>
             <!-- end first page -->
             <!-- Begin second page -->
-            <section id="page2" data-role="page" data-theme="b">
+            <!--<section id="page2" data-role="page" data-theme="b">
                 <header data-role="header" data-theme="b"><h1>HashPay Mobile</h1></header>
                 <div data-role="content" class="content" data-theme="b">
                     <p>Second page!</p>
                 </div>
                 <footer data-role="footer"r data-theme="b"><h1>Hash Pay Footer</h1></footer>
-            </section>
+            </section>-->
             <!-- end second page -->
         </div>
     </body>
