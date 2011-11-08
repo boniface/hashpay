@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <html>
     <head>
         <title>jQuery Mobile Application</title>
@@ -21,16 +22,24 @@
                     </nav>
                 </header>
                 <div data-role="content" class="content">
-                    <form id="accountForm" action="j_spring_security_check" method="post">
+                    <f:form id="accountForm" action="j_spring_security_check" method="post">
                         <div data-role="fieldcontain">
-                            <label for="email-address">Account Number:</label>
+                            <label for="account-number">Account Number:</label>
                             <input type="text" name="j_accountNumber" id="accountNumber" />
                         </div>
                         <div data-role="fieldcontain">
-                            <label for="email-address">Current Balance:</label>
+                            <label for="Status">Status:</label>
+                            <input type="text" name="j_status" id="Status" />
+                        </div> 
+                        <div data-role="fieldcontain">
+                            <label for="current-Balance">Current Balance:</label>
                             <input type="text" name="j_currentBalance" id="currentBalance" />
-                        </div>                        
-                    </form>
+                        </div>
+                        <div data-role="fieldcontain">
+                            <label for="currency-type">Currency:</label>
+                            <input type="text" name="j_currency" id="Currency" />
+                        </div>  
+                    </f:form>
                     <a href="#" data-role="button">Account Transactions</a>
                 </div>
 

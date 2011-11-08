@@ -11,12 +11,12 @@
     <body>
         <div data-role="header">
             <!-- begin page -->
-            <section id="airtime" data-role="page"  data-theme="b">
+            <section id="prodcutList" data-role="page"  data-theme="b">
                 <header data-role="header"><h1>Hash Pay </h1>
                     <nav data-role="navbar">
                         <ul>
-                            <li><a href="/home.jsp">Buy</a></li>
-                            <li><a href="#" class="ui-btn-active">Profile</a></li>
+                            <li><a href="/home.jsp" class="ui-btn-active">Buy</a></li>
+                            <li><a href="#">Profile</a></li>
                             <li><a href="#">Accounts</a></li> 
                         </ul>
 
@@ -24,7 +24,7 @@
                 </header>
                 <div data-role="content" class="content">
                     <ul data-role="listview" data-theme="g">
-                        <c:forEach items="${airtimeList}" var="num">
+                        <c:forEach items="${list}" var="num">
                             <li><a href="#"><c:out value="${amount}"/>
                                                      <c:out value="${seller}"/>
                                 </a></li>
