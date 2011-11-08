@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <html>
     <head>
         <title>jQuery Mobile Application</title>
@@ -21,24 +22,24 @@
                     </nav>
                 </header>
                 <div data-role="content" class="content">
-                    <form id="profileForm" action="j_spring_security_check" method="post">
+                    <f:form  action="changePassword.html" id="newPassword" action="j_spring_security_check" method="post">
                         <div data-role="fieldcontain">
-                            <label for="username">Username:</label>
-                            <input type="text" name="j_name" id="Username" />
+                            <label for="emailAddress">Old Password:</label>
+                            <input type="text" name="oldPassword" id="oldPassword" />
                         </div>
                         <div data-role="fieldcontain">
-                            <label for="name">Name:</label>
-                            <input type="text" name="j_name" id="Name" />
+                            <label for="password">New Password:</label>
+                            <input type="password" name="newPassword" id="newPassword" />
                         </div>
                         <div data-role="fieldcontain">
-                            <label for="surname">Surname:</label>
-                            <input type="text" name="j_name" id="Surname" />
+                            <label for="retypePassword">Re Type New Password:</label>
+                            <input type="password" name="retypeNewPassword" id="retypeNewPassword" />
                         </div>
+
                         <div data-role="controlgroup" data-type="horizontal">
                             <input type="submit" value="Save" data-theme="b" />
                         </div>
-                        <a href="#" data-role="button">Forgot Password</a>
-                    </form>
+                    </f:form>
                 </div>
 
 

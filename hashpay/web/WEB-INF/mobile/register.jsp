@@ -34,7 +34,7 @@
 
                         <div data-role="controlgroup" data-type="horizontal">
                             <input type="submit" value="Register" data-theme="b" />
-                            <a href="login.html" data-role="button" data-theme="b">Login</a>
+                            <a href="/index.jsp" data-role="button" data-theme="b">Login</a>
                             <input type="reset" value="Reset" data-theme="b"/>
                         </div>
 

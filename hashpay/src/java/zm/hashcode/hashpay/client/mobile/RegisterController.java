@@ -37,7 +37,16 @@ public class RegisterController {
     @RequestMapping(value = "newaccount.html", method = RequestMethod.POST)
     public String createNewAccount(@Valid RegisterBean user, BindingResult bindingResultl,Model model) {
                 model.addAttribute(user);
-       service.registerUser(user.getEmailAddress(), user.getPassword(), user.getRetypePassword());
+       String message = service.registerUser(user.getEmailAddress(), user.getPassword(), user.getRetypePassword());
+       if(message.equals("Username already exists")){
+           model.addAttribute("message", "Username already exists");
+           return "message";
+       }else if(message.equals("Password Does Not Match")){         
+                   model.addAttribute("message", "Password Does Not Match");
+                   return "message";
+       } else {
+           
+       
         if (bindingResultl.hasErrors()) {
             
             return "register";
@@ -46,6 +55,7 @@ public class RegisterController {
         model.addAttribute("message", "Your Account Has been Created. Please Check Your e-mail to activate it.");
         
         return "message";
+        }
     }
 
     @RequestMapping(value = "activate.html", method = RequestMethod.GET)
@@ -87,6 +97,12 @@ public class RegisterController {
 //        String message = getService().activateAccount(token);
         model.addAttribute("message", "An email has been send with your new password");
         return "message";
+    }
+    
+    @RequestMapping(value = "login.html", method = RequestMethod.GET)
+    public String loginPage(@Valid LoginBean usr, BindingResult bindingResultl,Model model) {
+        
+        return "";
     }
 
     @RequestMapping(value = "requeststore.html", method = RequestMethod.GET)

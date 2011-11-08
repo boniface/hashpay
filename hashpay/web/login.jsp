@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
     <head>
         <title>Hash Pay Mobile App</title>
@@ -16,7 +17,7 @@
                 </header>
                 <div data-role="content" class="content">
 
-                    <form id="myform" action="j_spring_security_check" method="post">
+                    <form:form  action="login.html" id="myform" action="j_spring_security_check" method="post" >
                         <div data-role="fieldcontain">
                             <label for="email-address">Email Address:</label>
                             <input type="text" name="j_username" id="email-address" />
@@ -31,7 +32,7 @@
                             <input type="reset" value="Reset" data-theme="b"/>
                         </div>
                         
-                    </form>
+                    </form:form>
 
 
                     <p><a href="register/createaccount.html?new" >Create Account</a></p>

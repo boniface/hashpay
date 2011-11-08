@@ -25,8 +25,8 @@
                 <div data-role="content" class="content">
                     <ul data-role="listview" data-theme="g">
                         <c:forEach items="${list}" var="num">
-                            <li><a href="#"><c:out value="${amount}"/>
-                                                     <c:out value="${seller}"/>
+                            <li><a href="#"><c:out value="${list.amount}"/>
+                                                     <c:out value="${list.seller}"/>
                                 </a></li>
                         </c:forEach>
                     </ul>

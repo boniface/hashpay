@@ -25,19 +25,19 @@
                     <f:form id="accountForm" action="j_spring_security_check" method="post">
                         <div data-role="fieldcontain">
                             <label for="account-number">Account Number:</label>
-                            <input type="text" name="j_accountNumber" id="accountNumber" />
+                            <input type="text" name="j_accountNumber" id="accountNumber" readonly="true" value="${accountNumber}"/>
                         </div>
                         <div data-role="fieldcontain">
                             <label for="Status">Status:</label>
-                            <input type="text" name="j_status" id="Status" />
+                            <input type="text" name="j_status" id="status" readonly="true" value="${status}"/>
                         </div> 
                         <div data-role="fieldcontain">
                             <label for="current-Balance">Current Balance:</label>
-                            <input type="text" name="j_currentBalance" id="currentBalance" />
+                            <input type="text" name="j_currentBalance" id="currentBalance" readonly="true" value="${balance}"/>
                         </div>
                         <div data-role="fieldcontain">
                             <label for="currency-type">Currency:</label>
-                            <input type="text" name="j_currency" id="Currency" />
+                            <input type="text" name="j_currency" id="currency" readonly="true" value="${currency}" />
                         </div>  
                     </f:form>
                     <a href="#" data-role="button">Account Transactions</a>
