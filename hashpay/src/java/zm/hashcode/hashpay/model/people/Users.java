@@ -169,4 +169,11 @@ public class Users implements Serializable, Person {
     public void setAccount(Account account) {
         this.account = account;
     }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(Name name) {
+        this.name = name;
+    }
 }

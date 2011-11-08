@@ -58,7 +58,7 @@ public class AccountServicesTest {
     // The methods must be annotated with annotation @Test. For example:
     //
     
-    @Ignore
+    @Test
     public void createAccount() {
         service = (AccountService) ctx.getBean("accountService");
         accou = service.createAccount("deActive", "ZMB", "Shane");
@@ -80,7 +80,7 @@ public class AccountServicesTest {
         Assert.assertEquals(d, new BigDecimal("400.00"));
     }
 
-    @Test
+    @Ignore
     public void activateAccount() {
         service = (AccountService) ctx.getBean("accountService");
         service.setAccountStatus("Active", "53");

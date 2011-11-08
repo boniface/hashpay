@@ -12,13 +12,12 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import zm.hashcode.hashpay.infrastructure.util.authentication.PasswordEncrypt;
 import zm.hashcode.hashpay.infrastructure.util.authentication.PasswordGenerator;
 import zm.hashcode.hashpay.infrastructure.util.email.SendEmail;
 import zm.hashcode.hashpay.model.accounts.Account;
+import zm.hashcode.hashpay.model.people.Name;
 import zm.hashcode.hashpay.model.people.Users;
 import zm.hashcode.hashpay.repository.jpa.UsersDAO;
 import zm.hashcode.hashpay.services.AccountService;
@@ -33,8 +32,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Autowired
     private UsersDAO usersDAO;
+    @Autowired
     private AccountService accountService;
-     private static ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:zm/hashcode/hashpay/infrastructure/conf/applicationContext-*.xml");
 
     @Override
     public String registerUser(String email, String password, String confirm) {
@@ -63,11 +62,8 @@ public class RegistrationServiceImpl implements RegistrationService {
                 user.setEnabled(false);
                 String encryptedPassword = PasswordEncrypt.encrypt(password);
                 user.setPassword(encryptedPassword);
-                //accountService = (AccountService) ctx.getBean("accountService");
-                //Account account = accountService.createAccount("Deactive", "RSA", email);
-                //user.setAccount(account);
-                
                 usersDAO.persist(user);
+                
 
 
                 String body = "Hi User\n "
@@ -81,9 +77,9 @@ public class RegistrationServiceImpl implements RegistrationService {
                 //sendingEmail(user, "Registration to Hashpay", body);
                 
                 SendEmail send = new SendEmail();
-                send.sendEmail(s, "Registration to Hashpay", body);
+                send.sendEmail(user, "Registration to Hashpay", body);
 
-                return "Your Has been Created ";
+                return "User Has been Created";
 
             }
         }
@@ -125,8 +121,11 @@ public class RegistrationServiceImpl implements RegistrationService {
         if (user.getTemporaryToken().equals(token)) {
             user.setEnabled(true);
             user.setTemporaryToken(null);
+            
+            Account account = accountService.createAccount("Active", "RSA", user.getUsername());
+            user.setAccount(account);
             usersDAO.merge(user);
-            return "Account Activated , Login";
+            return "Account Activated , Login"; 
         }
         return "Error message";
     }
@@ -182,7 +181,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     
     private void sendingEmail(Users user, String subject, String body) {
         Properties props = new Properties();
-        props.put("mail.smtp.host", "mail.maxxor.com");
+        props.put("mail.smtp.host", "none");
         props.put("mail.from", "no-reply@hashpay.com");
         
         Session sessions = Session.getInstance(props, null);
@@ -226,6 +225,20 @@ public class RegistrationServiceImpl implements RegistrationService {
         if (dencryptedPassword.equals(user.getPassword()))
             return false;
         return true;
+    }
+
+    @Override
+    public String setNames(String firstName, String lastName, String otherName, String title, String username) {
+        Users user = usersDAO.getByPropertyName("username", username);
+        Name name =  new Name();
+        name.setFirstname(firstName);
+        name.setLastname(lastName);
+        name.setOtherName(otherName);
+        name.setTitle(title);
+        user.setName(name);
+        
+        usersDAO.merge(user);
+         return "Your account has been Updated";
     }
 
    

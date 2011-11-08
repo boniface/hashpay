@@ -4,6 +4,8 @@
  */
 package zm.hashcode.hashpay.services;
 
+import zm.hashcode.hashpay.model.accounts.Account;
+
 /**
  *
  * @author boniface
@@ -19,4 +21,6 @@ public interface RegistrationService {
     public  String resetPassword(String token,Long id);
     
     public String changePassword(String email,String oldpassword, String newpassword, String confirmnewpassword);
+    
+    public String setNames(String firstName, String lastName, String otherName, String title, String username);
 }

@@ -4,6 +4,7 @@
  */
 package zm.hashcode.test.service;
 
+import junit.framework.Assert;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -13,6 +14,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import zm.hashcode.hashpay.services.AccountService;
 import zm.hashcode.hashpay.services.RegistrationService;
 
 /**
@@ -24,6 +26,9 @@ public class RegistrationServicesTest {
     private static ApplicationContext ctx;
     @Autowired
     private RegistrationService service;
+    @Autowired
+    private AccountService accountservice;
+    private String message;
 
     @Autowired
     public RegistrationServicesTest() {
@@ -52,27 +57,32 @@ public class RegistrationServicesTest {
     @Ignore
     public void createNewProfile() {
         service = (RegistrationService) ctx.getBean("registrationService");
-        service.registerUser("shanevdbroek@gmail.com", "password", "password");
+        message = service.registerUser("ReidJason@gmail.com", "password", "password");
+        Assert.assertEquals("User Has been Created", message);
     }
 
     @Test
     public void activateProfile() {
         service = (RegistrationService) ctx.getBean("registrationService");
-        service.activateAccount("p8q1Om0q", Long.valueOf(84));
-    }
-
-    @Test
-    public void testChangePassowrd() {
-        service = (RegistrationService) ctx.getBean("registrationService");
-        service.changePassword("shanevdbroek@gmail.com","password", "1234", "1234");
+        message = service.activateAccount("e1c1qwtJ", Long.valueOf(128));
+        Assert.assertEquals("Account Activated , Login", message);
     }
 
     @Ignore
-    public void testAddMoneyToAccount() {
+    public void testChangePassowrd() {
+        service = (RegistrationService) ctx.getBean("registrationService");
+        service.changePassword("shanevdbroek@gmail.com","password", "1234", "1234");
+        Assert.assertEquals("Password has been changed", message);
+    }
+    @Ignore
+    public void testAddMoneyToAccount() {      
     }
 
     @Ignore
     public void testTestUpdateProfile() {
+        service = (RegistrationService)ctx.getBean("registrationService");
+        message = service.setNames("Shane", "Van Der Broeck", "Kyle", "Mr", "shanevdbroek@gmail.com");
+        Assert.assertEquals("Your account has been Updated", message);
     }
 
     @Ignore
