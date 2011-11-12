@@ -11,6 +11,7 @@ import zm.hashcode.hashpay.model.market.EnumProductStatus;
 import zm.hashcode.hashpay.model.market.EnumTokenType;
 import zm.hashcode.hashpay.model.market.Product;
 import zm.hashcode.hashpay.model.vouchers.CurrencyType;
+import java.util.List;
 
 
 /**
@@ -23,6 +24,7 @@ public interface ProductService {
      public Product createProduct(String ProductSerialNumber, String Description, BigDecimal unitPrice, EnumProductStatus productStatus, EnumTokenType eTokenType,CurrencyType currencySymbol);
      public Product buyProduct(Account accNumber, Product voucher)throws InsufficientBalanceException ;
      public Product validatedProduct(String hash, String code, Account account) throws InvalidVoucherException;
-      
+     public List<Product> allproducts();
+     public void createProducts(String ProductSerialNumber, String Description, BigDecimal unitPrice, EnumProductStatus productStatus, EnumTokenType eTokenType,CurrencyType currencySymbol,int number); 
  
 }

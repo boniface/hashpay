@@ -30,6 +30,7 @@ import java.util.logging.Logger;
 import org.junit.Ignore;
 import zm.hashcode.hashpay.infrastructure.exceptions.InvalidProductException;
 import zm.hashcode.hashpay.infrastructure.factories.market.MarketFactory;
+import java.util.List;
 
 /**
  *
@@ -109,6 +110,22 @@ public class ProductServicesTest {
    
        Assert.assertEquals("CLAIMED", status);
     }
+      @Test  
+    public void listProduct(){
+    service = (ProductService) ctx.getBean("productService");
+    service.allproducts();
+    List <Product> product = productDAO.findAll();
+    Assert.assertTrue(product.size() > 0);     
+    }
+    
+   @Ignore
+    public void createBulkProducts(){
+        service = (ProductService) ctx.getBean("productService");
+        service.createProducts("221", "Bus-ticket", BigDecimal.valueOf(200.00), EnumProductStatus.AVAILABLE, EnumTokenType.DYNAMIC, CurrencyType.ZMK, 6);
+        productDAO = (ProductDAO)ctx.getBean("productDAO");
+        List <Product> product = productDAO.findAll();
+        Assert.assertTrue(product.size()>6);
+    } 
       
     
 }

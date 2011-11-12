@@ -89,7 +89,14 @@ public class MarketFactory {
              productDAO.remove(product);
           return product;
          }
-
+    
+     public void createProducts(String ProductSerialNumber,String Description,BigDecimal unitPrice,EnumProductStatus productStatus,EnumTokenType eTokenType,CurrencyType currencySymbo, int number) {
+         productDAO = (ProductDAO) ctx.getBean("productDAO");
+        for (int i = 0; i < number; i++) {
+            productDAO.persist(createProduct( ProductSerialNumber, Description, unitPrice, productStatus, eTokenType, currencySymbo));
+       
+    }
+     }
 
   
   }

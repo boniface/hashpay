@@ -25,7 +25,7 @@ import zm.hashcode.hashpay.model.market.EnumTokenType;
 import zm.hashcode.hashpay.model.market.Product;
 import zm.hashcode.hashpay.model.vouchers.CurrencyType;
 import zm.hashcode.hashpay.repository.jpa.ProductDAO;
-
+import java.util.List;
 import zm.hashcode.hashpay.services.AccountEntriesService;
 import zm.hashcode.hashpay.services.ProductService;
 
@@ -100,6 +100,18 @@ public class ProductServiceJPAImpl implements ProductService {
             
             }
              return product;
+    }
+    
+       @Override
+    public List<Product> allproducts() {
+          return productDAO.getEntitiesByProperName("productStatus", EnumProductStatus.AVAILABLE.toString());
+         
+    }
+
+    @Override
+    public void createProducts(String ProductSerialNumber, String Description, BigDecimal unitPrice, EnumProductStatus productStatus, EnumTokenType eTokenType, CurrencyType currencySymbol, int number) {
+         MarketFactory f = new MarketFactory();
+         f.createProducts(ProductSerialNumber, Description, unitPrice, productStatus, eTokenType, currencySymbol, number);
     }
     
 }
