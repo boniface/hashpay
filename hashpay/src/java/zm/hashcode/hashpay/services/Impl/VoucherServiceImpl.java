@@ -36,8 +36,9 @@ public class VoucherServiceImpl implements VoucherService {
     @Autowired
     private VoucherDAO voucherDAO;
     private VoucherUtility util;
+    @Autowired
     private AccountEntriesService accountService;
-    private static ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:zm/hashcode/hashpay/infrastructure/conf/applicationContext-*.xml");
+    
 
     public VoucherDAO getVoucherDAO() {
         return voucherDAO;
@@ -63,7 +64,7 @@ public class VoucherServiceImpl implements VoucherService {
     public synchronized Voucher buyVoucher(Account accNumber, Voucher voucher)throws InsufficientBalanceException  {
         
         Voucher v = voucherDAO.find(voucher.getId());
-            accountService = (AccountEntriesService) ctx.getBean("accountEntriesService");
+            
             accountService.CreateDebitAccountEntry(accNumber, v.getVoucherValue(), v.getVoucherNumber(), v.getCurrencySymbol().toString());
             v.setVoucherStatus(VoucherStatusType.SOLD);
               voucherDAO.merge(v);
@@ -74,7 +75,7 @@ public class VoucherServiceImpl implements VoucherService {
 
     @Override
     public Voucher processVoucher(String hash, String code, Account account) throws InvalidVoucherException {
-        accountService = (AccountEntriesService) ctx.getBean("accountEntriesService");
+     
         String codeGen = new VoucherUtility().getService().getConstructedCode(hash, code);
         Voucher voucher = voucherDAO.getByPropertyName("voucherNumber", codeGen);
         if (VoucherStatusType.SOLD == voucher.getVoucherStatus()) {

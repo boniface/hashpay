@@ -64,7 +64,7 @@ public class VoucherServicesTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-    @Test
+    @Ignore
     public void createVoucher() {
          service = (VoucherService) ctx.getBean("voucherService");
          Voucher voucher = service.createVoucher(new BigDecimal("2000.00"), CurrencyType.ZMK);
@@ -77,7 +77,7 @@ public class VoucherServicesTest {
         voucherDAO = (VoucherDAO)ctx.getBean("voucherDAO");
         accountDAO = (AccountDAO)ctx.getBean("accountDAO");
 
-        Voucher voucher = voucherDAO.find(Long.valueOf("302"));
+        Voucher voucher = voucherDAO.find(Long.valueOf("304"));
         Account account = accountDAO.find(new Long("123"));
         
         try {
@@ -94,7 +94,7 @@ public class VoucherServicesTest {
         Account account = accountDAO.find(new Long("123"));
         String status = null;
         try{
-       Voucher voucher = service.processVoucher("e8ad1f7dc8f34bc4", "a4cd3622b619fb59", account);
+       Voucher voucher = service.processVoucher("6f6daff7817d4386", "a607acaf6c0e6669", account);
          status = voucher.getVoucherStatus().CLAIMED.toString();
         } catch(InvalidVoucherException ex){
             Logger.getLogger(VoucherServicesTest.class.getName()).log(Level.SEVERE, null, ex);
