@@ -21,7 +21,7 @@
                     </nav>
                 </header>
                 <div data-role="content" class="content">
-                    <form id="profileForm" action="j_spring_security_check" method="post">
+                    <form id="profileForm" method="post" >
                         <div data-role="fieldcontain">
                             <label for="username">Username:</label>
                             <input type="text" name="j_name" id="Username" />

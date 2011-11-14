@@ -9,7 +9,7 @@
     <body>
         <div data-role="header">
             <!-- begin first page -->
-            <section id="page1" data-role="page"  data-theme="b">
+            <section id="page1" data-role="page"  data-theme="b" >
                 <header data-role="header"><h1>Hash Pay </h1>
                     <nav data-role="navbar">
                         <ul>

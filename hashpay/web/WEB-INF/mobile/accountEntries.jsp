@@ -24,13 +24,9 @@
                 </header>
                 <div data-role="content" class="content">
                     <ul data-role="listview" data-theme="g">
-                        <c:forEach items="${accountList}" var="num">
-                            <li><a href="#"><c:out value="${balance}"/>
-                                                     <c:out value="${debit}"/>
-                                                     <c:out value="${credit}"/>
-                                                     <c:out value="${description}"/>
-                                </a></li>
-                        </c:forEach>#
+                        <c:forEach items="${list}" var="Entry">
+                            <li><a href="#"><c:out value="Balance:${Entry.balance} Credit:${Entry.credit} Debit:${Entry.debit} Description:${Entry.description}"/>
+                        </c:forEach>
                     </ul>
                 </div>
 

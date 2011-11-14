@@ -22,7 +22,7 @@
                     </nav>
                 </header>
                 <div data-role="content" class="content">
-                    <f:form id="accountForm" action="j_spring_security_check" method="post">
+                    <f:form id="accountForm" method="post">
                         <div data-role="fieldcontain">
                             <label for="account-number">Account Number:</label>
                             <input type="text" name="j_accountNumber" id="accountNumber" readonly="true" value="${accountNumber}"/>
@@ -40,7 +40,7 @@
                             <input type="text" name="j_currency" id="currency" readonly="true" value="${currency}" />
                         </div>  
                     </f:form>
-                    <a href="#" data-role="button">Account Transactions</a>
+                    <a href="account/accountTransactions.html" data-role="button">Account Transactions</a>
                 </div>
 
 

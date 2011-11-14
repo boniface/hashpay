@@ -47,28 +47,34 @@ public class AccountEntryDAOImpl implements AccountEntryDAO{
 
     @Override
     public List<AccountEntry> findAll() {
-        return em.createQuery("SELECT a FROM AccountEntries a").getResultList();
+        return em.createQuery("SELECT a FROM AccountEntry a").getResultList();
     }
 
     @Override
     public List<AccountEntry> findInRange(int firstResult, int maxResults) {
-        return em.createQuery("SELECT a FROM AccountEntries a").setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
+        return em.createQuery("SELECT a FROM AccountEntry a").setFirstResult(firstResult).setMaxResults(maxResults).getResultList();
     }
 
     @Override
     public long count() {
-        return ((Long) em.createQuery("SELECT COUNT(a) from AccountEntries a ").getSingleResult());
+        return ((Long) em.createQuery("SELECT COUNT(a) from AccountEntry a ").getSingleResult());
     }
 
     @Override
     public AccountEntry getByPropertyName(String name, String value) {
-        List<AccountEntry> list = em.createQuery("SELECT a FROM AccountEntries a WHERE a." + name + "=?1").setParameter(1, value).getResultList();
+        List<AccountEntry> list = em.createQuery("SELECT a FROM AccountEntry a WHERE a." + name + "=?1").setParameter(1, value).getResultList();
         return (list.isEmpty()) ? null : list.get(0);
     }
 
     @Override
     public List<AccountEntry> getEntitiesByProperName(String name, String value) {
-        List<AccountEntry> list = em.createQuery("SELECT a FROM AccountEntries a WHERE a." + name + "=?1").setParameter(1, value).getResultList();
+        List<AccountEntry> list = em.createQuery("SELECT a FROM AccountEntry a WHERE a." + name + "=?1").setParameter(1, value).getResultList();
+         return list;
+    }
+
+    @Override
+    public List<AccountEntry> getEntitiesByProperName(String name, Long aLong) {
+        List<AccountEntry> list = em.createQuery("SELECT a FROM AccountEntry a WHERE a." + name + "=?1").setParameter(1, aLong).getResultList();
          return list;
     }
     

@@ -95,7 +95,7 @@ public class ProductServicesTest {
         Assert.assertNotNull(product.getId());
     }
     
-     @Test
+     @Ignore
     public void claimProduct() throws InvalidProductException, InvalidVoucherException{
        service = (ProductService) ctx.getBean("productService");
        accountDAO = (AccountDAO)ctx.getBean("accountDAO");
@@ -110,7 +110,7 @@ public class ProductServicesTest {
    
        Assert.assertEquals("CLAIMED", status);
     }
-      @Test  
+      @Ignore  
     public void listProduct(){
     service = (ProductService) ctx.getBean("productService");
     service.allproducts();
@@ -118,7 +118,7 @@ public class ProductServicesTest {
     Assert.assertTrue(product.size() > 0);     
     }
     
-   @Ignore
+   @Test
     public void createBulkProducts(){
         service = (ProductService) ctx.getBean("productService");
         service.createProducts("221", "Bus-ticket", BigDecimal.valueOf(200.00), EnumProductStatus.AVAILABLE, EnumTokenType.DYNAMIC, CurrencyType.ZMK, 6);

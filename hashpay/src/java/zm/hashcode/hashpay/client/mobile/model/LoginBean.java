@@ -10,6 +10,7 @@ package zm.hashcode.hashpay.client.mobile.model;
  */
 public class LoginBean {
     private String emailAddress;
+    private String password;
 
     /**
      * @return the emailAddress
@@ -23,5 +24,19 @@ public class LoginBean {
      */
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

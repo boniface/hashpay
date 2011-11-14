@@ -4,8 +4,10 @@
  */
 package zm.hashcode.hashpay.client.mobile;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import zm.hashcode.hashpay.services.ProductService;
 
 /**
  *
@@ -19,7 +21,7 @@ public class HomeController {
 		System.out.println("Mobile Controller Firing ");
 		return "home";
 	}
-        
+       
         @RequestMapping(value = "mobile.html")
 	public String gethome() {
 		System.out.println("get Home Fired ");

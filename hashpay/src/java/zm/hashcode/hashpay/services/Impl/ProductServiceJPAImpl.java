@@ -104,7 +104,7 @@ public class ProductServiceJPAImpl implements ProductService {
     
        @Override
     public List<Product> allproducts() {
-          return productDAO.getEntitiesByProperName("productStatus", EnumProductStatus.AVAILABLE.toString());
+          return productDAO.getEntitiesByProperName("Description", "Bus-ticket");
          
     }
 

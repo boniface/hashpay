@@ -9,5 +9,5 @@ package zm.hashcode.hashpay.model.market;
  * @author Peter Phillip
  */
 public enum EnumProductStatus {
-     AVAILABLE,SOLD,CLAIMED;
+     AVAILABLE , SOLD , CLAIMED;
 }

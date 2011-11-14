@@ -176,4 +176,11 @@ public class Users implements Serializable, Person {
     public void setName(Name name) {
         this.name = name;
     }
+
+    /**
+     * @param roles the roles to set
+     */
+    public void setRoles(List<Roles> roles) {
+        this.roles = roles;
+    }
 }

@@ -7,7 +7,9 @@ package zm.hashcode.hashpay.services;
 
 
 import java.math.BigDecimal;
+import java.util.List;
 import zm.hashcode.hashpay.model.accounts.Account;
+import zm.hashcode.hashpay.model.accounts.AccountEntry;
 
 
 /**
@@ -21,4 +23,5 @@ public interface AccountService{
     public BigDecimal checkBalance(String accountNumber);
     public Account checkStatus(String accountNumber);
     public Account findAccount(String accountNumber);
+    public List<AccountEntry> findAllAccountEntries(String accountNumber);
 }

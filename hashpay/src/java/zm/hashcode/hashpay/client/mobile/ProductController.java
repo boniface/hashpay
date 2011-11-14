@@ -5,6 +5,7 @@
 package zm.hashcode.hashpay.client.mobile;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +13,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import zm.hashcode.hashpay.client.mobile.model.AccountBean;
 import zm.hashcode.hashpay.client.mobile.model.ProductBean;
 import zm.hashcode.hashpay.infrastructure.exceptions.InsufficientBalanceException;
 import zm.hashcode.hashpay.infrastructure.exceptions.InvalidVoucherException;
+import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.market.EnumProductStatus;
 import zm.hashcode.hashpay.model.market.EnumTokenType;
+import zm.hashcode.hashpay.model.market.Product;
 import zm.hashcode.hashpay.model.vouchers.CurrencyType;
 import zm.hashcode.hashpay.repository.jpa.AccountDAO;
 import zm.hashcode.hashpay.repository.jpa.ProductDAO;
+import zm.hashcode.hashpay.services.AccountService;
 import zm.hashcode.hashpay.services.ProductService;
 import zm.hashcode.hashpay.services.VoucherService;
 
@@ -31,7 +36,8 @@ import zm.hashcode.hashpay.services.VoucherService;
 @Controller
 @RequestMapping(value = "/product/*")
 public class ProductController {
-    
+    @Autowired
+    private AccountService service;
     @Autowired
     private ProductService productService;
     private VoucherService vourcherService;
@@ -46,6 +52,19 @@ public class ProductController {
        productService.createProduct(product.getProductSerialNumber(), product.getDescription(), BigDecimal.ZERO, EnumProductStatus.SOLD, EnumTokenType.STATIC, CurrencyType.ZMK);
        return "product";
     }
+    
+    @RequestMapping(value = "productList.html", method = RequestMethod.GET)
+    public ModelAndView test(Model model) {
+       //ProductBean product = new ProductBean();
+       //model.addAttribute(product);
+       //productService.createProduct(product.getProductSerialNumber(), product.getDescription(), BigDecimal.ZERO, EnumProductStatus.SOLD, EnumTokenType.STATIC, CurrencyType.ZMK);
+        List<Product> test =  productService.allproducts();
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("list", test);
+        mv.setViewName("productList");
+       return mv;
+    }
+    
     
     @RequestMapping(value = "createproducts.html", method = RequestMethod.GET, params = "new")
     public String createProducts(Model model) {

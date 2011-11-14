@@ -6,13 +6,16 @@ package zm.hashcode.hashpay.services.Impl;
 
 
 import java.math.BigDecimal;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import zm.hashcode.hashpay.infrastructure.factories.account.AccountFactory;
 import zm.hashcode.hashpay.model.accounts.Account;
+import zm.hashcode.hashpay.model.accounts.AccountEntry;
 import zm.hashcode.hashpay.model.accounts.AccountNumber;
 import zm.hashcode.hashpay.repository.jpa.AccountDAO;
+import zm.hashcode.hashpay.repository.jpa.AccountEntryDAO;
 import zm.hashcode.hashpay.repository.jpa.AccountNumberDAO;
 import zm.hashcode.hashpay.services.AccountService;
 
@@ -28,6 +31,8 @@ public class AccountServiceImpl implements AccountService{
     private AccountDAO accountDAO;
     @Autowired
     private AccountNumberDAO accountNumberDAO;
+    @Autowired
+    private AccountEntryDAO accountEntryDAO;
     
     @Override
     public Account createAccount(String status, String currency, String user) {
@@ -71,6 +76,12 @@ public class AccountServiceImpl implements AccountService{
         
         Account acc = accountDAO.getByPropertyName("accountNumber", a);
         return acc;
+    }
+
+    @Override
+    public List<AccountEntry> findAllAccountEntries(String accountNumber) {
+        List<AccountEntry> accountEntry = accountEntryDAO.getEntitiesByProperName("accountID", new Long(accountNumber));
+        return accountEntry;
     }
    
 }

@@ -11,7 +11,7 @@
     <body>
         <div data-role="header">
             <!-- begin page -->
-            <section id="prodcutList" data-role="page"  data-theme="b">
+            <section id="productList" data-role="page"  data-theme="b">
                 <header data-role="header"><h1>Hash Pay </h1>
                     <nav data-role="navbar">
                         <ul>
@@ -24,15 +24,11 @@
                 </header>
                 <div data-role="content" class="content">
                     <ul data-role="listview" data-theme="g">
-                        <c:forEach items="${list}" var="num">
-                            <li><a href="#"><c:out value="${list.amount}"/>
-                                                     <c:out value="${list.seller}"/>
-                                </a></li>
+                        <c:forEach items="${list}" var="product">
+                            <li><a href="#"><c:out value="${product.description} ${product.currencySymbol}${product.unitPrice}"/>
                         </c:forEach>
                     </ul>
                 </div>
-
-
                 <footer data-role="footer"><h1>hash Pay </h1></footer>
             </section>
         </div>

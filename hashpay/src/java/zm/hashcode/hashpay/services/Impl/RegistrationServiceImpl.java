@@ -18,6 +18,7 @@ import zm.hashcode.hashpay.infrastructure.util.authentication.PasswordGenerator;
 import zm.hashcode.hashpay.infrastructure.util.email.SendEmail;
 import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.people.Name;
+import zm.hashcode.hashpay.model.people.Roles;
 import zm.hashcode.hashpay.model.people.Users;
 import zm.hashcode.hashpay.repository.jpa.UsersDAO;
 import zm.hashcode.hashpay.services.AccountService;
@@ -54,7 +55,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                 // Send Email Link with Token
                 Users user = new Users();
                 user.setUsername(email);
-
+                
                 PasswordGenerator token = new PasswordGenerator();
                 token.generatePassword();
 
