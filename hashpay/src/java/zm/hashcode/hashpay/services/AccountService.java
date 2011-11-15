@@ -23,5 +23,6 @@ public interface AccountService{
     public BigDecimal checkBalance(String accountNumber);
     public Account checkStatus(String accountNumber);
     public Account findAccount(String accountNumber);
+    public Account userAccount(String username);
     public List<AccountEntry> findAllAccountEntries(String accountNumber);
 }

@@ -4,7 +4,10 @@
  */
 package zm.hashcode.hashpay.services.Impl;
 
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -35,6 +38,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     private UsersDAO usersDAO;
     @Autowired
     private AccountService accountService;
+    List list = new ArrayList();
 
     @Override
     public String registerUser(String email, String password, String confirm) {
@@ -56,6 +60,15 @@ public class RegistrationServiceImpl implements RegistrationService {
                 Users user = new Users();
                 user.setUsername(email);
                 
+                
+                Roles role = new Roles();
+                role.setRolename("User");
+                role.setUsername(email);
+                
+                list.add(role);
+                
+                user.setRoles(list);
+                
                 PasswordGenerator token = new PasswordGenerator();
                 token.generatePassword();
 
@@ -64,6 +77,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                 String encryptedPassword = PasswordEncrypt.encrypt(password);
                 user.setPassword(encryptedPassword);
                 usersDAO.persist(user);
+                
                 
 
 

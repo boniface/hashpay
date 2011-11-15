@@ -64,7 +64,7 @@ public class RegistrationServicesTest {
     @Test
     public void activateProfile() {
         service = (RegistrationService) ctx.getBean("registrationService");
-        message = service.activateAccount("e1c1qwtJ", Long.valueOf(128));
+        message = service.activateAccount("CacNi6L6", Long.valueOf("164"));
         Assert.assertEquals("Account Activated , Login", message);
     }
 

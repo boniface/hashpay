@@ -6,6 +6,8 @@ package zm.hashcode.hashpay.client.mobile;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +27,20 @@ import zm.hashcode.hashpay.services.AccountService;
 public class AccountController {
     @Autowired
     private AccountService service;
+    private String username;
     
     @RequestMapping(value = "accountDetails.html", method = RequestMethod.GET)
     public ModelAndView accountDetails(Model model) {
+        Object principal =
+        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal instanceof UserDetails ) {
+        username = ((UserDetails)principal).getUsername();
+            } else {
+        username = principal.toString();
+    }
         ModelAndView mv = new ModelAndView();
-        Account account = service.findAccount("52");
+        Account account = service.userAccount(username);
+        //Account account = service.findAccount("52");
         AccountNumber accno = account.getAccountNumber();
         mv.addObject("accountNumber", accno.getId().toString());
         mv.addObject("status", account.getAccountStatus());

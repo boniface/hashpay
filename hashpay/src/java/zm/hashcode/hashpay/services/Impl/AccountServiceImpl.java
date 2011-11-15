@@ -14,9 +14,11 @@ import zm.hashcode.hashpay.infrastructure.factories.account.AccountFactory;
 import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.accounts.AccountEntry;
 import zm.hashcode.hashpay.model.accounts.AccountNumber;
+import zm.hashcode.hashpay.model.people.Users;
 import zm.hashcode.hashpay.repository.jpa.AccountDAO;
 import zm.hashcode.hashpay.repository.jpa.AccountEntryDAO;
 import zm.hashcode.hashpay.repository.jpa.AccountNumberDAO;
+import zm.hashcode.hashpay.repository.jpa.UsersDAO;
 import zm.hashcode.hashpay.services.AccountService;
 
 /**
@@ -33,6 +35,8 @@ public class AccountServiceImpl implements AccountService{
     private AccountNumberDAO accountNumberDAO;
     @Autowired
     private AccountEntryDAO accountEntryDAO;
+    @Autowired
+    private UsersDAO userDAO;
     
     @Override
     public Account createAccount(String status, String currency, String user) {
@@ -82,6 +86,15 @@ public class AccountServiceImpl implements AccountService{
     public List<AccountEntry> findAllAccountEntries(String accountNumber) {
         List<AccountEntry> accountEntry = accountEntryDAO.getEntitiesByProperName("accountID", new Long(accountNumber));
         return accountEntry;
+    }
+
+    @Override
+    public Account userAccount(String username) {
+        Users user = userDAO.getByPropertyName("username", username);
+        
+        Account acc = accountDAO.find(Long.valueOf(user.getAccount().getId().toString()));
+        
+        return acc;
     }
    
 }
