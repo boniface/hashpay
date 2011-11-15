@@ -15,9 +15,9 @@
                 <header data-role="header"><h1>Hash Pay </h1>
                     <nav data-role="navbar">
                         <ul>
-                            <li><a href="/home.jsp" class="ui-btn-active">Buy</a></li>
-                            <li><a href="#">Profile</a></li>
-                            <li><a href="#">Accounts</a></li> 
+                            <li><a rel=external href="/hashpay/home/Newhome.html" class="ui-btn-active">Buy</a></li>
+                            <li><a rel=external href="/hashpay/profile/profileDetails.html">Profile</a></li>
+                            <li><a rel=external href="/hashpay/account/accountDetails.html">Accounts</a></li> 
                         </ul>
 
                     </nav>
@@ -25,7 +25,7 @@
                 <div data-role="content" class="content">
                     <ul data-role="listview" data-theme="g">
                         <c:forEach items="${list}" var="product">
-                            <li><a href="#"><c:out value="${product.description} ${product.currencySymbol}${product.unitPrice}"/>
+                            <li><a rel=external href="#"><c:out value="${product.description} ${product.currencySymbol}${product.unitPrice}"/>
                         </c:forEach>
                     </ul>
                 </div>

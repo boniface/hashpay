@@ -13,17 +13,17 @@
                 <header data-role="header"><h1>Hash Pay </h1>
                     <nav data-role="navbar">
                         <ul>
-                            <li><a href="#" class="ui-btn-active">Buy</a></li>
-                            <li><a href="#">Profile</a></li>
-                            <li><a href="#">Accounts</a></li> 
+                            <li><a rel=external href="/hashpay/home/Newhome.html" class="ui-btn-active">Buy</a></li>
+                            <li><a rel=external href="/hashpay/profile/profileDetails.html">Profile</a></li>
+                            <li><a rel=external href="/hashpay/account/accountDetails.html">Accounts</a></li> 
                         </ul>
 
                     </nav>
                 </header>
                 <div data-role="content" class="content">
-                    <a href="#" data-role="button">Airtime</a>
-                    <a href="#" data-role="button">Movie Tickets</a>
-                    <a href="#" data-role="button">Electricity</a>
+                    <a rel=external href="#" data-role="button">Airtime</a>
+                    <a rel=external href="#" data-role="button">Movie Tickets</a>
+                    <a rel=external href="#" data-role="button">Electricity</a>
                         <!--
         <p>First page!</p>
 

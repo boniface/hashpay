@@ -14,9 +14,9 @@
                 <header data-role="header"><h1>Hash Pay </h1>
                     <nav data-role="navbar">
                         <ul>
-                            <li><a href="/home.jsp">Buy</a></li>
-                            <li><a href="#">Profile</a></li>
-                            <li><a href="#" class="ui-btn-active">Accounts</a></li> 
+                            <li><a rel=external href="/hashpay/home/Newhome.html">Buy</a></li>
+                            <li><a rel=external href="/hashpay/profile/profileDetails.html">Profile</a></li>
+                            <li><a rel=external href="/hashpay/account/accountDetails.html" class="ui-btn-active">Accounts</a></li> 
                         </ul>
 
                     </nav>
@@ -33,14 +33,14 @@
                         </div> 
                         <div data-role="fieldcontain">
                             <label for="current-Balance">Current Balance:</label>
-                            <input type="text" name="j_currentBalance" id="currentBalance" readonly="true" value="${balance}"/>
+                            <input type="text" name="j_currentBalance" id="currentBalance" readonly="true" value="${currentBalance}"/>
                         </div>
                         <div data-role="fieldcontain">
                             <label for="currency-type">Currency:</label>
                             <input type="text" name="j_currency" id="currency" readonly="true" value="${currency}" />
                         </div>  
                     </f:form>
-                    <a href="account/accountTransactions.html" data-role="button">Account Transactions</a>
+                    <a href="/hashpay/account/accountTransactions.html" data-role="button">Account Transactions</a>
                 </div>
 
 

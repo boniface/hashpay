@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.accounts.AccountEntry;
+import zm.hashcode.hashpay.model.accounts.AccountNumber;
 import zm.hashcode.hashpay.services.AccountService;
 
 /**
@@ -29,7 +30,8 @@ public class AccountController {
     public ModelAndView accountDetails(Model model) {
         ModelAndView mv = new ModelAndView();
         Account account = service.findAccount("52");
-        mv.addObject("accountNumber", account.getAccountNumber().toString());
+        AccountNumber accno = account.getAccountNumber();
+        mv.addObject("accountNumber", accno.getId().toString());
         mv.addObject("status", account.getAccountStatus());
         mv.addObject("currentBalance", account.getBalance().toString());
         mv.addObject("currency", account.getCurrencyType());    

@@ -16,7 +16,7 @@ import zm.hashcode.hashpay.services.ProductService;
 @Controller
 @RequestMapping(value = "/home/*")
 public class HomeController {
-       @RequestMapping(value = "/home.html")
+       @RequestMapping(value = "/Newhome.html")
 	public String home() {
 		System.out.println("Mobile Controller Firing ");
 		return "home";

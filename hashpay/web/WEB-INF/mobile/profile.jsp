@@ -13,9 +13,9 @@
                 <header data-role="header"><h1>Hash Pay </h1>
                     <nav data-role="navbar">
                         <ul>
-                            <li><a href="/home.jsp">Buy</a></li>
-                            <li><a href="#" class="ui-btn-active">Profile</a></li>
-                            <li><a href="#">Accounts</a></li> 
+                            <li><a rel=external href="/hashpay/home/Newhome.html">Buy</a></li>
+                            <li><a rel=external href="/hashpay/profile/profileDetails.html" class="ui-btn-active">Profile</a></li>
+                            <li><a rel=external href="/hashpay/account/accountDetails.html">Accounts</a></li> 
                         </ul>
 
                     </nav>
