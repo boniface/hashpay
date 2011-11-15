@@ -33,7 +33,7 @@ public class ProfileController {
     public ModelAndView profileDetails(Model model) {
         ModelAndView mv = new ModelAndView();
         
-        Users user = userDAO.getByPropertyName("username", "test@john.com");
+        Users user = userDAO.getByPropertyName("username", "shanevdbroek@gmail.com");
         mv.addObject("username", user.getUsername().toString());
         mv.addObject("title", user.getName().getTitle().toString());
         mv.addObject("firstname", user.getName().getFirstname().toString());

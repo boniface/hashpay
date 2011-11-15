@@ -13,7 +13,7 @@
                 <header data-role="header"><h1>Hash Pay </h1>
                     <nav data-role="navbar">
                         <ul>
-                            <li><a rel=external href="/hashpay/home/Newhome.html" class="ui-btn-active">Buy</a></li>
+                            <li><a rel=external href="/hashpay/hashpay/login/Test.html" class="ui-btn-active">Buy</a></li>
                             <li><a rel=external href="/hashpay/profile/profileDetails.html">Profile</a></li>
                             <li><a rel=external href="/hashpay/account/accountDetails.html">Accounts</a></li> 
                         </ul>

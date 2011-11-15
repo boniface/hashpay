@@ -70,7 +70,6 @@ public class HashPayMain extends Application implements HttpServletRequestListen
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(login, password);
         ctx = GetContext.getApplicationContext();
         authenticationManager = (AuthenticationManager) ctx.getBean("authenticationManager");
-
         setAuth(authenticationManager.authenticate(token));
 
         if (getAuth() != null) {
