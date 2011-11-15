@@ -34,14 +34,16 @@ import java.util.List;
 
 /**
  *
- * @author staff
+ * @author T
  */
 public class ProductServicesTest {
    
     @Autowired
     private ProductService service;
     private static ApplicationContext ctx;
+    @Autowired
     private AccountDAO accountDAO;
+     @Autowired
     private ProductDAO productDAO;
     
     
@@ -110,18 +112,20 @@ public class ProductServicesTest {
    
        Assert.assertEquals("CLAIMED", status);
     }
-      @Ignore  
-    public void listProduct(){
+     
+    @Test  
+    public void TestlistallBusTickets(){
     service = (ProductService) ctx.getBean("productService");
-    service.allproducts();
-    List <Product> product = productDAO.findAll();
-    Assert.assertTrue(product.size() > 0);     
+    //service.allproductbyDescr("Bus-ticket");
+    service.list("Bus-ticket");
+    Product prod = productDAO.find(Long.valueOf("1"));
+    Assert.assertEquals("Bus-ticket",prod.getDescription());     
     }
     
-   @Test
+   @Ignore
     public void createBulkProducts(){
         service = (ProductService) ctx.getBean("productService");
-        service.createProducts("221", "Bus-ticket", BigDecimal.valueOf(200.00), EnumProductStatus.AVAILABLE, EnumTokenType.DYNAMIC, CurrencyType.ZMK, 6);
+        service.createProducts("MTN201", "Air-time", BigDecimal.valueOf(200.00), EnumProductStatus.AVAILABLE, EnumTokenType.STATIC, CurrencyType.ZMK, 2);
         productDAO = (ProductDAO)ctx.getBean("productDAO");
         List <Product> product = productDAO.findAll();
         Assert.assertTrue(product.size()>6);

@@ -24,7 +24,10 @@ public interface ProductService {
      public Product createProduct(String ProductSerialNumber, String Description, BigDecimal unitPrice, EnumProductStatus productStatus, EnumTokenType eTokenType,CurrencyType currencySymbol);
      public Product buyProduct(Account accNumber, Product voucher)throws InsufficientBalanceException ;
      public Product validatedProduct(String hash, String code, Account account) throws InvalidVoucherException;
-     public List<Product> allproducts();
      public void createProducts(String ProductSerialNumber, String Description, BigDecimal unitPrice, EnumProductStatus productStatus, EnumTokenType eTokenType,CurrencyType currencySymbol,int number); 
+     public Product findProduct(String productNumber); 
+     public List<Product> allproductbyDescr(String descr);
+     public Product list(String prd);
  
+     
 }

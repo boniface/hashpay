@@ -32,7 +32,7 @@ import zm.hashcode.hashpay.services.ProductService;
 
 /**
  *
- * @author Peter Phillip
+ * @author Thozamile Sikwata
  */
 @Repository("productService")
 @Transactional
@@ -41,6 +41,7 @@ public class ProductServiceJPAImpl implements ProductService {
     @Autowired
     private ProductDAO productDAO;
     private VoucherUtility util;
+    @Autowired
     private AccountEntriesService accountService;
     private static ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:zm/hashcode/hashpay/infrastructure/conf/applicationContext-*.xml");
 
@@ -102,16 +103,29 @@ public class ProductServiceJPAImpl implements ProductService {
              return product;
     }
     
-       @Override
-    public List<Product> allproducts() {
-          return productDAO.getEntitiesByProperName("Description", "Bus-ticket");
-         
-    }
+   
 
     @Override
     public void createProducts(String ProductSerialNumber, String Description, BigDecimal unitPrice, EnumProductStatus productStatus, EnumTokenType eTokenType, CurrencyType currencySymbol, int number) {
          MarketFactory f = new MarketFactory();
          f.createProducts(ProductSerialNumber, Description, unitPrice, productStatus, eTokenType, currencySymbol, number);
     }
+     @Override
+    public Product findProduct(String productNumber){
+        return  productDAO.getByPropertyName("id", productNumber);
+   }
+
+   
+
+    @Override
+    public List<Product> allproductbyDescr(String descr) {
+      return productDAO.getEntitiesByProperName("Description",descr);
+    }
+
+    @Override
+    public Product list(String prd) {
+        return  productDAO.getByPropertyName("Description", prd);
+    }
+   
     
 }

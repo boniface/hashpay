@@ -16,7 +16,7 @@ import zm.hashcode.hashpay.model.accounts.AccountNumber;
 public class AccountBean {
     
     private Long id;
-    private AccountNumber accountNumber;
+    private String accountNumber;
     private String accountStatus;
     private String createdBy;
     private String currencyType;
@@ -27,14 +27,14 @@ public class AccountBean {
     /**
      * @return the accountNumber
      */
-    public AccountNumber getAccountNumber() {
+    public String getAccountNumber() {
         return accountNumber;
     }
 
     /**
      * @param accountNumber the accountNumber to set
      */
-    public void setAccountNumber(AccountNumber accountNumber) {
+    public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
 

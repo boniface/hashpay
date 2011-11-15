@@ -14,7 +14,7 @@ import zm.hashcode.hashpay.model.vouchers.CurrencyType;
  * @author Franky
  */
 public class ProductBean {
-    private Long id;
+    private String id;
     private String ProductSerialNumber;
     private String Description;
     private BigDecimal unitPrice;
@@ -111,14 +111,14 @@ public class ProductBean {
     /**
      * @return the id
      */
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

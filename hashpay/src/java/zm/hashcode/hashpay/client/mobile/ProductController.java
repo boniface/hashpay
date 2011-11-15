@@ -6,8 +6,6 @@ package zm.hashcode.hashpay.client.mobile;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,31 +16,25 @@ import zm.hashcode.hashpay.client.mobile.model.AccountBean;
 import zm.hashcode.hashpay.client.mobile.model.ProductBean;
 import zm.hashcode.hashpay.infrastructure.exceptions.InsufficientBalanceException;
 import zm.hashcode.hashpay.infrastructure.exceptions.InvalidVoucherException;
-import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.market.EnumProductStatus;
 import zm.hashcode.hashpay.model.market.EnumTokenType;
 import zm.hashcode.hashpay.model.market.Product;
 import zm.hashcode.hashpay.model.vouchers.CurrencyType;
-import zm.hashcode.hashpay.repository.jpa.AccountDAO;
-import zm.hashcode.hashpay.repository.jpa.ProductDAO;
 import zm.hashcode.hashpay.services.AccountService;
 import zm.hashcode.hashpay.services.ProductService;
-import zm.hashcode.hashpay.services.VoucherService;
 
 /**
  *
- * @author Franky
+ * @author Thozamile.Sikwata
  */
 @Controller
 @RequestMapping(value = "/product/*")
 public class ProductController {
     @Autowired
-    private AccountService service;
-    @Autowired
     private ProductService productService;
-    private VoucherService vourcherService;
-    private ProductDAO productDAO;
-    private AccountDAO accountDAO;
+     
+    @Autowired
+    private AccountService accountService;
 
     
     @RequestMapping(value = "createproduct.html", method = RequestMethod.GET, params = "new")
@@ -53,14 +45,50 @@ public class ProductController {
        return "product";
     }
     
-    @RequestMapping(value = "productList.html", method = RequestMethod.GET)
+    @RequestMapping(value ="productList.html", method = RequestMethod.GET)
     public ModelAndView test(Model model) {
        //ProductBean product = new ProductBean();
        //model.addAttribute(product);
        //productService.createProduct(product.getProductSerialNumber(), product.getDescription(), BigDecimal.ZERO, EnumProductStatus.SOLD, EnumTokenType.STATIC, CurrencyType.ZMK);
-        List<Product> test =  productService.allproducts();
+        List<Product> test =  productService.allproductbyDescr("");
         ModelAndView mv = new ModelAndView();
         mv.addObject("list", test);
+        mv.setViewName("productList");
+       return mv;
+    }
+    
+    @RequestMapping(value ="productList.html", method = RequestMethod.GET)
+    public ModelAndView listallbusTicket(Model model) {
+        List<Product> product =  productService.allproductbyDescr("Bus-ticket");
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("bustickets", product);
+        mv.setViewName("productList");
+       return mv;
+    }
+    
+     @RequestMapping(value ="productList.html", method = RequestMethod.GET)
+    public ModelAndView listallAirtime(Model model) {
+        List<Product> product =  productService.allproductbyDescr("Air-time");
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("airtime", product);
+        mv.setViewName("productList");
+       return mv;
+    }
+    
+   @RequestMapping(value ="productList.html", method = RequestMethod.GET)
+    public ModelAndView listallElectricty(Model model) {
+        List<Product> product =  productService.allproductbyDescr("Electricity");
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("Electricity", product);
+        mv.setViewName("productList");
+       return mv;
+    }
+    
+   @RequestMapping(value ="productList.html", method = RequestMethod.GET)
+    public ModelAndView listallMovieTicket(Model model) {
+        List<Product> product =  productService.allproductbyDescr("Movie-Ticket");
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("movie", product);
         mv.setViewName("productList");
        return mv;
     }
@@ -76,37 +104,25 @@ public class ProductController {
        
     
     @RequestMapping(value = "buyProduct.html", method = RequestMethod.GET)
-    public String buyProduct(Model model) {
+    public String buyProduct(Model model) throws InsufficientBalanceException {
         ProductBean product = new ProductBean();
         AccountBean account = new AccountBean();
         model.addAttribute(product);
         model.addAttribute(account);
-        
-      try{
-        productService.buyProduct(accountDAO.find(account.getId()), productDAO.find(product.getId()));
-            
-        } catch (InsufficientBalanceException ex) {
-            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        model.addAttribute("message", "Product has been purchased");
-      
+        Product prod = productService.buyProduct(accountService.findAccount(account.getAccountNumber()),productService.findProduct(product.getId()));
+        model.addAttribute("message", "Product has been purchased" + prod.getProductSerialNumber().toString());
         return "message";
     }
     
     
        @RequestMapping(value = "claimProduct.html", method = RequestMethod.GET)
-        public String claimProduct(Model model) {
+        public String claimProduct(Model model) throws InvalidVoucherException {
          AccountBean account = new AccountBean();
          ProductBean product = new ProductBean();
          model.addAttribute(account);  
          model.addAttribute(product);
-        try {
-            productService.validatedProduct(product.getTokenNumber(),product.getTokenNumber(), accountDAO.find(account.getId()));
-        } catch (InvalidVoucherException ex) {
-            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-           model.addAttribute("message", "Product has been claimed");
-           
+         productService.validatedProduct(product.getTokenNumber(),product.getTokenNumber(), accountService.findAccount(account.getAccountNumber()));
+         model.addAttribute("message", "Product has been claimed");
           return "message";
        }
        
@@ -127,16 +143,7 @@ public class ProductController {
     /**
      * @return the vourcherService
      */
-    public VoucherService getVourcherService() {
-        return vourcherService;
-    }
-
-    /**
-     * @param vourcherService the vourcherService to set
-     */
-    public void setVourcherService(VoucherService vourcherService) {
-        this.vourcherService = vourcherService;
-    }
+    
     
     
     
