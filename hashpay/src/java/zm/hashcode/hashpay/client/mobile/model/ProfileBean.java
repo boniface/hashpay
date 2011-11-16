@@ -9,187 +9,169 @@ package zm.hashcode.hashpay.client.mobile.model;
  * @author Bongani
  */
 public class ProfileBean {
-    private String username;
-    private String title;
-    private String firstname;
-    private String lastname;
-    private String postalCode;
-    private String homeaddress;
-    private String homePhone;
-    private String CellPhone;
-    private String workaddress;
-    private String postalWorkCode;
-    private String workPhone;
-    private String faxNumber;
+    private String Title;
+    private String Firstname;
+    private String LastName;
+    private String Nickname;
+    private String HomeNumber;
+    private String CellNumber;
+    private String FaxNumber;
+    private String Emailaddress;
+    private String PostalAddress;
+    private String PhysicalAddress;
+    private String PostalCode;
 
     /**
-     * @return the username
-     */
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * @param username the username to set
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    /**
-     * @return the title
+     * @return the Title
      */
     public String getTitle() {
-        return title;
+        return Title;
     }
 
     /**
-     * @param title the title to set
+     * @param Title the Title to set
      */
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle(String Title) {
+        this.Title = Title;
     }
 
     /**
-     * @return the firstname
+     * @return the Firstname
      */
     public String getFirstname() {
-        return firstname;
+        return Firstname;
     }
 
     /**
-     * @param firstname the firstname to set
+     * @param Firstname the Firstname to set
      */
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstname(String Firstname) {
+        this.Firstname = Firstname;
     }
 
     /**
-     * @return the lastname
+     * @return the LastName
      */
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return LastName;
     }
 
     /**
-     * @param lastname the lastname to set
+     * @param LastName the LastName to set
      */
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String LastName) {
+        this.LastName = LastName;
     }
 
     /**
-     * @return the homeaddress
+     * @return the Nickname
      */
-    public String getHomeaddress() {
-        return homeaddress;
+    public String getNickname() {
+        return Nickname;
     }
 
     /**
-     * @param homeaddress the homeaddress to set
+     * @param Nickname the Nickname to set
      */
-    public void setHomeaddress(String homeaddress) {
-        this.homeaddress = homeaddress;
+    public void setNickname(String Nickname) {
+        this.Nickname = Nickname;
     }
 
     /**
-     * @return the postalCode
+     * @return the HomeNumber
      */
-    public String getPostalCode() {
-        return postalCode;
+    public String getHomeNumber() {
+        return HomeNumber;
     }
 
     /**
-     * @param postalCode the postalCode to set
+     * @param HomeNumber the HomeNumber to set
      */
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
+    public void setHomeNumber(String HomeNumber) {
+        this.HomeNumber = HomeNumber;
     }
 
     /**
-     * @return the homePhone
+     * @return the CellNumber
      */
-    public String getHomePhone() {
-        return homePhone;
+    public String getCellNumber() {
+        return CellNumber;
     }
 
     /**
-     * @param homePhone the homePhone to set
+     * @param CellNumber the CellNumber to set
      */
-    public void setHomePhone(String homePhone) {
-        this.homePhone = homePhone;
+    public void setCellNumber(String CellNumber) {
+        this.CellNumber = CellNumber;
     }
 
     /**
-     * @return the CellPhone
-     */
-    public String getCellPhone() {
-        return CellPhone;
-    }
-
-    /**
-     * @param CellPhone the CellPhone to set
-     */
-    public void setCellPhone(String CellPhone) {
-        this.CellPhone = CellPhone;
-    }
-
-    /**
-     * @return the workaddress
-     */
-    public String getWorkaddress() {
-        return workaddress;
-    }
-
-    /**
-     * @param workaddress the workaddress to set
-     */
-    public void setWorkaddress(String workaddress) {
-        this.workaddress = workaddress;
-    }
-
-    /**
-     * @return the postalWorkCode
-     */
-    public String getPostalWorkCode() {
-        return postalWorkCode;
-    }
-
-    /**
-     * @param postalWorkCode the postalWorkCode to set
-     */
-    public void setPostalWorkCode(String postalWorkCode) {
-        this.postalWorkCode = postalWorkCode;
-    }
-
-    /**
-     * @return the workPhone
-     */
-    public String getWorkPhone() {
-        return workPhone;
-    }
-
-    /**
-     * @param workPhone the workPhone to set
-     */
-    public void setWorkPhone(String workPhone) {
-        this.workPhone = workPhone;
-    }
-
-    /**
-     * @return the faxNumber
+     * @return the FaxNumber
      */
     public String getFaxNumber() {
-        return faxNumber;
+        return FaxNumber;
     }
 
     /**
-     * @param faxNumber the faxNumber to set
+     * @param FaxNumber the FaxNumber to set
      */
-    public void setFaxNumber(String faxNumber) {
-        this.faxNumber = faxNumber;
+    public void setFaxNumber(String FaxNumber) {
+        this.FaxNumber = FaxNumber;
     }
 
-    
-    
+    /**
+     * @return the Emailaddress
+     */
+    public String getEmailaddress() {
+        return Emailaddress;
+    }
+
+    /**
+     * @param Emailaddress the Emailaddress to set
+     */
+    public void setEmailaddress(String Emailaddress) {
+        this.Emailaddress = Emailaddress;
+    }
+
+    /**
+     * @return the PostalAddress
+     */
+    public String getPostalAddress() {
+        return PostalAddress;
+    }
+
+    /**
+     * @param PostalAddress the PostalAddress to set
+     */
+    public void setPostalAddress(String PostalAddress) {
+        this.PostalAddress = PostalAddress;
+    }
+
+    /**
+     * @return the PhysicalAddress
+     */
+    public String getPhysicalAddress() {
+        return PhysicalAddress;
+    }
+
+    /**
+     * @param PhysicalAddress the PhysicalAddress to set
+     */
+    public void setPhysicalAddress(String PhysicalAddress) {
+        this.PhysicalAddress = PhysicalAddress;
+    }
+
+    /**
+     * @return the PostalCode
+     */
+    public String getPostalCode() {
+        return PostalCode;
+    }
+
+    /**
+     * @param PostalCode the PostalCode to set
+     */
+    public void setPostalCode(String PostalCode) {
+        this.PostalCode = PostalCode;
+    }
 }

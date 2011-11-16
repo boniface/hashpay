@@ -5,6 +5,7 @@
 package zm.hashcode.hashpay.client.mobile;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.spi.RegisterableService;
 import javax.validation.Valid;
@@ -20,6 +21,7 @@ import zm.hashcode.hashpay.client.mobile.model.ProfileBean;
 import zm.hashcode.hashpay.client.mobile.users.UserInformation;
 import zm.hashcode.hashpay.model.people.Address;
 import zm.hashcode.hashpay.model.people.Contacts;
+import zm.hashcode.hashpay.model.people.Name;
 import zm.hashcode.hashpay.model.people.Users;
 import zm.hashcode.hashpay.services.RegistrationService;
 import zm.hashcode.hashpay.services.UserService;
@@ -40,22 +42,48 @@ public class ProfileController {
     
     @RequestMapping(value = "profileDetails.html", method = RequestMethod.GET)
     public ModelAndView profileDetails(Model model) {
+        ProfileBean user = new ProfileBean();
+        model.addAttribute(user);
         ModelAndView mv = new ModelAndView();
         UserInformation name = new UserInformation();
         username = name.credentials();
-        Users user = usersService.findUser(username);
-        if(user.getName() != null)
+        Users finduser = usersService.findUser(username);
+        if(finduser.getName() == null)
         {
-            mv.addObject("username", user.getUsername().toString());
-            mv.addObject("title", user.getName().getTitle().toString());
-            mv.addObject("firstname", user.getName().getFirstname().toString());
-            mv.addObject("lastname", user.getName().getLastname());
-            mv.addObject("nickname", user.getName().getOtherName());
-            mv.addObject("contactList", user.getContacts());
-            mv.addObject("addressList", user.getAddress());
+            Contacts contact = new Contacts();
+            contact.setCellNumber("please input text");
+            contact.setContactStatus("please input text");
+            contact.setEmailAddress("please input text");
+            contact.setFaxNumber("please input text");
+            contact.setPhoneNumber("please input text");
+            Address address = new Address();
+            address.setAddressStatus("please input text");
+            address.setPhysicalAddress("please input text");
+            address.setPostalAddress("please input text");
+            address.setPostalcode("please input text");
+            List contactList = new ArrayList(); 
+            contactList.add(contact);
+            List addressList = new ArrayList(); 
+            addressList.add(address);
+            mv.addObject("username", finduser.getUsername().toString());
+            //mv.addObject("title", user.getName().getTitle().toString());
+            //mv.addObject("firstname", user.getName().getFirstname().toString());
+            //mv.addObject("lastname", user.getName().getLastname());
+            //mv.addObject("nickname", user.getName().getOtherName());
+            mv.addObject("contactList", contactList);
+            mv.addObject("addressList",addressList);
+        } else
+        {
+            mv.addObject("username", finduser.getUsername().toString());
+            mv.addObject("title", finduser.getName().getTitle().toString());
+            mv.addObject("firstname", finduser.getName().getFirstname().toString());
+            mv.addObject("lastname", finduser.getName().getLastname());
+            mv.addObject("nickname", finduser.getName().getOtherName());
+            mv.addObject("contactList", finduser.getContacts());
+            mv.addObject("addressList",finduser.getAddress());
         }
         
-        mv.addObject("username", user.getUsername());
+        
         mv.setViewName("profile");
        return mv;
     }
@@ -63,8 +91,32 @@ public class ProfileController {
     @RequestMapping(value = "updateProfile.html",method= RequestMethod.POST)
     public String updateProfile(@Valid ProfileBean user, BindingResult bindingResultl,Model model)
     {
+      model.addAttribute(user);
+      Users users = new Users();
       
-        
+      List addressList = new ArrayList(); 
+      Address a = new Address();
+      a.setPhysicalAddress(user.getPhysicalAddress());
+      a.setPostalAddress(user.getPostalAddress());
+      a.setPostalcode(user.getPostalCode());
+      addressList.add(a);
+      
+      List contactList = new ArrayList();
+      Contacts contact = new Contacts();
+      contact.setCellNumber(user.getCellNumber());
+      contact.setEmailAddress("please input text");
+      contact.setFaxNumber(user.getFaxNumber());
+      contactList.add(contact);
+      
+      Name name = new Name();
+      name.setFirstname(user.getFirstname());
+      name.setLastname(user.getLastName());
+      name.setTitle(user.getTitle());
+      
+      users.setAddresses(addressList);
+      users.setContacts(contactList);
+      users.setName(name);
+        usersService.updateDetails(users);
         model.addAttribute("message", " your profile details has been updated!");
            return "message";
     }

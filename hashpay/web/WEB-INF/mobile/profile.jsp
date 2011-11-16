@@ -26,7 +26,7 @@
                         <h4>PROFILE DETAILS</h4>
                         <div data-role="fieldcontain">
                             <label for="username">Username:</label>
-                            <input type="text" readonly="true" name="j_name" value="${username}" id="Username" />
+                            <input type="text" readonly="true" name="j_name" id="${username}" />
                         </div>
     
                         <h4>Personal Details</h4>
@@ -35,24 +35,41 @@
                             <div class="ui-block-b"><label for="Firstname">First Name:</label></div>
                             <div class="ui-block-c"><label for="Lastname">Last Name:</label></div>
                             <div class="ui-block-d"><label for="Nickname">Nick Name:</label></div>
-                            <div class="ui-block-a"><input type="text" name="j_title" value="${title}" id="Title" /></div>
-                            <div class="ui-block-b"><input type="text" name="j_fname" value="${firstname}" id="Firstname"  /></div>
-                            <div class="ui-block-c"><input type="text" name="j_lname" value="${lastname}" id="LastName" /></div>
-                            <div class="ui-block-d"><input type="text" name="j_nickname" value="${nickname}" id="Nickname" /></div>
+                            <div class="ui-block-a"><input type="text" name="Title" id="Title" readonly="true" value="${title}"/></div>
+                            <div class="ui-block-b"><input type="text" name="Firstname" id="Firstname" value="${firstname}" /></div>
+                            <div class="ui-block-c"><input type="text" name="LastName" id="LastName" value="${lastname}"/></div>
+                            <div class="ui-block-d"><input type="text" name="Nickname" id="Nickname" value="${nickname}"/></div>
                        </div>
                         <h4>Contact Details</h4>
-                        <c:forEach items="${contactList}" var="contact">
                         <div class="ui-grid-d">
+                            
                          <div class="ui-block-a"><label for="HomeNumber">Home Number:</label></div>
 		         <div class="ui-block-b"><label for="CellNumber">Cell Number:</label></div>
 		         <div class="ui-block-c"><label for="FaxNumber">Fax Number:</label></div>
 		         <div class="ui-block-d"><label for="EmailAddress">Email Address:</label></div>
-		         <div class="ui-block-a"><input type="text" name="j_homeNumber" value="${contact.phoneNumber}" id="HomeNumber"/></div>
-		         <div class="ui-block-b"><input type="text" name="j_cellNumber" value="${contact.cellNumber}" id="CellNumber" /></div>
-		         <div class="ui-block-c"><input type="text" name="j_faxNumber" value="${contact.cellNumber}" id="FaxNumber" /></div>
-		         <div class="ui-block-d"><input type="text" name="j_email" value="${contact.emailAddress}"id="Emailaddress" /></div>
-                       </div>
+                         <c:forEach items="${contactList}" var="contact">
+		         <div class="ui-block-a"><input type="text" name="HomeNumber" value="${contact.phoneNumber}" id="HomeNumber"/></div>
+		         <div class="ui-block-b"><input type="text" name="CellNumber" value="${contact.cellNumber}" id="CellNumber" /></div>
+		         <div class="ui-block-c"><input type="text" name="FaxNumber" value="${contact.cellNumber}" id="FaxNumber" /></div>
+		         <div class="ui-block-d"><input type="text" name="Emailaddress" value="${contact.emailAddress}"id="Emailaddress" /></div>
                          </c:forEach>
+                         
+                       </div>
+                        <h4>Home Address Details</h4>
+                        <c:forEach items="${addressList}" var="address">
+                        <div id="PhysicalAddressDiv" data-role="fieldcontain">
+                            <label for="PostalAddress">Physical Address:</label>
+                            <input type="text" name="PostalAddress" value="${address.postalAddress}" id="PostalAddress" />
+                        </div>
+                        <div id="PostalAddressDiv" data-role="fieldcontain">
+                            <label for="PhysicalAddress">Postal Address:</label>
+                            <input type="text" name="PhysicalAddress" value="${address.physicalAddress}" id="PhysicalAddress" />
+                        </div>
+                        <div class="ui-grid-d">
+                        <div class="ui-block-a"><label for="PostalCode">Postal Code:</label></div>
+                        <div class="ui-block-a"><input type="text" name="PostalCode" value="${address.postalcode}" id="PostalCode" /></div>
+                        </div>
+                        </c:forEach>
                         
                         <div data-role="controlgroup" data-type="horizontal">
                             <input type="submit" value="Save" data-theme="b" />
