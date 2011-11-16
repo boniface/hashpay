@@ -94,7 +94,7 @@ public class VoucherServicesTest {
         Account account = accountDAO.find(new Long("123"));
         String status = null;
         try{
-       Voucher voucher = service.processVoucher("6f6daff7817d4386", "a607acaf6c0e6669", account);
+       Voucher voucher = service.processVoucher("6f6daff7817d4386a607acaf6c0e6669", account);
          status = voucher.getVoucherStatus().CLAIMED.toString();
         } catch(InvalidVoucherException ex){
             Logger.getLogger(VoucherServicesTest.class.getName()).log(Level.SEVERE, null, ex);

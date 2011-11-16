@@ -64,19 +64,38 @@ public class VoucherServiceImpl implements VoucherService {
     public synchronized Voucher buyVoucher(Account accNumber, Voucher voucher)throws InsufficientBalanceException  {
         
         Voucher v = voucherDAO.find(voucher.getId());
-            
+         
             accountService.CreateDebitAccountEntry(accNumber, v.getVoucherValue(), v.getVoucherNumber(), v.getCurrencySymbol().toString());
+            
             v.setVoucherStatus(VoucherStatusType.SOLD);
               voucherDAO.merge(v);
-                 
+            
             return v;
         }
     
 
-    @Override
+    /*@Override
     public Voucher processVoucher(String hash, String code, Account account) throws InvalidVoucherException {
      
         String codeGen = new VoucherUtility().getService().getConstructedCode(hash, code);
+        Voucher voucher = voucherDAO.getByPropertyName("voucherNumber", codeGen);
+        if (VoucherStatusType.SOLD == voucher.getVoucherStatus()) {
+            accountService.creditAccount(account,new BigDecimal(voucher.getVoucherValue().toString()),voucher.getVoucherNumber().toString(), voucher.getCurrencySymbol().toString());
+            voucher.setVoucherStatus(VoucherStatusType.CLAIMED);
+            voucher.setClaimType(ClaimType.CUSTOMER_CLAIM);
+            voucher.setClaimer(account.getCreatedBy().toString());
+            voucher.setDatedClaimed(new Date());
+            voucherDAO.merge(voucher);
+            
+        } else {
+            throw new InvalidVoucherException();
+        }
+        return voucher;
+    }*/
+    
+    @Override
+    public Voucher processVoucher(String codeGen, Account account) throws InvalidVoucherException {
+     
         Voucher voucher = voucherDAO.getByPropertyName("voucherNumber", codeGen);
         if (VoucherStatusType.SOLD == voucher.getVoucherStatus()) {
             accountService.creditAccount(account,new BigDecimal(voucher.getVoucherValue().toString()),voucher.getVoucherNumber().toString(), voucher.getCurrencySymbol().toString());
@@ -102,5 +121,17 @@ public class VoucherServiceImpl implements VoucherService {
         VoucherFactory f = new VoucherFactory();
         f.createVouchers(amount, currency, number);
         
+    }
+
+    @Override
+    public Voucher findVoucher(Long id) {
+        Voucher v = voucherDAO.find(id);
+        return v;
+    }
+
+    @Override
+    public List<Voucher> voucherStatus(VoucherStatusType descr) {
+        
+        return voucherDAO.getEntitiesByProperName("voucherStatus",descr);
     }
 }

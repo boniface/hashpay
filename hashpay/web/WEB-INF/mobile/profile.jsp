@@ -35,10 +35,10 @@
                             <div class="ui-block-b"><label for="Firstname">First Name:</label></div>
                             <div class="ui-block-c"><label for="Lastname">Last Name:</label></div>
                             <div class="ui-block-d"><label for="Nickname">Nick Name:</label></div>
-                            <div class="ui-block-a"><input type="text" name="j_title" id="Title" value="${title}"/></div>
-                            <div class="ui-block-b"><input type="text" name="j_fname" id="Firstname" value="${firstname}" /></div>
-                            <div class="ui-block-c"><input type="text" name="j_lname" id="LastName" value="${lastname}"/></div>
-                            <div class="ui-block-d"><input type="text" name="j_nickname" id="Nickname" value="${nickname}"/></div>
+                            <div class="ui-block-a"><input type="text" name="j_title" value="${title}" id="Title" /></div>
+                            <div class="ui-block-b"><input type="text" name="j_fname" value="${firstname}" id="Firstname"  /></div>
+                            <div class="ui-block-c"><input type="text" name="j_lname" value="${lastname}" id="LastName" /></div>
+                            <div class="ui-block-d"><input type="text" name="j_nickname" value="${nickname}" id="Nickname" /></div>
                        </div>
                         <h4>Contact Details</h4>
                         <c:forEach items="${contactList}" var="contact">

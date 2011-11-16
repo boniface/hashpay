@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import zm.hashcode.hashpay.model.vouchers.Voucher;
+import zm.hashcode.hashpay.model.vouchers.VoucherStatusType;
 import zm.hashcode.hashpay.repository.jpa.VoucherDAO;
 
 /**
@@ -69,6 +70,12 @@ public class VoucherDAOJPAImpl implements VoucherDAO{
     @Override
     public List<Voucher> getEntitiesByProperName(String name, String value) {
         List<Voucher> list = em.createQuery("SELECT v FROM Voucher v where v." + name + "=?1").setParameter(1, value).getResultList();
+        return list;
+    }
+
+    @Override
+    public List<Voucher> getEntitiesByProperName(String string, VoucherStatusType voucherStatusType) {
+        List<Voucher> list = em.createQuery("SELECT v FROM Voucher v where v." + string + "=?1").setParameter(1, voucherStatusType).getResultList();
         return list;
     }
     

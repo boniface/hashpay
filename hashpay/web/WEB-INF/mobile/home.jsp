@@ -42,7 +42,13 @@
                                      <li><a href="/hashpay/product/productList.html?id=Eletricity">Eletricity</a></li>
                                  </ul>
                              </li>
-                       
+                             <li data-role="Divider"></li>
+                             <li>Voucher
+                                 <ul>
+                                     <li><a href="/hashpay/product/voucherList.html?id=INVENTORY">Select voucher</a></li>
+                                 </ul>
+                             </li>
+                             <a rel=external href="/hashpay/product/voucher.html" data-role="button">Top-Up Voucher</a>
                        
                     
                   <!--  <a href="#" data-role="button">Airtime</a>

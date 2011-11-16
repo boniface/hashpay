@@ -31,20 +31,20 @@ public class Voucher implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private CurrencyType currencySymbol;
+    private BigDecimal voucherValue;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateGenerated;
     @Column(unique = true)
     private String voucherNumber;
     @Enumerated(EnumType.STRING)
     private VoucherStatusType voucherStatus;
-    private BigDecimal voucherValue;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date datedClaimed;
     @Enumerated(EnumType.STRING)
     private ClaimType claimType;
     private String claimer;
     @Enumerated(EnumType.STRING)
-    private CurrencyType currencySymbol;
     @OneToOne(orphanRemoval = true, cascade = {javax.persistence.CascadeType.ALL})
     @JoinColumn(name = "voucher_id")
     private VoucherSerial serialNumber;
