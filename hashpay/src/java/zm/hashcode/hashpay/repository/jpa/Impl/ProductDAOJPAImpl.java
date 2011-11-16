@@ -71,5 +71,11 @@ public class ProductDAOJPAImpl  implements ProductDAO{
        List<Product> list = em.createQuery("select p from Product p where p." + name + "=?1").setParameter(1, value).getResultList();
        return list;
     }
+
+    @Override
+    public Product getByPropertyName(String string, Long valueOf) {
+        List<Product> list = em.createQuery("select p from Product p where p." + string + "=?1").setParameter(1, valueOf).getResultList();
+         return (list.isEmpty()) ? null : list.get(0);
+    }
     
 }

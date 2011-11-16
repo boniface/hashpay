@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import zm.hashcode.hashpay.client.mobile.users.UserInformation;
 import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.accounts.AccountEntry;
 import zm.hashcode.hashpay.model.accounts.AccountNumber;
@@ -31,13 +32,8 @@ public class AccountController {
     
     @RequestMapping(value = "accountDetails.html", method = RequestMethod.GET)
     public ModelAndView accountDetails(Model model) {
-        Object principal =
-        SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(principal instanceof UserDetails ) {
-        username = ((UserDetails)principal).getUsername();
-            } else {
-        username = principal.toString();
-    }
+        UserInformation name = new UserInformation();
+        username = name.credentials();
         ModelAndView mv = new ModelAndView();
         Account account = service.userAccount(username);
         //Account account = service.findAccount("52");

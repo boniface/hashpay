@@ -87,7 +87,7 @@ public class Users implements Serializable, Person {
 
     @Override
     public List<Address> getAddress() {
-        return addresses;
+        return getAddresses();
     }
 
     @Override
@@ -182,5 +182,26 @@ public class Users implements Serializable, Person {
      */
     public void setRoles(List<Roles> roles) {
         this.roles = roles;
+    }
+
+    /**
+     * @return the addresses
+     */
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    /**
+     * @param addresses the addresses to set
+     */
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    /**
+     * @param contacts the contacts to set
+     */
+    public void setContacts(List<Contacts> contacts) {
+        this.contacts = contacts;
     }
 }

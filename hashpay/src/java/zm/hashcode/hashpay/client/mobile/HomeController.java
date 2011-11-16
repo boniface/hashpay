@@ -4,13 +4,14 @@
  */
 package zm.hashcode.hashpay.client.mobile;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import zm.hashcode.hashpay.services.ProductService;
+import org.springframework.web.servlet.ModelAndView;
+import zm.hashcode.hashpay.client.mobile.model.RegisterBean;
 
 /**
- *
+ 
  * @author boniface
  */
 @Controller
@@ -27,4 +28,12 @@ public class HomeController {
 		System.out.println("get Home Fired ");
 		return "home";
 	}
+        
+         @RequestMapping(value = "welcome.html")
+         public ModelAndView homePage() {
+             ModelAndView mv = new ModelAndView();
+             
+             mv.setViewName("home");
+            return mv;
+    }
 }

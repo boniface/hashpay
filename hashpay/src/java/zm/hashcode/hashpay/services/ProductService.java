@@ -27,7 +27,6 @@ public interface ProductService {
      public void createProducts(String ProductSerialNumber, String Description, BigDecimal unitPrice, EnumProductStatus productStatus, EnumTokenType eTokenType,CurrencyType currencySymbol,int number); 
      public Product findProduct(String productNumber); 
      public List<Product> allproductbyDescr(String descr);
-     public Product list(String prd);
  
      
 }

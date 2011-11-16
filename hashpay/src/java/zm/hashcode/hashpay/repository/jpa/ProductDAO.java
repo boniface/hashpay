@@ -13,5 +13,7 @@ import zm.hashcode.hashpay.repository.DAO;
  * @author Peter Phillip
  */
 public interface ProductDAO  extends DAO<Product, Long> {
+
+    public Product getByPropertyName(String string, Long valueOf);
     
 }

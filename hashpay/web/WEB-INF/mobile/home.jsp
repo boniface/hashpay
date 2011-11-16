@@ -13,7 +13,7 @@
                 <header data-role="header"><h1>Hash Pay </h1>
                     <nav data-role="navbar">
                         <ul>
-                            <li><a rel=external href="/hashpay/hashpay/login/Test.html" class="ui-btn-active">Buy</a></li>
+                            <li><a href="#" class="ui-btn-active">Buy</a></li>
                             <li><a rel=external href="/hashpay/profile/profileDetails.html">Profile</a></li>
                             <li><a rel=external href="/hashpay/account/accountDetails.html">Accounts</a></li> 
                         </ul>
@@ -21,9 +21,33 @@
                     </nav>
                 </header>
                 <div data-role="content" class="content">
-                    <a rel=external href="#" data-role="button">Airtime</a>
-                    <a rel=external href="#" data-role="button">Movie Tickets</a>
-                    <a rel=external href="#" data-role="button">Electricity</a>
+                    <h4 align="center">Available Products</h4>
+                    <ul data-role="listview">
+                        <li data-role="Divider"></li>
+                        <li> Tickets
+                          <ul>
+                                <li><a href="/hashpay/product/productList.html?id=Bus-Ticket">Bus Tickets</a></li>
+                                </ul>
+                        </li>
+                            <li data-role="Divider"></li>
+                            <li> Air-Time 
+                                <ul>
+                                    <li><a href="/hashpay/product/productList.html?id=Air-time">TopUp Air-Time</a></li>
+                                </ul>
+                                
+                             </li>
+                             <li data-role="Divider"></li>
+                             <li>Electricity
+                                 <ul>
+                                     <li><a href="/hashpay/product/productList.html?id=Eletricity">Eletricity</a></li>
+                                 </ul>
+                             </li>
+                       
+                       
+                    
+                  <!--  <a href="#" data-role="button">Airtime</a>
+                    <a href="#" data-role="button">Movie Tickets</a>
+                    <a href="#" data-role="button">Electricity</a> --!>
                         <!--
         <p>First page!</p>
 

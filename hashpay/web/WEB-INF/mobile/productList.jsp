@@ -25,7 +25,7 @@
                 <div data-role="content" class="content">
                     <ul data-role="listview" data-theme="g">
                         <c:forEach items="${list}" var="product">
-                            <li><a rel=external href="#"><c:out value="${product.description} ${product.currencySymbol}${product.unitPrice}"/>
+                            <li><a rel=external href="/hashpay/product/buyProduct.html?id=${product.id}"><c:out value="Description:${product.description} ${product.productSerialNumber} ${product.currencySymbol}${product.unitPrice}"/>
                         </c:forEach>
                     </ul>
                 </div>

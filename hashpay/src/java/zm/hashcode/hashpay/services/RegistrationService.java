@@ -5,6 +5,7 @@
 package zm.hashcode.hashpay.services;
 
 import zm.hashcode.hashpay.model.accounts.Account;
+import zm.hashcode.hashpay.model.people.Users;
 
 /**
  *
@@ -23,4 +24,5 @@ public interface RegistrationService {
     public String changePassword(String email,String oldpassword, String newpassword, String confirmnewpassword);
     
     public String setNames(String firstName, String lastName, String otherName, String title, String username);
+    public Users setDetails(Users user);
 }

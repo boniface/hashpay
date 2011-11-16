@@ -4,7 +4,6 @@
  */
 package zm.hashcode.hashpay.services.Impl;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -254,6 +253,12 @@ public class RegistrationServiceImpl implements RegistrationService {
         
         usersDAO.merge(user);
          return "Your account has been Updated";
+    }
+
+    @Override
+    public Users setDetails(Users user) {
+        usersDAO.merge(user);
+        return user;
     }
 
    

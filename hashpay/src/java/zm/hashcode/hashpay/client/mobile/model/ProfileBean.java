@@ -13,8 +13,8 @@ public class ProfileBean {
     private String title;
     private String firstname;
     private String lastname;
-    private String homeaddress;
     private String postalCode;
+    private String homeaddress;
     private String homePhone;
     private String CellPhone;
     private String workaddress;

@@ -70,10 +70,10 @@ public class ProductServicesTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-    @Ignore
+    @Test
     public void CreateProduct() {
          service = (ProductService) ctx.getBean("productService");
-         Product product = service.createProduct("12332", "Bus-Ticket", BigDecimal.valueOf(500.11), EnumProductStatus.AVAILABLE, EnumTokenType.DYNAMIC, CurrencyType.ZMK);
+         Product product = service.createProduct("12111221", "Electricity", BigDecimal.valueOf(50.00), EnumProductStatus.AVAILABLE, EnumTokenType.STATIC, CurrencyType.ZMK);
          Assert.assertNotNull(product.getId());
   }
     
@@ -112,20 +112,13 @@ public class ProductServicesTest {
    
        Assert.assertEquals("CLAIMED", status);
     }
-     
-    @Test  
-    public void TestlistallBusTickets(){
-    service = (ProductService) ctx.getBean("productService");
-    //service.allproductbyDescr("Bus-ticket");
-    service.list("Bus-ticket");
-    Product prod = productDAO.find(Long.valueOf("1"));
-    Assert.assertEquals("Bus-ticket",prod.getDescription());     
-    }
     
    @Ignore
     public void createBulkProducts(){
         service = (ProductService) ctx.getBean("productService");
+       
         service.createProducts("MTN201", "Air-time", BigDecimal.valueOf(200.00), EnumProductStatus.AVAILABLE, EnumTokenType.STATIC, CurrencyType.ZMK, 2);
+       
         productDAO = (ProductDAO)ctx.getBean("productDAO");
         List <Product> product = productDAO.findAll();
         Assert.assertTrue(product.size()>6);

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,11 +22,11 @@
                     </nav>
                 </header>
                 <div data-role="content" class="content">
-                    <form action="profileForm"  method="post">
+                    <form method="POST" modelAttribute="user" action="updateProfile.html">
                         <h4>PROFILE DETAILS</h4>
                         <div data-role="fieldcontain">
                             <label for="username">Username:</label>
-                            <input type="text" readonly="true" name="j_name" id="${username}" />
+                            <input type="text" readonly="true" name="j_name" value="${username}" id="Username" />
                         </div>
     
                         <h4>Personal Details</h4>
@@ -40,29 +41,18 @@
                             <div class="ui-block-d"><input type="text" name="j_nickname" id="Nickname" value="${nickname}"/></div>
                        </div>
                         <h4>Contact Details</h4>
+                        <c:forEach items="${contactList}" var="contact">
                         <div class="ui-grid-d">
-                            <div class="ui-block-a"><label for="HomeNumber">Home Number:</label></div>
-                            <div class="ui-block-b"><label for="CellNumber">Cell Number:</label></div>
-                            <div class="ui-block-c"><label for="FaxNumber">Fax Number:</label></div>
-                            <div class="ui-block-d"><label for="EmailAddress">Email Address:</label></div>
-                            <div class="ui-block-a"><input type="text" name="j_homeNumber" id="HomeNumber"/></div>
-                            <div class="ui-block-b"><input type="text" name="j_cellNumber" id="CellNumber" /></div>
-                            <div class="ui-block-c"><input type="text" name="j_faxNumber" id="FaxNumber" /></div>
-                            <div class="ui-block-d"><input type="text" name="j_email" id="Emailaddress" /></div>
+                         <div class="ui-block-a"><label for="HomeNumber">Home Number:</label></div>
+		         <div class="ui-block-b"><label for="CellNumber">Cell Number:</label></div>
+		         <div class="ui-block-c"><label for="FaxNumber">Fax Number:</label></div>
+		         <div class="ui-block-d"><label for="EmailAddress">Email Address:</label></div>
+		         <div class="ui-block-a"><input type="text" name="j_homeNumber" value="${contact.phoneNumber}" id="HomeNumber"/></div>
+		         <div class="ui-block-b"><input type="text" name="j_cellNumber" value="${contact.cellNumber}" id="CellNumber" /></div>
+		         <div class="ui-block-c"><input type="text" name="j_faxNumber" value="${contact.cellNumber}" id="FaxNumber" /></div>
+		         <div class="ui-block-d"><input type="text" name="j_email" value="${contact.emailAddress}"id="Emailaddress" /></div>
                        </div>
-                        <h4>Home Address Details</h4>
-                        <div id="PhysicalAddressDiv" data-role="fieldcontain">
-                            <label for="PhysicalAddress">Physical Address:</label>
-                            <input type="text" name="j_PhysicalAdd" id="PhysicalAddress" />
-                        </div>
-                        <div id="PostalAddressDiv" data-role="fieldcontain">
-                            <label for="PostalAddress">Postal Address:</label>
-                            <input type="text" name="j_PostalAdd" id="PostalAddress" />
-                        </div>
-                        <div class="ui-grid-d">
-                        <div class="ui-block-a"><label for="PostalCode">Postal Code:</label></div>
-                        <div class="ui-block-a"><input type="text" name="j_PostalCode" id="PostalCode" /></div>
-                        </div>
+                         </c:forEach>
                         
                         <div data-role="controlgroup" data-type="horizontal">
                             <input type="submit" value="Save" data-theme="b" />

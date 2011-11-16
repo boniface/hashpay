@@ -112,7 +112,7 @@ public class ProductServiceJPAImpl implements ProductService {
     }
      @Override
     public Product findProduct(String productNumber){
-        return  productDAO.getByPropertyName("id", productNumber);
+        return  productDAO.getByPropertyName("id", Long.valueOf(productNumber));
    }
 
    
@@ -120,11 +120,6 @@ public class ProductServiceJPAImpl implements ProductService {
     @Override
     public List<Product> allproductbyDescr(String descr) {
       return productDAO.getEntitiesByProperName("Description",descr);
-    }
-
-    @Override
-    public Product list(String prd) {
-        return  productDAO.getByPropertyName("Description", prd);
     }
    
     

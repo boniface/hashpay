@@ -11,11 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import zm.hashcode.hashpay.client.mobile.model.AccountBean;
 import zm.hashcode.hashpay.client.mobile.model.ProductBean;
+import zm.hashcode.hashpay.client.mobile.users.UserInformation;
 import zm.hashcode.hashpay.infrastructure.exceptions.InsufficientBalanceException;
 import zm.hashcode.hashpay.infrastructure.exceptions.InvalidVoucherException;
+import zm.hashcode.hashpay.model.accounts.Account;
 import zm.hashcode.hashpay.model.market.EnumProductStatus;
 import zm.hashcode.hashpay.model.market.EnumTokenType;
 import zm.hashcode.hashpay.model.market.Product;
@@ -35,6 +38,7 @@ public class ProductController {
      
     @Autowired
     private AccountService accountService;
+    private String username;
 
     
     @RequestMapping(value = "createproduct.html", method = RequestMethod.GET, params = "new")
@@ -46,52 +50,18 @@ public class ProductController {
     }
     
     @RequestMapping(value ="productList.html", method = RequestMethod.GET)
-    public ModelAndView test(Model model) {
+    public ModelAndView test(@RequestParam("id")String id,Model model) {
        //ProductBean product = new ProductBean();
        //model.addAttribute(product);
        //productService.createProduct(product.getProductSerialNumber(), product.getDescription(), BigDecimal.ZERO, EnumProductStatus.SOLD, EnumTokenType.STATIC, CurrencyType.ZMK);
-        List<Product> test =  productService.allproductbyDescr("");
+        List<Product> test =  productService.allproductbyDescr(id);
         ModelAndView mv = new ModelAndView();
         mv.addObject("list", test);
         mv.setViewName("productList");
        return mv;
     }
     
-    @RequestMapping(value ="productList.html", method = RequestMethod.GET)
-    public ModelAndView listallbusTicket(Model model) {
-        List<Product> product =  productService.allproductbyDescr("Bus-ticket");
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("bustickets", product);
-        mv.setViewName("productList");
-       return mv;
-    }
     
-     @RequestMapping(value ="productList.html", method = RequestMethod.GET)
-    public ModelAndView listallAirtime(Model model) {
-        List<Product> product =  productService.allproductbyDescr("Air-time");
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("airtime", product);
-        mv.setViewName("productList");
-       return mv;
-    }
-    
-   @RequestMapping(value ="productList.html", method = RequestMethod.GET)
-    public ModelAndView listallElectricty(Model model) {
-        List<Product> product =  productService.allproductbyDescr("Electricity");
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("Electricity", product);
-        mv.setViewName("productList");
-       return mv;
-    }
-    
-   @RequestMapping(value ="productList.html", method = RequestMethod.GET)
-    public ModelAndView listallMovieTicket(Model model) {
-        List<Product> product =  productService.allproductbyDescr("Movie-Ticket");
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("movie", product);
-        mv.setViewName("productList");
-       return mv;
-    }
     
     
     @RequestMapping(value = "createproducts.html", method = RequestMethod.GET, params = "new")
@@ -104,13 +74,13 @@ public class ProductController {
        
     
     @RequestMapping(value = "buyProduct.html", method = RequestMethod.GET)
-    public String buyProduct(Model model) throws InsufficientBalanceException {
-        ProductBean product = new ProductBean();
-        AccountBean account = new AccountBean();
-        model.addAttribute(product);
-        model.addAttribute(account);
-        Product prod = productService.buyProduct(accountService.findAccount(account.getAccountNumber()),productService.findProduct(product.getId()));
-        model.addAttribute("message", "Product has been purchased" + prod.getProductSerialNumber().toString());
+    public String buyProduct(@RequestParam("id")String id,Model model) throws InsufficientBalanceException {
+        UserInformation name = new UserInformation();
+        username = name.credentials();
+        Account account = accountService.userAccount(username);
+        Product product = productService.findProduct(id);
+        Product prod = productService.buyProduct(account,product);
+        model.addAttribute("message", "Product has been purchased" + prod.getTokenNumber().toString());
         return "message";
     }
     
