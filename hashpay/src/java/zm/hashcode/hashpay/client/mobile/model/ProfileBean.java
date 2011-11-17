@@ -9,6 +9,7 @@ package zm.hashcode.hashpay.client.mobile.model;
  * @author Bongani
  */
 public class ProfileBean {
+    private String username;
     private String Title;
     private String Firstname;
     private String LastName;
@@ -173,5 +174,19 @@ public class ProfileBean {
      */
     public void setPostalCode(String PostalCode) {
         this.PostalCode = PostalCode;
+    }
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

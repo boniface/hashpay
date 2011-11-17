@@ -12,6 +12,7 @@
             <!-- begin first page -->
             <section id="account" data-role="page"  data-theme="b">
                 <header data-role="header"><h1>Hash Pay </h1>
+                    <a href="/hashpay/profile/profileDetails.html" class='ui-btn-left ui-btn-back' data-icon='arrow-l' rel='external'>Back</a>
                     <nav data-role="navbar">
                         <ul>
                             <li><a rel=external href="/hashpay/login/Test.html">Buy</a></li>

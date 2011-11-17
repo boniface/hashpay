@@ -48,8 +48,11 @@ public class AccountController {
     
     @RequestMapping(value = "accountTransactions.html", method = RequestMethod.GET)
     public ModelAndView accountTransactions(Model model) {
+        UserInformation name = new UserInformation();
+        username = name.credentials();
+        Account Checkaccount = service.userAccount(username);
         ModelAndView mv = new ModelAndView();
-        List<AccountEntry> account = service.findAllAccountEntries("52");
+        List<AccountEntry> account = service.findAllAccountEntries(Checkaccount.getAccountNumber().getId().toString());
         mv.addObject("list", account);
         mv.setViewName("accountEntries");
        return mv;

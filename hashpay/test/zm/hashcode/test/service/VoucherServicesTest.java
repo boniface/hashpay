@@ -64,10 +64,10 @@ public class VoucherServicesTest {
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
-    @Ignore
+    @Test
     public void createVoucher() {
          service = (VoucherService) ctx.getBean("voucherService");
-         Voucher voucher = service.createVoucher(new BigDecimal("2000.00"), CurrencyType.ZMK);
+         Voucher voucher = service.createVoucher(new BigDecimal("1500.00"), CurrencyType.ZMK);
          Assert.assertNotNull(voucher.getId());
     }
     @Ignore
@@ -101,7 +101,7 @@ public class VoucherServicesTest {
         }
        Assert.assertEquals("CLAIMED", status);
     }
-    @Test
+    @Ignore
     public void createBulkVouchers(){
         service = (VoucherService) ctx.getBean("voucherService");
         service.createVouchers(new BigDecimal("150.95"), CurrencyType.ZMK, 9);

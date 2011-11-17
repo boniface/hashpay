@@ -14,6 +14,7 @@
     <body>
         <div data-role="header">
             <h1>Voucher Top-Up</h1>
+            <a href="/hashpay/hashpay/login/Test.html" class='ui-btn-left ui-btn-back' data-icon='arrow-l' rel='external'>Back</a>
             <section id="page2" data-role="page" data-theme="b">
                 <header data-role="header" data-theme="b"><h1>HashPay Voucher Top-Up</h1></header>
                 <div data-role="content" class="content" data-theme="b">
@@ -25,7 +26,7 @@
 
                         <div data-role="controlgroup" data-type="horizontal">
                             <input type="submit" value="Top-Up" data-theme="b" />
-                            <input type="reset" value="Back" data-transition="flip" data-direction="reverse"/>
+                            <a href="/hashpay/login/Test.html" data-role="button" data-theme="b">back</a>
                         </div>
 
                     </f:form>

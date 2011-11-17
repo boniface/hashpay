@@ -104,18 +104,21 @@ public class ProfileController {
       List contactList = new ArrayList();
       Contacts contact = new Contacts();
       contact.setCellNumber(user.getCellNumber());
-      contact.setEmailAddress("please input text");
+      contact.setEmailAddress("");
       contact.setFaxNumber(user.getFaxNumber());
+      contact.setPhoneNumber(user.getHomeNumber());
       contactList.add(contact);
       
       Name name = new Name();
       name.setFirstname(user.getFirstname());
       name.setLastname(user.getLastName());
+      name.setOtherName(user.getNickname());
       name.setTitle(user.getTitle());
       
       users.setAddresses(addressList);
       users.setContacts(contactList);
       users.setName(name);
+      users.setUsername(user.getUsername());
         usersService.updateDetails(users);
         model.addAttribute("message", " your profile details has been updated!");
            return "message";

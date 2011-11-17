@@ -27,7 +27,15 @@ public class UseServiceImpl implements UserService{
 
     @Override
     public Users updateDetails(Users user) {
-       userDAO.merge(user);
+        Users users = userDAO.getByPropertyName("username", user.getUsername());
+        users.getAddress().clear();
+        users.getContacts().clear();
+        users.getAddresses().clear();
+        users.setAddresses(user.getAddress());
+        users.setContacts(user.getContacts());
+        users.setName(user.getName());
+        
+       userDAO.merge(users);
        return user;
     }
     

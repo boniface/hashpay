@@ -11,6 +11,7 @@
             <!-- begin first page -->
             <section id="page1" data-role="page"  data-theme="b" >
                 <header data-role="header"><h1>Hash Pay </h1>
+                    
                     <nav data-role="navbar">
                         <ul>
                             <li><a href="#" class="ui-btn-active">Buy</a></li>

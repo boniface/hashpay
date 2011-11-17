@@ -195,13 +195,17 @@ public class Users implements Serializable, Person {
      * @param addresses the addresses to set
      */
     public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
+        this.addresses.clear();
+        this.addresses.addAll(addresses);
+        //this.addresses = addresses;
     }
 
     /**
      * @param contacts the contacts to set
      */
     public void setContacts(List<Contacts> contacts) {
-        this.contacts = contacts;
+        this.contacts.clear();
+        this.contacts.addAll(contacts);
+        //this.contacts = contacts;
     }
 }

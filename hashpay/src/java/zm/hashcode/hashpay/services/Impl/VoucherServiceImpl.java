@@ -97,7 +97,7 @@ public class VoucherServiceImpl implements VoucherService {
     public Voucher processVoucher(String codeGen, Account account) throws InvalidVoucherException {
      
         Voucher voucher = voucherDAO.getByPropertyName("voucherNumber", codeGen);
-        if (VoucherStatusType.SOLD == voucher.getVoucherStatus()) {
+        if (VoucherStatusType.SOLD != voucher.getVoucherStatus()) {
             accountService.creditAccount(account,new BigDecimal(voucher.getVoucherValue().toString()),voucher.getVoucherNumber().toString(), voucher.getCurrencySymbol().toString());
             voucher.setVoucherStatus(VoucherStatusType.CLAIMED);
             voucher.setClaimType(ClaimType.CUSTOMER_CLAIM);

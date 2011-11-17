@@ -73,7 +73,7 @@ public class ProductServicesTest {
     @Test
     public void CreateProduct() {
          service = (ProductService) ctx.getBean("productService");
-         Product product = service.createProduct("12111221", "Electricity", BigDecimal.valueOf(50.00), EnumProductStatus.AVAILABLE, EnumTokenType.STATIC, CurrencyType.ZMK);
+         Product product = service.createProduct("50010324", "Eletricity", BigDecimal.valueOf(50.00), EnumProductStatus.AVAILABLE, EnumTokenType.STATIC, CurrencyType.ZMK);
          Assert.assertNotNull(product.getId());
   }
     

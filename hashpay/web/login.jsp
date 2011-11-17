@@ -36,9 +36,6 @@
 
 
                     <p><a rel=external href="register/createaccount.html?new" >Create Account</a></p>
-                    <p><a rel=external href="account/accountTransactions.html" >Test</a></p>
-                    <p><a rel=external href="login/Test.html" >Home</a></p>
-                    <p><a href="profile/profileDetails.html">test3</a></p>
                 </div>
                 <footer data-role="footer"><h1>Hash Pay</h1></footer>
             </section>
