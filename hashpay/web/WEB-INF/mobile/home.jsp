@@ -22,6 +22,7 @@
                     </nav>
                 </header>
                 <div data-role="content" class="content">
+                        <a href="/hashpay/home/Newhome.html" data-role="button" data-theme="b">Logout</a>
                     <h4 align="center">Available Products</h4>
                     <ul data-role="listview">
                         <li data-role="Divider"></li>
