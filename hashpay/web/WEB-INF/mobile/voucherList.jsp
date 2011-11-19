@@ -25,7 +25,7 @@
                 <div data-role="content" class="content">
                     <ul data-role="listview" data-theme="g">
                         <c:forEach items="${list}" var="voucher">
-                            <li><a rel=external href="/hashpay/product/buyVoucher.html?id=${voucher.id}"><c:out value="Voucher value: ${voucher.currencySymbol}${voucher.voucherValue}"/>
+                            <li><a rel=external href="/hashpay/product/buyVoucher.html?id=${voucher.id}"><c:out value="Voucher value R:${voucher.voucherValue}"/>
                         </c:forEach>
                     </ul>
                 </div>
