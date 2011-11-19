@@ -28,7 +28,7 @@
                             <input type="submit" value="Top-Up" data-theme="b" />
                             <a href="/hashpay/login/Test.html" data-role="button" data-theme="b">back</a>
                         </div>
-
+                           
                     </f:form>
                 </div>
                 <footer data-role="footer"r data-theme="b"><h1>Hash Pay Footer</h1></footer>
