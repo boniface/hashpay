@@ -40,8 +40,13 @@
                             <label for="currency-type">Currency:</label>
                             <input type="text" name="j_currency" id="currency" readonly="true" value="${currency}" />
                         </div>  
+                         <div data-role="controlgroup" data-type="horizontal">
+                                 <a href="/hashpay/account/accountTransactions.html" data-role="button">Account Transactions</a>
+                                <a href="/hashpay/login/Test.html" data-role="button" data-theme="b">back</a>
+                            </div>
                     </f:form>
-                    <a href="/hashpay/account/accountTransactions.html" data-role="button">Account Transactions</a>
+                    
+                   
                 </div>
 
 

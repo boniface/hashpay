@@ -48,35 +48,36 @@
 		         <div class="ui-block-b"><label for="CellNumber">Cell Number:</label></div>
 		         <div class="ui-block-c"><label for="FaxNumber">Fax Number:</label></div>
 		         <div class="ui-block-d"><label for="EmailAddress">Email Address:</label></div>
-                         <c:forEach items="${contactList}" var="contact">
-		         <div class="ui-block-a"><input type="text" name="HomeNumber" value="${contact.phoneNumber}" id="HomeNumber"/></div>
-		         <div class="ui-block-b"><input type="text" name="CellNumber" value="${contact.cellNumber}" id="CellNumber" /></div>
-		         <div class="ui-block-c"><input type="text" name="FaxNumber" value="${contact.cellNumber}" id="FaxNumber" /></div>
-		         <div class="ui-block-d"><input type="text" name="Emailaddress" value="${contact.emailAddress}"id="Emailaddress" /></div>
-                         </c:forEach>
+                        
+		         <div class="ui-block-a"><input type="text" name="HomeNumber"  id="HomeNumber"/></div>
+		         <div class="ui-block-b"><input type="text" name="CellNumber" id="CellNumber" /></div>
+		         <div class="ui-block-c"><input type="text" name="FaxNumber"  id="FaxNumber" /></div>
+		         <div class="ui-block-d"><input type="text" name="Emailaddress" id="Emailaddress" /></div>
+                    
                          
                        </div>
                         <div>
                         <h4>Home Address Details</h4>
-                        <c:forEach items="${addressList}" var="address">
+                      
                             <div>
                         <div id="PhysicalAddressDiv" data-role="fieldcontain">
                             <label for="PostalAddress">Physical Address:</label>
-                            <input type="text" name="PostalAddress" value="${address.postalAddress}" id="PostalAddress" />
+                            <input type="text" name="PostalAddress"  id="PostalAddress" />
                         </div>
                         <div id="PostalAddressDiv" data-role="fieldcontain">
                             <label for="PhysicalAddress">Postal Address:</label>
-                            <input type="text" name="PhysicalAddress" value="${address.physicalAddress}" id="PhysicalAddress" />
+                            <input type="text" name="PhysicalAddress" id="PhysicalAddress" />
                         </div>
                         <div class="ui-grid-d">
                         <div class="ui-block-a"><label for="PostalCode">Postal Code:</label></div>
-                        <div class="ui-block-a"><input type="text" name="PostalCode" value="${address.postalcode}" id="PostalCode" /></div>
+                        <div class="ui-block-a"><input type="text" name="PostalCode" id="PostalCode" /></div>
                         </div>
                             </div>
-                        </c:forEach>
+                        
                         </div>
                         <div data-role="controlgroup" data-type="horizontal">
                             <input type="submit" value="Save" data-theme="b" />
+                            <a href="/hashpay/login/Test.html" data-role="button" data-theme="b">back</a>
                         </div>
                         
                         

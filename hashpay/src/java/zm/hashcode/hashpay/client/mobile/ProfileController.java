@@ -45,46 +45,34 @@ public class ProfileController {
         ProfileBean user = new ProfileBean();
         model.addAttribute(user);
         ModelAndView mv = new ModelAndView();
-        UserInformation name = new UserInformation();
-        username = name.credentials();
+        UserInformation user1 = new UserInformation();
+        username = user1.credentials();
         Users finduser = usersService.findUser(username);
+        
+        
         if(finduser.getName() == null)
         {
-            Contacts contact = new Contacts();
-            contact.setCellNumber("please input text");
-            contact.setContactStatus("please input text");
-            contact.setEmailAddress("please input text");
-            contact.setFaxNumber("please input text");
-            contact.setPhoneNumber("please input text");
-            Address address = new Address();
-            address.setAddressStatus("please input text");
-            address.setPhysicalAddress("please input text");
-            address.setPostalAddress("please input text");
-            address.setPostalcode("please input text");
-            List contactList = new ArrayList(); 
-            contactList.add(contact);
-            List addressList = new ArrayList(); 
-            addressList.add(address);
+            
             mv.addObject("username", finduser.getUsername().toString());
-            //mv.addObject("title", user.getName().getTitle().toString());
-            //mv.addObject("firstname", user.getName().getFirstname().toString());
-            //mv.addObject("lastname", user.getName().getLastname());
-            //mv.addObject("nickname", user.getName().getOtherName());
-            mv.addObject("contactList", contactList);
-            mv.addObject("addressList",addressList);
+          //  mv.addObject("title", finduser.getName().getTitle().toString());
+           // mv.addObject("firstname", finduser.getName().getFirstname().toString());
+            //mv.addObject("lastname", finduser.getName().getLastname());
+            //mv.addObject("nickname", finduser.getName().getOtherName());
+            //mv.addObject("contactList", finduser.getContacts().get(1));
+            //mv.addObject("addressList", finduser.getAddress().get(1));
+            
         } else
         {
-            mv.addObject("username", finduser.getUsername().toString());
-            mv.addObject("title", finduser.getName().getTitle().toString());
-            mv.addObject("firstname", finduser.getName().getFirstname().toString());
-            mv.addObject("lastname", finduser.getName().getLastname());
-            mv.addObject("nickname", finduser.getName().getOtherName());
-            mv.addObject("contactList", finduser.getContacts());
-            mv.addObject("addressList",finduser.getAddress());
+            mv.addObject("username", "");
+            mv.addObject("title", "Insert Name");
+            mv.addObject("firstname", "Insert Name");
+            mv.addObject("lastname", "Insert last name");
+            mv.addObject("nickname", "Insert nickname");
+         
         }
-        
-        
         mv.setViewName("profile");
+        
+        
        return mv;
     }
     

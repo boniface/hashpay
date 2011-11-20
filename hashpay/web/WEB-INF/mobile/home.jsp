@@ -22,7 +22,7 @@
                     </nav>
                 </header>
                 <div data-role="content" class="content">
-                        <a href="/hashpay/home/Newhome.html" data-role="button" data-theme="b">Logout</a>
+                        
                     <h4 align="center">Available Products</h4>
                     <ul data-role="listview">
                         <li data-role="Divider"></li>
@@ -50,8 +50,13 @@
                                      <li><a href="/hashpay/product/voucherList.html?id=INVENTORY">Select voucher</a></li>
                                  </ul>
                              </li>
-                             <a rel=external href="/hashpay/product/voucher.html" data-role="button">Top-Up Voucher</a>
-                       
+                             <div data-role="controlgroup" data-type="horizontal">
+                                <a rel=external href="/hashpay/product/voucher.html" data-role="button">Top-Up Voucher</a>
+                                <a href="/hashpay/login.jsp" data-role="button" data-theme="b">Logout</a>
+                            </div>
+                            
+                             
+                             
                     
                   <!--  <a href="#" data-role="button">Airtime</a>
                     <a href="#" data-role="button">Movie Tickets</a>
